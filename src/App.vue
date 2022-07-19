@@ -1,97 +1,39 @@
-
 <template>
-   
-        <div class="container p-5">
-          <h3 class="text-center mt-2 mb-5">therichpost.com</h3>
-          <div class="col-md-12">
-           
-            <form v-on:submit.prevent="login_user">
-              
-             <div class="mb-3">
-                <label for="exampleFormControlInput2" class="form-label">Enter Email</label>
-               <input type="text" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email" v-model="form.email">
-              </div>
-               <div class="mb-3">
-                <label for="exampleFormControlInput3" class="form-label">Enter Password</label>
-               <input type="password" name="password" class="form-control" id="exampleInputPass1" aria-describedby="passHelp" placeholder="Enter Password" v-model="form.password">
-              </div>
-          
-        
-              <button type="submit" class="btn btn-primary mt-5">Submit</button>
-             
-        </form>
-         <button tyoe="submit" class="btn btn-primary mt-5" v-on:click="logout()">Logout</button>
-        </div>
-        </div>
-      
-    </template>
-    <script>
-    //importing bootstrap 5 Modules
-    import "bootstrap/dist/css/bootstrap.min.css";
-    //import "bootstrap/dist/js/bootstrap.min.js";
-  
-    import axios from 'axios'
-    import Swal from 'sweetalert2'
-    export default {
-      
-      data(){
-      return {
-       
-        form:{
-          email: '',
-          password: ''
-          
-        }
-      }
+  <v-app>
+      <div v-if="$store.state.user">
+          <router-view></router-view>
+      </div>
+      <div v-else>
+        <app-account></app-account>
+      </div>
+  </v-app>
+</template>
+<script>
+  import appAccount from './views/Login_User.vue';
+  export default{
+    name:"App",
+    components:{
+      appAccount,
     },
-      methods:{
-         logout(){
-           axios
-          .post('http://127.0.0.1:8000/api/logout');
-        },
-        //user login function and api call
-         login_user(){
-          axios
-          .post('http://127.0.0.1:8000/api/login',this.form)
-          .then((resp) =>{
-              console.log(resp["data"]["status"]);
-              //this.loadlist();
-              //reset form
-             this.form.email = '';
-             this.form.password = '';
-             if(resp["data"]["status"] == "error")
-             {
-               Swal.fire({
-                title: 'OPPS',
-                text:   "error",
-                icon: 'warning',
-              
-            });
-             }
-             else
-             {
-               Swal.fire({
-                title: 'Hurry',
-                text:   "You have been logged-in successfully",
-                icon: 'success',
-              
-            });
-             }
-              
-          })
-          .catch((e)=>{
-              console.log(e);
-               Swal.fire({
-              title: 'Hurry',
-              text:   e,
-              icon: 'warning',
-              
-            });
-          })
-        }
-
-       
-      }
-      
-    }
-    </script>
+    data: () => ({}),
+	mounted() {
+		var user = JSON.parse(localStorage.getItem('user'))
+		if (user) {
+			this.$store.state.user = user
+		}
+	},
+	watch: {
+		'$store.state.user': {
+			deep: true,
+			handler(new_val){
+				if (new_val) {
+					localStorage.setItem('user', JSON.stringify(new_val))
+				} else {
+					localStorage.removeItem('user')
+				}
+                
+			}
+		}
+	}
+  }
+</script>
