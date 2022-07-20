@@ -1,25 +1,29 @@
 <template>
   <v-app>
       <div v-if="$store.state.user">
-          <router-view></router-view>
+          
       </div>
       <div v-else>
-        <app-account></app-account>
+        <app-header></app-header>
+        <router-view></router-view>
+        <!-- <app-account></app-account> -->
       </div>
   </v-app>
 </template>
 <script>
   import appAccount from './views/Login_User.vue';
+   import appHeader from './views/Header.vue';
   export default{
     name:"App",
     components:{
       appAccount,
+      appHeader
     },
     data: () => ({}),
 	mounted() {
 		var user = JSON.parse(localStorage.getItem('user'))
 		if (user) {
-			this.$store.state.user = user
+			this.$store.state.user = null
 		}
 	},
 	watch: {

@@ -94,6 +94,7 @@ export default{
                 icon: 'success',
               
             });
+            this.$router.push('/sales')
              }
               
           })
