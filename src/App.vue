@@ -1,7 +1,8 @@
 <template>
   <v-app>
       <div v-if="$store.state.user">
-            <router-view></router-view>
+            <app-navside></app-navside>
+         
       </div>
       
       <div v-else>
@@ -11,11 +12,13 @@
 </template>
 <script>
   import appAccount from './components/Login_User.vue';
+  import appNavside from './components/navside.vue';
 
   export default{
     name:"App",
     components:{
       appAccount,
+      appNavside
 
     },
     data: () => ({}),
