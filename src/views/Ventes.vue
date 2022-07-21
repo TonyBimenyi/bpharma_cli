@@ -5,7 +5,7 @@
                 <input type="text" name="" value="" placeholder="rechercher">
             </div>
             <div class="cart_icon">
-                <box-icon name='cart-alt'></box-icon><span>2</span>
+                <i class="fa-solid fa-cart-shopping"></i>><span>2</span>
             </div>
         </div>
     </div>
