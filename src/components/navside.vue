@@ -12,13 +12,13 @@
   <div class="sidebar ">
     <div class="logo-details">
       <i class='bx bxl-c-plus-plus'></i>
-      <span class="logo_name">CodingLab</span>
+      <span class="logo_name">BIMBO Pharma</span>
     </div>
     <ul class="nav-links">
       <li>
         <a href="#">
           <i class='bx bx-grid-alt' ></i>
-          <span class="link_name">Dashboard</span>
+          <span class="link_name">Ventes</span>
         </a>
         <ul class="sub-menu blank">
           <li><a class="link_name" href="#">Category</a></li>
@@ -120,8 +120,8 @@
         <!--<img src="image/profile.jpg" alt="profileImg">-->
       </div>
       <div class="name-job">
-        <div class="profile_name">Prem Shahi</div>
-        <div class="job">Web Desginer</div>
+        <div class="profile_name">{{$store.state.user.data.user.name}}</div>
+        <div class="job">{{$store.state.user.data.user.registered_as}}</div>
       </div>
       <i class='bx bx-log-out' ></i>
     </div>
@@ -130,10 +130,11 @@
   </div>
   <section class="home-section">
     <div class="home-content">
-      <i class='bx bx-menu' ></i>
-      <span class="text">Drop Down Sidebar</span>
+      <i style="color:transparent" class='bx bx-menu' ></i>
+      <span class="text"></span>
+        <router-view></router-view>
     </div>
-       <router-view></router-view>
+     
   </section>
  
 </body>
