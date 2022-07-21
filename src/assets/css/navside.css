@@ -274,3 +274,6 @@
     margin-right: 50px;
     cursor: pointer;
    }
+.home-content i{
+    display: none;
+}
