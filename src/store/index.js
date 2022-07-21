@@ -3,7 +3,7 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     user:null,
-    url: "127.0.0.1:8000/api/",
+    url: "http://127.0.0.1:8000/api/",
   },
   getters: {
   },

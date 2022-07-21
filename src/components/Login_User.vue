@@ -70,9 +70,10 @@ export default{
   methods:{
      login_user(){
           axios
-          .post('http://127.0.0.1:8000/api/login',this.form)
+          .post(this.$store.state.url+'login',this.form)
           .then((resp) =>{
               console.log(resp["data"]["status"]);
+              this.$store.state.user = resp.data 
               //this.loadlist();
               //reset form
              this.form.email = '';

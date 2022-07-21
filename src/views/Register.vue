@@ -28,7 +28,7 @@ import axios from 'axios';
         },
         methods: {
             saveForm(){
-                axios.post('127.0.0.1:8000/api/register',this.form)
+                axios.post('http://127.0.0.1:8000/api/register',this.form)
                 .then(()=>{
                     alert('saved');
                 }).catch((error)=>{
