@@ -36,7 +36,7 @@
             </table>
         </div> 
     </div>
-        <add-medecine v-if="dialog"></add-medecine>
+        <add-medecine @close="close" v-if="dialog"></add-medecine>
     </div>
 </template>
 <script>
@@ -49,7 +49,12 @@ export default {
         return{
             dialog:false,
         }
-    }
+    },
+    methods: {
+        close(){
+            this.dialog = false
+        }
+    },
 }
 </script>
 <style src='../assets/css/categories.css' scoped>
