@@ -47,7 +47,7 @@ table{
   
 }
 tr th{
-    padding: 8px 20px;
+    padding: 8px 40px;
     background-color: var(--primary);
     border-radius: 5px;
     color: white;
@@ -57,6 +57,19 @@ tr th{
 tr td{
     text-align: center;
     font-size: 14px;
+    padding: 5px 0px;
+}
+tr td button{
+    background-color: var(--primary);
+    border: none;
+    color: white;
+    padding: 5px 20px;
+    font-weight: 500;
+    font-size: 15px;
+    border-radius: 5px;
+}
+tr td #des{
+    background-color: red;
 }
 
 table tbody tr{

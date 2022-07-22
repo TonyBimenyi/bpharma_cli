@@ -18,7 +18,7 @@
                         <th>Prix Unitaire</th>
                         <th>Date de creation</th>
                         <th>Cree par</th>
-                        <th colspan="2" >Actions</th>
+                        <th colspan="3" >Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,6 +30,7 @@
                         <td>TonyBim</td>
                         <td><button>Modifier</button></td>
                         <td><button>Acheter</button></td>
+                        <td><button id="des">Desactiver</button></td>
                     </tr>
                 </tbody>
             </table>
