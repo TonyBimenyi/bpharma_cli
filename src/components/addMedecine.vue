@@ -2,57 +2,39 @@
     <div class="addMedecine">
         <body>
     <div class="container">
-      <div class="title">Registration</div>
+        <div class="top">
+      <div class="title">Nouveau Medicament</div>
+      <div class="title"><button>X</button></div>
+      </div>
       <div class="content">
         <form action="#">
           <div class="user-details">
             <div class="input-box">
-              <span class="details">Full Name</span>
-              <input type="text" placeholder="Enter your name" required>
+              <span class="details">Nom du medicament</span>
+              <input type="text" placeholder="Entrer le nom" required>
+            </div>
+ 
+            <div class="input-box">
+              <span class="details">Prix de Vente Unitaire</span>
+              <input type="text" placeholder="Entrer le Prix" required>
+            </div>
+             <div class="input-box">
+              <span class="details">Categorie</span>
+              <input type="text" placeholder="Generique ou Specialite" required>
             </div>
             <div class="input-box">
-              <span class="details">Username</span>
-              <input type="text" placeholder="Enter your username" required>
+              <span class="details">Details</span>
+              <input type="text" placeholder="Comprime,Sirop,..." required>
             </div>
             <div class="input-box">
-              <span class="details">Email</span>
-              <input type="text" placeholder="Enter your email" required>
-            </div>
-            <div class="input-box">
-              <span class="details">Phone Number</span>
-              <input type="text" placeholder="Enter your number" required>
-            </div>
-            <div class="input-box">
-              <span class="details">Password</span>
-              <input type="text" placeholder="Enter your password" required>
-            </div>
-            <div class="input-box">
-              <span class="details">Confirm Password</span>
-              <input type="text" placeholder="Confirm your password" required>
+              <span class="details">Indication</span>
+              <input type="text" placeholder="Indication de medicament" required>
             </div>
           </div>
           <div class="gender-details">
-            <input type="radio" name="gender" id="dot-1">
-            <input type="radio" name="gender" id="dot-2">
-            <input type="radio" name="gender" id="dot-3">
-            <span class="gender-title">Gender</span>
-            <div class="category">
-              <label for="dot-1">
-              <span class="dot one"></span>
-              <span class="gender">Male</span>
-            </label>
-            <label for="dot-2">
-              <span class="dot two"></span>
-              <span class="gender">Female</span>
-            </label>
-            <label for="dot-3">
-              <span class="dot three"></span>
-              <span class="gender">Prefer not to say</span>
-              </label>
-            </div>
           </div>
           <div class="button">
-            <input type="submit" value="Register">
+            <input type="submit" value="Ajouter">
           </div>
         </form>
       </div>

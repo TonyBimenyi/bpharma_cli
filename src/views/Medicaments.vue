@@ -5,7 +5,7 @@
                 <input type="text" name="" value="" placeholder="rechercher">
             </div>
                 <div class="add_btn">
-                <button type=""><i class="fa-solid fa-plus add_new"></i> Ajouter un Medicament</button>
+                <button @click="dialog=true" type=""><i class="fa-solid fa-plus add_new"></i> Ajouter un Medicament</button>
                 </div>
          </div>   
      <div class="cat_list">
@@ -36,8 +36,22 @@
             </table>
         </div> 
     </div>
+        <add-medecine v-if="dialog"></add-medecine>
     </div>
 </template>
+<script>
+import addMedecine from '../components/addMedecine.vue'
+export default {
+    components:{
+        addMedecine,
+    },
+    data(){
+        return{
+            dialog:false,
+        }
+    }
+}
+</script>
 <style src='../assets/css/categories.css' scoped>
 
 </style>
