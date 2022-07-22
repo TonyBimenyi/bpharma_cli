@@ -4,10 +4,10 @@
          <meta charset="UTF-8">
     <!--<title> Drop Down Sidebar Menu | CodingLab </title>-->
     <link rel="stylesheet" href="style.css">
-    <!-- Boxiocns CDN Link -->
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
       crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Boxiocns CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
       <body>
@@ -20,25 +20,33 @@
       <li>
         <a href="#">
           <i class='bx bx-grid-alt' ></i>
+          <span class="link_name">Dashboard</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">Dashboard</a></li>
+        </ul>
+      </li>
+       <li>
+        <a href="#">
+        <i class="fa-solid fa-money-bill-trend-up"></i>
           <span class="link_name">Ventes</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Category</a></li>
+          <li><a class="link_name" href="#">Ventes</a></li>
         </ul>
       </li>
       <li>
         <div class="iocn-link">
           <a href="#">
-            <i class='bx bx-collection' ></i>
-            <span class="link_name">Category</span>
+           <i class="fa-solid fa-capsules"></i>
+            <span class="link_name">Medicaments</span>
           </a>
           <i class='bx bxs-chevron-down arrow' ></i>
         </div>
         <ul class="sub-menu">
-          <li><a class="link_name" href="#">Category</a></li>
-          <li><a href="#">HTML & CSS</a></li>
-          <li><a href="#">JavaScript</a></li>
-          <li><a href="#">PHP & MySQL</a></li>
+          <li><a class="link_name" href="#">Medicaments</a></li>
+          <li><a href="#">Liste Medicaments</a></li>
+          <li><a href="#">Categories</a></li>
         </ul>
       </li>
       <li>
@@ -132,11 +140,16 @@
   </div>
   <section class="home-section">
     <div class="home-content">
-      <i style="color:transparent" class='bx bx-menu' ></i>
-      <span class="text"></span>
-        <router-view></router-view>
+        <div class="menu">
+        <i class='bx bx-menu' ></i>         
+        </div>
+                
+             <div class="menu">
+       <i class="fa-solid fa-bell bell"></i>   
+       <i class="fa-solid fa-user user"></i>   
+        </div>
     </div>
-     
+    <router-view></router-view>
   </section>
  
 </body>
@@ -147,19 +160,19 @@
 export default {
     mounted(){
         let arrow = document.querySelectorAll(".arrow");
-        for (var i = 0; i < arrow.length; i++) {
-        arrow[i].addEventListener("click", (e)=>{
-        let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
-        arrowParent.classList.toggle("showMenu");
-        });
-        }
-        let sidebar = document.querySelector(".sidebar");
-        let sidebarBtn = document.querySelector(".bx-menu");
-        console.log(sidebarBtn);
-        sidebarBtn.addEventListener("click", ()=>{
-        sidebar.classList.toggle("close");
-        });
-            }
+for (var i = 0; i < arrow.length; i++) {
+  arrow[i].addEventListener("click", (e)=>{
+ let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+ arrowParent.classList.toggle("showMenu");
+  });
+}
+let sidebar = document.querySelector(".sidebar");
+let sidebarBtn = document.querySelector(".bx-menu");
+console.log(sidebarBtn);
+sidebarBtn.addEventListener("click", ()=>{
+  sidebar.classList.toggle("close");
+});
+    }
 }
 </script>
 <style src='../assets/css/navside.css' lang="" scoped>
