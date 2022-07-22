@@ -4,6 +4,8 @@ import Sales from '../views/Sales.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Register from '../views/Register.vue'
 import Ventes from '../views/Ventes.vue'
+import Categories from '../views/Categories.vue'
+import Medicaments from '../views/Medicaments.vue'
 
 const routes = [
   { path: '/', name: 'home', component: HomeView },
@@ -11,7 +13,9 @@ const routes = [
   // {path:'/login',name:'login',component:Login},
   {path:'/register',name:'register',component:Register},
   {path:'/dashboard',name:'dashboard',component:Dashboard},
-  {path:'/ventes',name:'ventes',component:Ventes}
+  {path:'/ventes',name:'ventes',component:Ventes},
+  {path:'/categories',name:'categories',component:Categories},
+  {path:'/medicaments',name:'medicaments',component:Medicaments}
 
 ]
 

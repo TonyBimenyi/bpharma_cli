@@ -26,29 +26,26 @@
           <li><a class="link_name" href="#">Dashboard</a></li>
         </ul>
       </li>
-       <li>
+       <router-link to="/ventes"><li>
         <a href="#">
         <i class="fa-solid fa-money-bill-trend-up"></i>
           <span class="link_name">Ventes</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Ventes</a></li>
+          <router-link to="/ventes"><li><a class="link_name" href="#">Ventes</a></li></router-link>
         </ul>
       </li>
-      <li>
-        <div class="iocn-link">
-          <a href="#">
-           <i class="fa-solid fa-capsules"></i>
-            <span class="link_name">Medicaments</span>
-          </a>
-          <i class='bx bxs-chevron-down arrow' ></i>
-        </div>
-        <ul class="sub-menu">
-          <li><a class="link_name" href="#">Medicaments</a></li>
-          <li><a href="#">Liste Medicaments</a></li>
-          <li><a href="#">Categories</a></li>
+      </router-link>
+       <router-link to="/medicaments"><li>
+        <a href="#">
+         <i class="fa-solid fa-capsules"></i>
+          <span class="link_name">Medicaments</span>
+        </a>
+        <ul class="sub-menu blank">
+          <router-link to="/ventes"><li><a class="link_name" href="#">Ventes</a></li></router-link>
         </ul>
       </li>
+      </router-link>
       <li>
         <div class="iocn-link">
           <a href="#">
