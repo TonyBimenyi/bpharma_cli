@@ -42,7 +42,7 @@
           <span class="link_name">Medicaments</span>
         </a>
         <ul class="sub-menu blank">
-          <router-link to="/ventes"><li><a class="link_name" href="#">Ventes</a></li></router-link>
+          <router-link to="/medicaments"><li><a class="link_name" href="#">Medecaments</a></li></router-link>
         </ul>
       </li>
       </router-link>

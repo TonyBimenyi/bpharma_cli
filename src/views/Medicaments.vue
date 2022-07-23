@@ -27,8 +27,8 @@
                     <tr v-for="med in medecines" :key="med.id_medecine" id="line">
                         <td>{{med.id_medecine}}</td>
                         <td>{{med.name_medecine}}</td>
-                        <td>{{med.price_medecine+' Fbu'}}</td>
-                        <td>{{med.created_at}}</td>
+                        <td>{{money(med.price_medecine)+' Fbu'}}</td>
+                        <td>{{datetime(med.created_at)}}</td>
                         <td>{{med.name}}</td>
                         <td v-if="med.cat_medecine!=NULL">{{med.cat_medecine}}</td>
                         <td v-else>Non Spesifie</td>

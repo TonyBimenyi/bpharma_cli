@@ -25,9 +25,7 @@
             </div>
             <div class="input-box">
               <span class="details">Categorie</span>
-              <select name="" id="">
-                <option value=""></option>
-              </select>
+              <input type="text" v-model="form.cat_medecine" placeholder="Generique ou Specialite" required>
             </div>
             <div class="input-box">
               <span class="details">Details</span>
@@ -71,6 +69,10 @@ export default {
     },
     methods:{
         addMedecine(){
+            if(this.modifier){
+                axios
+                
+            }else{
             axios
             .post(this.$store.state.url+'addMedecine',this.form,this.headers)
             .then((res)=>{
@@ -112,6 +114,7 @@ export default {
               
             });
           })
+          }
         },
          getMedecines(){
             axios
