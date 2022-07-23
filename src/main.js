@@ -8,16 +8,20 @@ import store from './store'
 
 createApp(App).use(store).use(router).mount('#app')
 const myMixin = {
-    
-    computed:{
-        header(){
-            return {
-                headers: {
-                    Authorization: `Bearer ${this.$store.state.user.access}`,
-                },
-            };
-        }
 
-    },
+
+    computed: {
+        url(){
+          return this.$store.state.url
+        },
+        
+        headers(){
+          return {
+            headers:{
+              "Authorization":"Bearer "+this.$store.state.user.access
+            }
+          }
+        }
+      }
   
 }

@@ -47,7 +47,7 @@ table{
   
 }
 tr th{
-    padding: 8px 40px;
+    padding: 8px 20px;
     background-color: var(--primary);
     border-radius: 5px;
     color: white;
@@ -67,11 +67,28 @@ tr td button{
     font-weight: 500;
     font-size: 15px;
     border-radius: 5px;
+    cursor: pointer;
+}
+tr td span{
+    color: green;
+    font-weight: 600;
+}
+tr td #ina{
+    color: rgb(249, 56, 56);;
 }
 tr td #des{
-    background-color: red;
+    background-color: rgb(249, 56, 56);
+    padding: 1px 10px;
+    font-size: 12px;
 }
-
+tr td #act{
+    background-color: rgb(7, 111, 11);
+    padding: 1px 10px;
+    font-size: 12px;
+}
+tr #des_td{
+    color: var(--grey);
+}
 table tbody tr{
     border-bottom: 2px solid var(--primary);
 }

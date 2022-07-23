@@ -24,6 +24,12 @@
               <input type="text" v-model="form.cat_medecine" placeholder="Generique ou Specialite" required>
             </div>
             <div class="input-box">
+              <span class="details">Categorie</span>
+              <select name="" id="">
+                <option value=""></option>
+              </select>
+            </div>
+            <div class="input-box">
               <span class="details">Details</span>
               <input type="text" v-model="form.type_medecine" placeholder="Comprime,Sirop,..." required>
             </div>
@@ -35,7 +41,7 @@
           <div class="gender-details">
           </div>
           <div class="button">
-            <input @click="addMedecine()" type="submit" value="Ajouter">
+            <input @click="addMedecine()" type="submit" :value="btn">
           </div>
         </div>
       </div>
@@ -46,8 +52,10 @@
 </template>
 <script>
 import axios from 'axios'
- import Swal from 'sweetalert2'
+import Swal from 'sweetalert2'
+
 export default {
+    props:['edit'],
     data() {
         return {
             form:{
@@ -56,19 +64,22 @@ export default {
                 cat_medecine:'',
                 type_medecine:'',
                 indication_medecine:'',
-                id_user:this.$store.state.user.data.user.id,
-            }
+                id_user:this.$store.state.user.data.user.id
+            },
+                btn: 'Ajouter'
         }
     },
     methods:{
         addMedecine(){
             axios
-            .post(this.$store.state.url+'addMedecine',this.form)
+            .post(this.$store.state.url+'addMedecine',this.form,this.headers)
             .then((res)=>{
+                this.$emit('update')
+                 this.$store.state.medecine= res.data
                 console.log(res["data"]["status"]);
                 this.form.name_medecine='',
                 this.form.price_medecin='',
-                this.form.price_medecine='',
+                this.form.cat_medecine='',
                 this.form.type_medecine='',
                 this.id_user=''
                   if(res["data"]["status"] == "error")
@@ -82,12 +93,13 @@ export default {
               else
              {
                Swal.fire({
-                title: 'Hurry',
-                text:   "You have been logged-in successfully",
+                title: 'Succes',
+                text:   "Medicament est ajoute avec succes",
                 icon: 'success',
               
             });
-            // this.$router.push('/ventes')
+            this.close()
+            this.getMedecines()
              }
               
           })
@@ -101,10 +113,31 @@ export default {
             });
           })
         },
+         getMedecines(){
+            axios
+            .get(this.$store.state.url+'getMedecine')
+            .then((res)=>{
+                this.medecines = res.data
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
+        },
         close(){
             this.$emit('close')
         }
-    }
+        
+    },
+    mounted() {
+        this.getMedecines()
+        if(this.edit){
+            this.form.name_medecine=this.$store.state.medecine.name_medecine;
+            this.form.price_medecine=this.$store.state.medecine.price_medecine;
+            this.form.cat_medecine=this.$store.state.medecine.cat_medecine;
+            this.form.type_medecine=this.$store.state.medecine.type_medecine;
+            this.btn = 'Modifier'
+        }
+    },
 }
 </script>
 <style src='../assets/css/modal.css' scoped>

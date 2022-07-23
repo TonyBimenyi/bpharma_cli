@@ -138,7 +138,6 @@
    .form form .button input:hover{
     /* transform: scale(0.99); */
     background: linear-gradient(135deg, var(--primary), var(--active));
-    transition: .3s;
     }
    @media(max-width: 584px){
    .container{
