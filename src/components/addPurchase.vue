@@ -22,11 +22,15 @@
                 <div class="input-box">
                 <span class="details">Prix d'achat Total</span>
                 <input v-model="form.price_purchase" type="number" placeholder="Entrer le Prix" required>
-                <small>Prix d'achat Unitaire: {{money(form.price_purchase/form.qty_purchase)+'Fbu'}}</small>
+                <small style="font-weight:bold">Prix d'achat Unitaire: {{money(form.price_purchase/form.qty_purchase)+' Fbu'}}</small>
                 </div>
                 <div class="input-box">
                 <span class="details">Date d'expiration</span>
                 <input type="date" v-model="form.date_purchase" placeholder="Generique ou Specialite" required>
+                </div>
+                <div class="input-box">
+                <span class="details">Type</span>
+                <input type="text" v-model="form.type_purchase" placeholder="Cartons,Plaquttes,Bouteilles,..." required>
                 </div>
                
             </div>

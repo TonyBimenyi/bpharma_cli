@@ -38,7 +38,8 @@
                         <td v-else><button @click="changeEtatOn(med)" id="act">Activer</button><br><small>Etat: <span id="ina">Inactif</span> </small> </td>
 
                         <td><button @click="edit(med)">Modifier</button></td>
-                        <td><button @click="dialogPurchase=true;acheter(med)">Acheter</button></td>
+
+                        <td v-if="med.etat==1"><button @click="dialogPurchase=true;acheter(med)">Acheter</button></td>
                     </tr>
                 </tbody>
             </table>
