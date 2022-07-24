@@ -32,36 +32,45 @@
                         <td>{{med.name}}</td>
                         <td v-if="med.cat_medecine!=NULL">{{med.cat_medecine}}</td>
                         <td v-else>Non Spesifie</td>
+
                         <td v-if="med.etat==1"><button @click="changeEtatOff(med)" id="des">Desactiver</button><br><small>Etat: <span>Actif</span> </small> </td>
+
                         <td v-else><button @click="changeEtatOn(med)" id="act">Activer</button><br><small>Etat: <span id="ina">Inactif</span> </small> </td>
+
                         <td><button @click="edit(med)">Modifier</button></td>
-                        <td><button>Acheter</button></td>
+                        <td><button @click="dialogPurchase=true;acheter(med)">Acheter</button></td>
                     </tr>
                 </tbody>
             </table>
         </div> 
     </div>
         <add-medecine :edit="modifier" @update="getMedecines" @close="close" v-if="dialog"></add-medecine>
+        <add-purchase @close="close" :acheter="modifier" @update="getMedecines"  v-if="dialogPurchase"></add-purchase>
     </div>
 </template>
 <script>
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import addMedecine from '../components/addMedecine.vue'
+import addPurchase from '../components/addPurchase.vue'
 export default {
     components:{
         addMedecine,
+        addPurchase
     },
     data(){
         return{
             dialog:false,
+            dialogPurchase:false,
             medecines:[],
             modifier:false,
+            buy:false,
         }
     },
     methods: {
         close(){
             this.dialog = false
+            this.dialogPurchase = false
         },
         getMedecines(){
             axios
@@ -72,6 +81,9 @@ export default {
             .catch((error)=>{
                 console.log(error)
             })
+        },
+        acheter(item){
+            this.$store.state.medecine = item;
         },
         edit(item){
             this.dialog = true;
