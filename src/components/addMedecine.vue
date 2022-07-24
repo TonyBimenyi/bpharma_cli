@@ -1,50 +1,50 @@
 <template>
     <div class="addMedecine">
         <body>
-    <div class="container">
-        <div class="top">
-      <div class="title">Nouveau Medicament</div>
-      <div class="title"><button @click="close" >X</button></div>
-      </div>
-      <div class="content">
-        <div class="form">
-      
-          <div class="user-details">
-            <div class="input-box">
-              <span class="details">Nom du medicament</span>
-              <input v-model="form.name_medecine" type="text" placeholder="Entrer le nom" required>
-            </div>
- 
-            <div class="input-box">
-              <span class="details">Prix de Vente Unitaire</span>
-              <input v-model="form.price_medecine" type="number" placeholder="Entrer le Prix" required>
-            </div>
-             <div class="input-box">
-              <span class="details">Categorie</span>
-              <input type="text" v-model="form.cat_medecine" placeholder="Generique ou Specialite" required>
-            </div>
-            <div class="input-box">
-              <span class="details">Categorie</span>
-              <input type="text" v-model="form.cat_medecine" placeholder="Generique ou Specialite" required>
-            </div>
-            <div class="input-box">
-              <span class="details">Details</span>
-              <input type="text" v-model="form.type_medecine" placeholder="Comprime,Sirop,..." required>
-            </div>
-            <div class="input-box">
-              <span class="details">Indication</span>
-              <input type="text" v-model="form.indication_medecine" placeholder="Indication de medicament" required>
-            </div>
-          </div>
-          <div class="gender-details">
-          </div>
-          <div class="button">
-            <input @click="addMedecine()" type="submit" :value="btn">
-          </div>
+    <transition mode="out-in"
+    enter-active-class="animate__animated animate__fadeInRight"
+	leave-active-class="animate__animated animate__fadeOutLeft"
+     >
+        <div class="container">
+            <div class="top">
+        <div class="title">Nouveau Medicament</div>
+        <div class="titl"><button @click="close" >X</button></div>
         </div>
-      </div>
-    </div>
-  
+        <div class="content">
+            <div class="form">
+        
+            <div class="user-details">
+                <div class="input-box">
+                <span class="details">Nom du medicament</span>
+                <input v-model="form.name_medecine" type="text" placeholder="Entrer le nom" required>
+                </div>
+    
+                <div class="input-box">
+                <span class="details">Prix de Vente Unitaire</span>
+                <input v-model="form.price_medecine" type="number" placeholder="Entrer le Prix" required>
+                </div>
+                <div class="input-box">
+                <span class="details">Categorie</span>
+                <input type="text" v-model="form.cat_medecine" placeholder="Generique ou Specialite" required>
+                </div>
+                <div class="input-box">
+                <span class="details">Details</span>
+                <input type="text" v-model="form.type_medecine" placeholder="Comprime,Sirop,..." required>
+                </div>
+                <div class="input-box">
+                <span class="details">Indication</span>
+                <input type="text" v-model="form.indication_medecine" placeholder="Indication de medicament" required>
+                </div>
+            </div>
+            <div class="gender-details">
+            </div>
+            <div class="button">
+                <input @click="addMedecine()" type="submit" :value="btn">
+            </div>
+            </div>
+        </div>
+        </div>
+    </transition>  
   </body>
     </div>
 </template>
@@ -69,9 +69,36 @@ export default {
     },
     methods:{
         addMedecine(){
-            if(this.modifier){
-                axios
-                
+            if(this.edit){
+
+                axios.put(this.$store.state.url+'updateMedecine/'+this.$store.state.medecine.id_medecine,this.form)
+                .then((response) =>  {
+                    this.$emit('update')
+                    this.$store.state.medecine = response.data
+                    if(response["data"]["status"] == "error")
+             {
+               Swal.fire({
+                title: 'OPPS',
+                text:   "error",
+                icon: 'warning',      
+            });
+             }
+              else
+             {
+               Swal.fire({
+                title: 'Succes',
+                text:   "Medicament est Modifie avec succes",
+                icon: 'success',
+              
+            });
+            this.close()
+            this.getMedecines()
+             }
+                  
+                }).catch((error) => {
+                    console.log(error)
+                })
+
             }else{
             axios
             .post(this.$store.state.url+'addMedecine',this.form,this.headers)

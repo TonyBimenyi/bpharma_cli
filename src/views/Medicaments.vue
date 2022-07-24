@@ -15,7 +15,7 @@
                     <tr>
                         <th>#ID</th>
                         <th>Nom Medicament</th>
-                        <th>Prix Unitaire</th>
+                        <th>Prix de vente Unitaire</th>
                         <th>Date de creation</th>
                         <th>Cree par</th>
                         <th>Categorie</th>
@@ -32,8 +32,8 @@
                         <td>{{med.name}}</td>
                         <td v-if="med.cat_medecine!=NULL">{{med.cat_medecine}}</td>
                         <td v-else>Non Spesifie</td>
-                        <td v-if="med.etat==1"><button id="des">Desactiver</button><br><small>Etat: <span>Actif</span> </small> </td>
-                        <td v-else><button id="act">Activer</button><br><small>Etat: <span id="ina">Inactif</span> </small> </td>
+                        <td v-if="med.etat==1"><button @click="changeEtatOff(med)" id="des">Desactiver</button><br><small>Etat: <span>Actif</span> </small> </td>
+                        <td v-else><button @click="changeEtatOn(med)" id="act">Activer</button><br><small>Etat: <span id="ina">Inactif</span> </small> </td>
                         <td><button @click="edit(med)">Modifier</button></td>
                         <td><button>Acheter</button></td>
                     </tr>
@@ -46,6 +46,7 @@
 </template>
 <script>
 import axios from 'axios'
+import Swal from 'sweetalert2'
 import addMedecine from '../components/addMedecine.vue'
 export default {
     components:{
@@ -76,6 +77,58 @@ export default {
             this.dialog = true;
             this.modifier = true;
             this.$store.state.medecine = item;
+        },
+        changeEtatOff(med){
+            this.$emit('update')
+            axios
+            .put(this.$store.state.url+'changeEtatOff/'+med.id_medecine)
+            .then((res)=>{
+                  if(res["data"]["status"] == "error")
+             {
+               Swal.fire({
+                title: 'OPPS',
+                text:   "error",
+                icon: 'warning',      
+            });
+             }
+              else
+             {
+               Swal.fire({
+                title: 'Succes',
+                text:   "Medicament est Desactive avec succes",
+                icon: 'success',
+              
+            });
+            this.close()
+            this.getMedecines()
+             }
+            })
+        },
+        changeEtatOn(med){
+            this.$emit('update')
+            axios
+            .put(this.$store.state.url+'changeEtatOn/'+med.id_medecine)
+            .then((res)=>{
+                  if(res["data"]["status"] == "error")
+             {
+               Swal.fire({
+                title: 'OPPS',
+                text:   "error",
+                icon: 'warning',      
+            });
+             }
+              else
+             {
+               Swal.fire({
+                title: 'Succes',
+                text:   "Medicament est Active avec succes",
+                icon: 'success',
+              
+            });
+            this.close()
+            this.getMedecines()
+             }
+            })
         }
     },
     mounted(){
