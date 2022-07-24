@@ -104,10 +104,10 @@ export default {
             .post(this.$store.state.url+'addMedecine',this.form,this.headers)
             .then((res)=>{
                 this.$emit('update')
-                 this.$store.state.medecine= res.data
+                this.$store.state.medecine= res.data
                 console.log(res["data"]["status"]);
                 this.form.name_medecine='',
-                this.form.price_medecin='',
+                this.form.price_medecine='',
                 this.form.cat_medecine='',
                 this.form.type_medecine='',
                 this.id_user=''
