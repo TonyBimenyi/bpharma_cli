@@ -66,7 +66,6 @@ export default {
     methods:{
         addStock(){
             axios
-            
             .put(this.$store.state.url+'addStock/'+this.$store.state.medecine.id_medecine,this.form)
             .then((res)=>{
                  this.$store.state.medecine= res.data
