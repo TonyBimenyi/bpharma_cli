@@ -27,11 +27,11 @@
                 </div>
                 <div class="input-box">
                 <span class="details">Date d'expiration</span>
-                <input type="date" v-model="form.date_exp" placeholder="Generique ou Specialite" required>
+                <input type="date" v-model="form.exp_date" placeholder="Generique ou Specialite" required>
                 </div>
                 <div class="input-box">
-                <span class="details">Type</span>
-                <input type="text" v-model="form.type_purchase" placeholder="Cartons,Plaquttes,Bouteilles,..." required>
+                <span class="details">Unite</span>
+                <input type="text" v-model="form.unite" placeholder="Cartons,Plaquttes,Bouteilles,..." required>
                 </div>
                
             </div>
@@ -60,6 +60,7 @@ export default {
                 unit_price:this.total_price/this.qty_stock,
                 exp_date:'',
                 total_price:'',
+                unite:'',
                 id_user:this.$store.state.user.data.user.id,
                 id_medecine:this.$store.state.medecine.id_medecine,
             },
@@ -74,10 +75,11 @@ export default {
                  this.$store.state.medecine= res.data
                 console.log(res["data"]["status"]);
                 this.form.qty_stock='',
-                this.form.unit_price='',
-                this.form.date_exp='',
+                this.form.total_price='',
+                this.form.exp_date='',
                 this.id_user='',
-                this.id_medecine=''
+                this.id_medecine='',
+                this.unite=''
                   if(res["data"]["status"] == "error")
              {
                Swal.fire({
