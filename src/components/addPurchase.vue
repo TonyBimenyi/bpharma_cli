@@ -16,17 +16,18 @@
             <div class="user-details">
                 <div class="input-box">
                 <span class="details">Quantite</span>
-                <input v-model="form.qty_purchase" type="number" min="0"  placeholder="Entrer la quantite achete"  required>
+                <input v-model="form.qty_stock" type="number" min="0"  placeholder="Entrer la quantite achete"  required>
                 </div>
     
                 <div class="input-box">
                 <span class="details">Prix d'achat Total</span>
-                <input v-model="form.price_purchase" type="number" placeholder="Entrer le Prix" required>
-                <small style="font-weight:bold">Prix d'achat Unitaire: {{money(form.price_purchase/form.qty_purchase)+' Fbu'}}</small>
+                <input v-model="form.total_price" type="number" placeholder="Entrer le Prix" required>
+                <small style="font-weight:bold">Prix d'achat Unitaire: {{money(form.total_price/form.qty_stock)+' Fbu'}}</small>
+                <input type="hidden" v-model="form.unit_price">
                 </div>
                 <div class="input-box">
                 <span class="details">Date d'expiration</span>
-                <input type="date" v-model="form.date_purchase" placeholder="Generique ou Specialite" required>
+                <input type="date" v-model="form.date_exp" placeholder="Generique ou Specialite" required>
                 </div>
                 <div class="input-box">
                 <span class="details">Type</span>
@@ -55,10 +56,12 @@ export default {
     data() {
         return {
             form:{
-                qty_purchase:0,
-                price_purchase:'',
-                date_purchase:'',
-                id_user:this.$store.state.user.data.user.id
+                qty_stock:0,
+                unit_price:this.total_price/this.qty_stock,
+                exp_date:'',
+                total_price:'',
+                id_user:this.$store.state.user.data.user.id,
+                id_medecine:this.$store.state.medecine.id_medecine,
             },
                 btn: 'Acheter'
         }
@@ -66,14 +69,15 @@ export default {
     methods:{
         addStock(){
             axios
-            .put(this.$store.state.url+'addStock/'+this.$store.state.medecine.id_medecine,this.form)
+            .post(this.$store.state.url+'addStock/'+this.$store.state.medecine.id_medecine,this.form)
             .then((res)=>{
                  this.$store.state.medecine= res.data
                 console.log(res["data"]["status"]);
-                this.form.qty_purchase='',
-                this.form.price_purchase='',
-                this.form.date_purchase='',
-                this.id_user=''
+                this.form.qty_stock='',
+                this.form.unit_price='',
+                this.form.date_exp='',
+                this.id_user='',
+                this.id_medecine=''
                   if(res["data"]["status"] == "error")
              {
                Swal.fire({
