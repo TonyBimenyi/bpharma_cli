@@ -13,10 +13,10 @@
 }
 .top_part .search_box input{
     border: 3px solid var(--primary);
-    height: 13px;
+    height: 12px;
     padding: 10px;
     border-radius: 3px;
-    margin-top: 4px;
+    /* margin-top: 4px; */
     outline: none;
 }
 .top_part button{
@@ -25,7 +25,7 @@
     padding: 10px 20px;
     color: white;
     border-radius: 5px;
-    font-size: 15px;
+    font-size: 11px;
     font-weight: 500;
     cursor: pointer;
 }
@@ -33,11 +33,15 @@
     background-color: var(--active);
     transition: .5s;
 }
+
+
+
+
 .cat_list{
     background-color: white;
     margin-left: 15px;
     margin-right: 15px;
-    padding:10px 30px;
+    padding:15px 15px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px 1px rgba(7, 7, 7, 0.103);
     margin-top: 20px;
@@ -47,12 +51,15 @@ table{
     width: 100%;
     max-height: 80%;
     scrollbar-color: var(--primary);
+    border-collapse: collapse;
 }
 .table{
-    max-height: 525px;
+    max-height: 455px;
     overflow-y: scroll;
     scroll-behavior: smooth;
     scrollbar-color: var(--primary) #E0E5F3;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 1px rgba(7, 7, 7, 0.103);
    
 }
 ::-webkit-scrollbar-thumb{
@@ -61,18 +68,24 @@ table{
 thead{
     position: sticky;
     top: 0;
+
+}
+thead tr{
+    border-radius: 10px;
 }
 tr th{
-    padding: 8px 20px;
+    padding: 8px 05px;
     background-color: var(--primary);
-    border-radius: 5px;
+    /* border-radius: 5px; */
     color: white;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: normal;
+    margin: 0px 5px;
 }
+
 tr td{
     text-align: center;
-    font-size: 14px;
+    font-size: 12px;
     padding: 5px 0px;
 }
 tr td button{
@@ -81,7 +94,7 @@ tr td button{
     color: white;
     padding: 5px 20px;
     font-weight: 500;
-    font-size: 15px;
+    font-size: 12px;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -99,7 +112,7 @@ tr td #ina{
 tr td #des{
     background-color: rgb(249, 56, 56);
     padding: 1px 10px;
-    font-size: 12px;
+    font-size: 11px;
 }
 tr td #act{
     background-color: rgb(7, 111, 11);
@@ -110,5 +123,21 @@ tr #des_td{
     color: var(--grey);
 }
 table tbody tr{
-    border-bottom: 2px solid var(--primary);
+    border-bottom: 1px solid var(--primary);
+}
+tr:nth-child(even){
+    background: rgb(241, 241, 241);
+
+}
+ tbody #tot{
+    bottom: 0px;
+    background-color: var(--primary) !important;
+    position: sticky;
+   
+}
+tbody #tot td{
+    padding: 7px 0px;
+    color: white;
+    font-weight: 500;
+    font-size: 13px;
 }

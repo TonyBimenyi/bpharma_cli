@@ -12,10 +12,12 @@
         <div class="table">
             <table>
                 <thead>
-                    <tr>
+                    <tr cell>
                         <th>#ID</th>
                         <th>Nom Medicament</th>
+                        <th>Qte</th>
                         <th>Prix de vente Unitaire</th>
+                        <th>PV Total</th>
                         <th>Date de creation</th>
                         <th>Cree par</th>
                         <th>Categorie</th>
@@ -27,7 +29,9 @@
                     <tr v-for="med in medecines" :key="med.id_medecine" id="line">
                         <td>{{med.id_medecine}}</td>
                         <td>{{med.name_medecine}}</td>
+                        <td>{{med.qty_stock}}</td>
                         <td>{{money(med.price_medecine)+' Fbu'}}</td>
+                        <td>{{money(med.price_medecine*med.qty_stock)}} Fbu</td>
                         <td>{{datetime(med.created_at)}}</td>
                         <td>{{med.name}}</td>
                         <td v-if="med.cat_medecine!=NULL">{{med.cat_medecine}}</td>
@@ -39,8 +43,16 @@
 
                         <td><button @click="edit(med)">Modifier</button></td>
 
-                        <td v-if="med.etat==1"><button @click="dialogPurchase=true;acheter(med)">Acheter</button></td>
+                        <td ><button v-if="med.etat==1" @click="dialogPurchase=true;acheter(med)">Acheter</button></td>
                     </tr>
+                   
+                        <tr id="tot">
+                            <td>Total</td>
+                            <td colspan="3"></td>
+                            <td>4.6000 Fbu</td>
+                            <td colspan="8"></td>
+                        </tr>
+                   
                 </tbody>
             </table>
         </div> 

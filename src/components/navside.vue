@@ -46,6 +46,16 @@
         </ul>
       </li>
       </router-link>
+       <router-link to="/stock"><li>
+        <a href="#">
+         <i class="fa-solid fa-capsules"></i>
+          <span class="link_name">Stock</span>
+        </a>
+        <ul class="sub-menu blank">
+          <router-link to="/medicaments"><li><a class="link_name" href="#">Stock</a></li></router-link>
+        </ul>
+      </li>
+      </router-link>
       <li>
         <div class="iocn-link">
           <a href="#">
@@ -101,24 +111,6 @@
         </a>
         <ul class="sub-menu blank">
           <li><a class="link_name" href="#">Explore</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-history'></i>
-          <span class="link_name">History</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">History</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-cog' ></i>
-          <span class="link_name">Setting</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Setting</a></li>
         </ul>
       </li>
       <li>

@@ -20,7 +20,7 @@
      top: 0;
      left: 0;
      height: 100%;
-     width: 260px;
+     width: 200px;
      background: #002248;
      z-index: 100;
      transition: all 0.5s ease;
@@ -41,9 +41,10 @@
      min-width: 78px;
      text-align: center;
      line-height: 50px;
+     font-size: 15;
    }
    .sidebar .logo-details .logo_name{
-     font-size: 22px;
+     font-size: 16px;
      color: #fff;
      font-weight: 600;
      transition: 0.3s ease;
@@ -87,9 +88,10 @@
      text-align: center;
      line-height: 50px;
      color: #fff;
-     font-size: 20px;
+     font-size: 18px;
      cursor: pointer;
      transition: all 0.3s ease;
+     
    }
    .sidebar .nav-links li.showMenu i.arrow{
      transform: rotate(-180deg);
@@ -101,10 +103,11 @@
      display: flex;
      align-items: center;
      text-decoration: none;
+     font-size: 11px;
    }
    .sidebar .nav-links li a .link_name{
-     font-size: 18px;
-     font-weight: 400;
+     font-size: 14px;
+     font-weight: 500;
      color: #fff;
      transition: all 0.4s ease;
    }
@@ -172,7 +175,7 @@
    .sidebar .profile-details{
      position: fixed;
      bottom: 0;
-     width: 260px;
+     width: 200px;
      display: flex;
      align-items: center;
      justify-content: space-between;
@@ -221,8 +224,8 @@
      position: relative;
      background: #E4E9F7;
      height: 100vh;
-     left: 260px;
-     width: calc(100% - 260px);
+     left: 200px;
+     width: calc(100% - 200px);
      transition: all 0.5s ease;
    }
    .sidebar.close ~ .home-section{
@@ -272,7 +275,7 @@
    .profile-details i{
     color: white;
     font-size: 30px;
-    margin-right: 50px;
+    margin-right: 0px;
     cursor: pointer;
    }
    .menu i{
@@ -289,4 +292,4 @@
    a{
     text-decoration: none;
    }
-   
+ 

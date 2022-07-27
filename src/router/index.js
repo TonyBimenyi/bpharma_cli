@@ -6,6 +6,7 @@ import Register from '../views/Register.vue'
 import Ventes from '../views/Ventes.vue'
 import Categories from '../views/Categories.vue'
 import Medicaments from '../views/Medicaments.vue'
+import Stock from '../views/Stock.vue'
 
 const routes = [
   { path: '/', name: 'home', component: HomeView },
@@ -15,7 +16,8 @@ const routes = [
   {path:'/dashboard',name:'dashboard',component:Dashboard},
   {path:'/ventes',name:'ventes',component:Ventes},
   {path:'/categories',name:'categories',component:Categories},
-  {path:'/medicaments',name:'medicaments',component:Medicaments}
+  {path:'/medicaments',name:'medicaments',component:Medicaments},
+  {path:'/stock',name:'stock',component:Stock}
 
 ]
 
