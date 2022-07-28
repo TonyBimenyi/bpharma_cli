@@ -23,8 +23,8 @@
                                     <th>Prix de vente</th>
                                     <th>Cree au</th>
                                     <th>cree par</th>                      
-                                    <th>PAU Etagere</th>
-                                    <th>Actions</th>
+                                    <th>Unite</th>
+                                    <th colspan="2">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,13 +37,18 @@
                                     <td>{{money(sto.total_price)+' Fbu'}}</td>
                                     <td>{{datetime(sto.exp_date)}}</td>
                                     <td>{{money(sto.price_medecine+' Fbu')}}</td>
+                                    <td>{{datetime(sto.created_at)}}</td>
+                                    <td>{{sto.name}}</td>
+                                    <td>{{sto.unite}}</td>
+                                     <td ><button>Requisitionner</button></td>
+                                      <td ><button id="des" style="font-size:13px">Delete</button></td>
                                 </tr>
                         
                         
                                 <tr id="tot">
                                     <td>Total</td>
                                     <td colspan="3"></td>
-                                    <td>4.6000 Fbu</td>
+                                    <td>4.600 Fbu</td>
                                     <td colspan="8"></td>
                                 </tr>
                         
