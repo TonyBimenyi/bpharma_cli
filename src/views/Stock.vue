@@ -40,8 +40,8 @@
                                     <td>{{datetime(sto.created_at)}}</td>
                                     <td>{{sto.name}}</td>
                                     <td>{{sto.unite}}</td>
-                                     <td ><button>Requisitionner</button></td>
-                                      <td ><button id="des" style="font-size:13px">Delete</button></td>
+                                     <td ><button @click="dialogRequisition=true;requisitionner(sto)">Requisitionner</button></td>
+                                      <td ><button id="des" style="font-size:13px" >Delete</button></td>
                                 </tr>
                         
                         
@@ -56,17 +56,29 @@
                     </table>
                 </div> 
             </div>
+  <add-requisition @close="close" :requisitionner="modifier" @update="getMedecines"  v-if="dialogRequisition"></add-requisition>          
      </div>
 </template>
 <script>
 import axios from 'axios'
+import addRequisition from '../components/addRequisition.vue'
 export default {
+    components:{
+        addRequisition
+    },
     data() {
         return {
-            stocks:[]
+            stocks:[],
+            dialogRequisition:false,
         }
     },
     methods: {
+        close(){
+            this.dialogRequisition = false
+        },
+        requisitionner(item){
+            this.$store.state.medecine = item;
+        },
         getStock(){
             axios
             .get(this.$store.state.url+'stock')
