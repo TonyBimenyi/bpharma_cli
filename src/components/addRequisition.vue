@@ -34,6 +34,7 @@
 </template>
 <script>
 import axios from 'axios'
+import Swal from 'sweetalert2'
 // import Swal from 'sweetalert2'
 export default {
       props:['requisitionner'],
@@ -44,9 +45,8 @@ export default {
                 initial_qty_requi:0,
                 purchase_price:this.$store.state.stock.total_price,
                 sale_price:this.$store.state.stock.price_medecine,
-                stock_name:this.$store.state.stock.name_medecine+'du'+this.$store.state.stock.created_at_stock,
+                id_stock:this.$store.state.stock.id_stock,
                 id_user:this.$store.state.stock.id,
-                unit_price:this.total_price/this.qty_stock,
             },
                 btn: 'Requisitionner'
         }
@@ -64,8 +64,49 @@ export default {
         },
         close(){
             this.$emit('close')
-        }
-        
+        },
+        addRequisition(){
+            axios
+            .post(this.$store.state.url+'addRequisition/'+this.$store.state.stock.id_stock,this.form)
+            .then((res)=>{
+                this.$store.state.stock= res.data
+                console.log(res["data"]["status"]);
+                this.form.initial_qty_requi='',
+                this.form.purchase_price='',
+                this.form.sale_price='',
+                this.form.id_stock='',
+                this.form.id_user=''
+                  if(res["data"]["status"] == "error")
+             {
+               Swal.fire({
+                title: 'OPPS',
+                text:   "error",
+                icon: 'warning',      
+            });
+             }
+              else
+             {
+               Swal.fire({
+                title: 'Succes',
+                text:   "Medicament est Requisitionne",
+                icon: 'success',
+              
+            });
+            this.close()
+            this.getMedecines()
+             }
+              
+          })
+           .catch((e)=>{
+              console.log(e);
+               Swal.fire({
+              title: 'Hurry',
+              text:   e,
+              icon: 'warning',
+              
+            });
+            })
+        },
     },
     mounted() {
         this.getMedecines()
