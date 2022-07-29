@@ -37,7 +37,7 @@
                                     <td>{{money(sto.total_price)+' Fbu'}}</td>
                                     <td>{{datetime(sto.exp_date)}}</td>
                                     <td>{{money(sto.price_medecine+' Fbu')}}</td>
-                                    <td>{{datetime(sto.created_at)}}</td>
+                                    <td>{{datetime(sto.created_at_stock)}}</td>
                                     <td>{{sto.name}}</td>
                                     <td>{{sto.unite}}</td>
                                      <td ><button @click="dialogRequisition=true;requisitionner(sto)">Requisitionner</button></td>
@@ -77,7 +77,7 @@ export default {
             this.dialogRequisition = false
         },
         requisitionner(item){
-            this.$store.state.medecine = item;
+            this.$store.state.stock = item;
         },
         getStock(){
             axios

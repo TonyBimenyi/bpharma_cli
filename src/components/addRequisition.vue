@@ -7,7 +7,7 @@
      >
         <div class="container">
             <div class="top">
-        <div class="title">Sortir {{this.$store.state.medecine.name_medecine}}</div>
+        <div class="title">Sortir {{this.$store.state.stock.name_medecine}}</div>
         <div class="titl"><button @click="close" >X</button></div>
         </div>
         <div class="content">
@@ -40,13 +40,13 @@ export default {
     data() {
         return {
             form:{
+
                 initial_qty_requi:0,
+                purchase_price:this.$store.state.stock.total_price,
+                sale_price:this.$store.state.stock.price_medecine,
+                stock_name:this.$store.state.stock.name_medecine+'du'+this.$store.state.stock.created_at_stock,
+                id_user:this.$store.state.stock.id,
                 unit_price:this.total_price/this.qty_stock,
-                exp_date:'',
-                total_price:'',
-                unite:'',
-                id_user:this.$store.state.user.data.user.id,
-                id_medecine:this.$store.state.medecine.id_medecine,
             },
                 btn: 'Requisitionner'
         }
