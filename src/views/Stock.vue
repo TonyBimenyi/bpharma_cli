@@ -23,7 +23,7 @@
                     <table>
                         <thead>
                             <tr cell>
-                                    <th>#ID stock</th>
+                                    <th>#ID</th>
                                     <th>Medicament</th>
                                     <th>Qte initial</th>
                                     <th>Qte Actuelle</th>
@@ -72,7 +72,7 @@
                     </table>
                 </div> 
             </div>
-  <add-requisition @close="close" :requisitionner="modifier" @update="getMedecines"  v-if="dialogRequisition"></add-requisition>          
+  <add-requisition @update="getStock" @close="close" :requisitionner="modifier"   v-if="dialogRequisition"></add-requisition>          
      </div>
 </template>
 <script>

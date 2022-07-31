@@ -69,6 +69,7 @@ export default {
             axios
             .post(this.$store.state.url+'addRequisition/'+this.$store.state.stock.id_stock,this.form)
             .then((res)=>{
+                this.$emit('update')
                 this.$store.state.stock= res.data
                 console.log(res["data"]["status"]);
                 this.form.initial_qty_requi='',
