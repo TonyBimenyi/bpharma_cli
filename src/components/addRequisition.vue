@@ -47,6 +47,7 @@ export default {
                 sale_price:this.$store.state.stock.medecine[0]?.price_medecine,
                 id_stock:this.$store.state.stock.id_stock,
                 id_user:this.$store.state.user.data.user.id,
+                id_medecine:this.$store.state.stock.medecine[0]?.id_medecine,
             },
                 btn: 'Requisitionner'
         }
@@ -77,6 +78,7 @@ export default {
                 this.form.sale_price='',
                 this.form.id_stock='',
                 this.form.id_user=''
+                this.form.id_medecine=''
                   if(res["data"]["status"] == "error")
              {
                Swal.fire({
