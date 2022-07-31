@@ -121,9 +121,11 @@ tr td button{
     border-radius: 5px;
     cursor: pointer;
 }
+
 tr td button:hover{
     background-color: var(--active);
     transition: .3s;
+    border-radius: 0px;
 }
 tr td span{
     color: green;
@@ -134,7 +136,7 @@ tr td #ina{
 }
 tr td #des{
     background-color: rgb(249, 56, 56);
-    padding: 04px 10px;
+    padding: 05px 10px;
     font-size: 11px;
 }
 tr td #act{
