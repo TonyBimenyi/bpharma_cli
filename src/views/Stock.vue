@@ -3,16 +3,17 @@
         <div class="top_part">
                 <div class="search_box">
                     <div class="date_debut">
-                        Du:<input type="date">
+                        <strong style="font-size:13px">Du: </strong><input type="date">
                     </div>
                     <div class="date_debut">
-                        Au:<input type="date">
+                        <strong style="font-size:13px">Au: </strong><input type="date">
                     </div>
                     <div class="search">
-                         <input type="text" name="" value="" placeholder="rechercher">
+                         <input  type="text" name="" value="" placeholder="rechercher">
                     </div>
                 </div>
                 <div class="add_btn">
+                    <p >Stock Rompu</p>
                 <!-- <button @click="dialog=true;modifier=false" type=""><i class="fa-solid fa-plus add_new"></i> Ajouter un Medicament</button> -->
                 </div>
 
