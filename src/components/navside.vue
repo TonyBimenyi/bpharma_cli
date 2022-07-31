@@ -48,8 +48,28 @@
       </router-link>
        <router-link to="/stock"><li>
         <a href="#">
-         <i class="fa-solid fa-capsules"></i>
+         <i class="fa-solid fa-box"></i>
           <span class="link_name">Stock</span>
+        </a>
+        <ul class="sub-menu blank">
+          <router-link to="/medicaments"><li><a class="link_name" href="#">Stock</a></li></router-link>
+        </ul>
+      </li>
+      </router-link>
+       <router-link to="/requisition"><li>
+        <a href="#">
+         <i class="fa-solid fa-border-all"></i>
+          <span class="link_name">Requisitions</span>
+        </a>
+        <ul class="sub-menu blank">
+          <router-link to="/medicaments"><li><a class="link_name" href="#">Stock</a></li></router-link>
+        </ul>
+      </li>
+      </router-link>
+       <router-link to="/perte"><li>
+        <a href="#">
+         <i class="fa-solid fa-trash"></i>
+          <span class="link_name">Pertes</span>
         </a>
         <ul class="sub-menu blank">
           <router-link to="/medicaments"><li><a class="link_name" href="#">Stock</a></li></router-link>
@@ -69,24 +89,6 @@
           <li><a href="#">Web Design</a></li>
           <li><a href="#">Login Form</a></li>
           <li><a href="#">Card Design</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-pie-chart-alt-2' ></i>
-          <span class="link_name">Analytics</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Analytics</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-line-chart' ></i>
-          <span class="link_name">Chart</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Chart</a></li>
         </ul>
       </li>
       <li>

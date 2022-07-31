@@ -1,13 +1,22 @@
 <template>
      <div class="cat-container">
         <div class="top_part">
-            <div class="search_box">
-                <input type="text" name="" value="" placeholder="rechercher">
-            </div>
-                <div class="add_btn">
-                <button @click="dialog=true;modifier=false" type=""><i class="fa-solid fa-plus add_new"></i> Ajouter un Medicament</button>
+                <div class="search_box">
+                    <div class="date_debut">
+                        Du:<input type="date">
+                    </div>
+                    <div class="date_debut">
+                        Au:<input type="date">
+                    </div>
+                    <div class="search">
+                         <input type="text" name="" value="" placeholder="rechercher">
+                    </div>
                 </div>
-                </div>   
+                <div class="add_btn">
+                <!-- <button @click="dialog=true;modifier=false" type=""><i class="fa-solid fa-plus add_new"></i> Ajouter un Medicament</button> -->
+                </div>
+
+            </div>   
             <div class="cat_list">
                 <div class="table">
                     <table>
@@ -20,7 +29,8 @@
                                     <th>PAU Unitaire</th>
                                     <th>PA Total</th>
                                     <th>date d'expiration</th>
-                                    <th>Prix de vente</th>
+                                    <th>PV Unitaire</th>
+                                    <th>PV Total</th>
                                     <th>Cree au</th>
                                     <th>cree par</th>                      
                                     <th>Unite</th>
@@ -30,25 +40,30 @@
                         <tbody>
                                 <tr v-for="sto in stocks" :key="sto.id_stock">
                                     <td>{{sto.id_stock}}</td>
-                                    <td>{{sto.name_medecine}}</td>
+                                    <td>{{ sto.medecine[0]?.name_medecine }}</td>
                                     <td>{{sto.initial_qty}}</td>
                                     <td>{{sto.actual_qty}}</td>
                                     <td>{{money(sto.unit_price)+' Fbu'}}</td>
                                     <td>{{money(sto.total_price)+' Fbu'}}</td>
                                     <td>{{datetime(sto.exp_date)}}</td>
-                                    <td>{{money(sto.price_medecine+' Fbu')}}</td>
-                                    <td>{{datetime(sto.created_at_stock)}}</td>
-                                    <td>{{sto.name}}</td>
-                                    <td>{{sto.unite}}</td>
-                                     <td ><button @click="dialogRequisition=true;requisitionner(sto)">Requisitionner</button></td>
+                                    <td>{{money(sto.medecine[0]?.price_medecine)}} Fbu</td>
+                                    <td>{{money(sto.medecine[0]?.price_medecine*sto.actual_qty)}} Fbu</td>
+                                    <td>{{datetime(sto.created_at)}}</td>
+                                    <td>{{sto.user[0]?.name}}</td>
+                                    <td v-if="sto.unite!=NULL">{{sto.unite}}</td>
+                                    <td v-else>------</td>
+                                     <td ><button @click="dialogRequisition=true;requisitionner(sto)">Sortir</button></td>
                                       <td ><button id="des" style="font-size:13px" >Delete</button></td>
                                 </tr>
                         
                         
                                 <tr id="tot">
                                     <td>Total</td>
-                                    <td colspan="3"></td>
-                                    <td>4.600 Fbu</td>
+                                    <td colspan="4"></td>
+                                    <td>{{ money(PATotal()) }} Fbu</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>{{ money(PVTotal()) }} Fbu</td>
                                     <td colspan="8"></td>
                                 </tr>
                         
@@ -69,10 +84,25 @@ export default {
     data() {
         return {
             stocks:[],
+            medecine:[],
             dialogRequisition:false,
         }
     },
     methods: {
+        PATotal(){
+            let total =0;
+            for(let item in this.stocks){
+                total = total +(this.stocks[item].total_price)
+            } 
+            return total;
+        },
+        PVTotal(){
+            let total =0;
+            for(let item in this.stocks){
+                total = total +(this.stocks[item].medecine[0]?.price_medecine * this.stocks[item].actual_qty)
+            } 
+            return total;
+        },
         close(){
             this.dialogRequisition = false
         },
@@ -84,6 +114,7 @@ export default {
             .get(this.$store.state.url+'stock')
             .then((res)=>{
                 this.stocks = res.data
+                this.medecine = res.data
             })
             .catch((error)=>{
                 console.log(error)

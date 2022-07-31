@@ -18,6 +18,12 @@
                         <th colspan="2" >Actions</th>
                     </tr>
                 </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        td
+                    </tr>
+                </tbody>
             </table>
         </div> 
     </div>

@@ -7,7 +7,7 @@
      >
         <div class="container">
             <div class="top">
-        <div class="title">Sortir {{this.$store.state.stock.name_medecine}}</div>
+        <div class="title">Sortir {{this.$store.state.stock.medecine[0].name_medecine}}</div>
         <div class="titl"><button @click="close" >X</button></div>
         </div>
         <div class="content">
@@ -44,9 +44,9 @@ export default {
 
                 initial_qty_requi:0,
                 purchase_price:this.$store.state.stock.total_price,
-                sale_price:this.$store.state.stock.price_medecine,
+                sale_price:this.$store.state.stock.medecine[0]?.price_medecine,
                 id_stock:this.$store.state.stock.id_stock,
-                id_user:this.$store.state.stock.id,
+                id_user:this.$store.state.user.data.user.id,
             },
                 btn: 'Requisitionner'
         }
