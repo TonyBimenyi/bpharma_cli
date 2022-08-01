@@ -38,6 +38,7 @@
                         </thead>
                         <tbody>
                                <tr v-for="requi in requisitions" :key="requi.id_requi">
+                                    <!-- <input type="text" :value="requi.actual_qty_requi" v-model="form.k"> -->
                                     <td>{{requi.id_requi}}</td>
                                     <td>{{requi.medecine[0]?.name_medecine+' du '
                                         +datetime(requi.stock[0]?.created_at)}}</td>
@@ -51,7 +52,8 @@
                                     <td>{{requi.user[0]?.name}}</td>
                                     <td style="color:rgb(173, 173, 3);" v-if="requi.validate_by==0">En attente...</td>
                                     <td v-else>{{requi.validate_by}}</td>
-                                    <td ><button><i style="font-weight:700" class="fa-solid fa-check"></i></button></td>
+                                    <td ><button @click="addValidation(requi)
+                                    "><i style="font-weight:700" class="fa-solid fa-check"></i></button></td>
                                     <td ><button id="des"><i class="fa-solid fa-trash"></i></button></td>
                                </tr>
                         
@@ -75,10 +77,16 @@
 </template>
 <script>
 import axios from 'axios'
+import Swal from 'sweetalert2';
 export default {
     data() {
         return {
-            requisitions:''
+            
+            requisitions:[],
+            form:{
+            validate_user:this.$store.state.user.data.user.name,
+            validate_qty:this.$store.state.requisition.actual_qty_requi,
+            }
         }
     },
     methods: {
@@ -90,6 +98,46 @@ export default {
             })
             .catch((error)=>{
                 console.log(error)
+            })
+        },
+        addValidation(requi){
+            this.$store.state.requisition= requi;
+            axios
+            .post(this.$store.state.url+'validation/'+requi.id_requi,this.form)
+            .then((res)=>{
+              
+                 console.log(res["data"]["status"]);
+                this.form.validate_user=''
+                this.form.validate_qty=''
+                if(res["data"]["status"] == "error")
+             {
+               Swal.fire({
+                title: 'OPPS',
+                text:   "error",
+                icon: 'warning',      
+            });
+             }
+              else
+             {
+               Swal.fire({
+                title: 'Succes',
+                text:   "Requisition est valide",
+                icon: 'success',
+              
+            });
+            this.close()
+            this.getMedecines()
+             }
+              
+          })
+           .catch((e)=>{
+              console.log(e);
+               Swal.fire({
+              title: 'Hurry',
+              text:   e,
+              icon: 'warning',
+              
+            });
             })
         }
     },
