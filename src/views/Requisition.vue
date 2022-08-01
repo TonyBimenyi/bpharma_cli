@@ -52,7 +52,7 @@
                                     <td>{{requi.user[0]?.name}}</td>
                                     <td style="color:rgb(173, 173, 3);" v-if="requi.validate_by==0">En attente...</td>
                                     <td v-else>{{requi.validate_by}}</td>
-                                    <td ><button @click="addValidation(requi)
+                                    <td ><button v-if="requi.validate_by==0" @click="addValidation(requi)
                                     "><i style="font-weight:700" class="fa-solid fa-check"></i></button></td>
                                     <td ><button id="des"><i class="fa-solid fa-trash"></i></button></td>
                                </tr>
@@ -86,6 +86,7 @@ export default {
             form:{
             validate_user:this.$store.state.user.data.user.name,
             validate_qty:this.$store.state.requisition.actual_qty_requi,
+            id_medecine:this.$store.state.requisition.medecine[0].id_medecine,
             }
         }
     },
@@ -103,12 +104,13 @@ export default {
         addValidation(requi){
             this.$store.state.requisition= requi;
             axios
-            .post(this.$store.state.url+'validation/'+requi.id_requi,this.form)
+            .put(this.$store.state.url+'validateRequi/'+requi.id_requi,this.form)
             .then((res)=>{
               
                  console.log(res["data"]["status"]);
                 this.form.validate_user=''
                 this.form.validate_qty=''
+                this.form.id_medecine=''
                 if(res["data"]["status"] == "error")
              {
                Swal.fire({
@@ -125,8 +127,6 @@ export default {
                 icon: 'success',
               
             });
-            this.close()
-            this.getMedecines()
              }
               
           })
