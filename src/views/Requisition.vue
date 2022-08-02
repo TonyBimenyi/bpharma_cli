@@ -38,7 +38,6 @@
                         </thead>
                         <tbody>
                                <tr v-for="requi in requisitions" :key="requi.id_requi">
-                                    <!-- <input type="text" :value="requi.actual_qty_requi" v-model="form.k"> -->
                                     <td>{{requi.id_requi}}</td>
                                     <td>{{requi.medecine[0]?.name_medecine+' du '
                                         +datetime(requi.stock[0]?.created_at)}}</td>
@@ -60,11 +59,11 @@
                         
                                 <tr id="tot">
                                     <td>Total</td>
-                                    <td colspan="4"></td>
-                                   
+                                    <td colspan="3"></td>
+                                    <td>{{ money(PATotal()) }} Fbu</td>
                                     <td></td>
                                     <td></td>
-                                  
+                                    <td>{{ money(PVTotal()) }} Fbu</td>
                                     <td colspan="8"></td>
                                 </tr>
                         
@@ -72,7 +71,6 @@
                     </table>
                 </div> 
             </div>
-  <add-requisition @update="getStock" @close="close" :requisitionner="modifier"   v-if="dialogRequisition"></add-requisition>          
      </div>
 </template>
 <script>
@@ -81,16 +79,30 @@ import Swal from 'sweetalert2';
 export default {
     data() {
         return {
-            
             requisitions:[],
+
             form:{
-            validate_user:this.$store.state.user.data.user.name,
-            validate_qty:this.$store.state.requisition.actual_qty_requi,
-            id_medecine:this.$store.state.requisition.medecine[0].id_medecine,
+            validate_user:'',
+            validate_qty:'',
+            id_medecine:''
             }
         }
     },
     methods: {
+        PATotal(){
+            let total =0;
+            for(let item in this.requisitions){
+                total = total +(this.requisitions[item].purchase_price)
+            } 
+            return total;
+        },
+        PVTotal(){
+            let total =0;
+            for(let item in this.requisitions){
+                total = total +(this.requisitions[item].sale_price_requi * this.requisitions[item].actual_qty_requi)
+            } 
+            return total;
+        },
         getRequi(){
             axios
             .get(this.$store.state.url+'requisition')
@@ -102,15 +114,15 @@ export default {
             })
         },
         addValidation(requi){
+            this.form.validate_user=this.$store.state.user.data.user.name
+            this.form.validate_qty=requi.actual_qty_requi
+            this.form.id_medecine=requi.medecine[0]?.id_medecine
             this.$store.state.requisition= requi;
             axios
             .put(this.$store.state.url+'validateRequi/'+requi.id_requi,this.form)
             .then((res)=>{
               
                  console.log(res["data"]["status"]);
-                this.form.validate_user=''
-                this.form.validate_qty=''
-                this.form.id_medecine=''
                 if(res["data"]["status"] == "error")
              {
                Swal.fire({
@@ -127,6 +139,7 @@ export default {
                 icon: 'success',
               
             });
+            this.getRequi();
              }
               
           })
@@ -143,6 +156,7 @@ export default {
     },
     mounted() {
         this.getRequi()
+        // this.form.id_medecine='tony' 
     },
 }
 </script>

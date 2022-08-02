@@ -124,7 +124,7 @@
         <div class="profile_name">{{$store.state.user.data.user.name}}</div>
         <div class="job">{{$store.state.user.data.user.registered_as}}</div>
       </div>
-      <i class='bx bx-log-out' ></i>
+        <i  @click="logout()"  class='bx bx-log-out' ></i>
     </div>
   </li>
 </ul>
@@ -150,20 +150,27 @@
 
 export default {
     mounted(){
-        let arrow = document.querySelectorAll(".arrow");
-for (var i = 0; i < arrow.length; i++) {
-  arrow[i].addEventListener("click", (e)=>{
- let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
- arrowParent.classList.toggle("showMenu");
-  });
-}
-let sidebar = document.querySelector(".sidebar");
-let sidebarBtn = document.querySelector(".bx-menu");
-console.log(sidebarBtn);
-sidebarBtn.addEventListener("click", ()=>{
-  sidebar.classList.toggle("close");
-});
-    }
+                let arrow = document.querySelectorAll(".arrow");
+        for (var i = 0; i < arrow.length; i++) {
+          arrow[i].addEventListener("click", (e)=>{
+        let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+        arrowParent.classList.toggle("showMenu");
+          });
+        }
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".bx-menu");
+        console.log(sidebarBtn);
+        sidebarBtn.addEventListener("click", ()=>{
+          sidebar.classList.toggle("close");
+        });
+    },
+    methods: {
+      logout() {
+			localStorage.removeItem('user')
+			this.$store.state.user = null
+     this.$router.push('/login')
+		}
+    },
 }
 </script>
 <style src='../assets/css/navside.css' lang="" scoped>
