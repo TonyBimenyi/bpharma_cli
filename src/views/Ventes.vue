@@ -12,30 +12,96 @@ import axios from 'axios';
             </div>
         </div>
     </div>
-    <div class="product_list">
-        <div v-for="med in medecines" :key="med.id_medecine" class="product_card">
-            <div class="product_content">
-                <h3>{{med.name_medecine}}</h3>
-                <div class="sub_content">
-                    <div class="price">
-                        <p> <span>Prix:</span>{{money(med.price_medecine)+' Fbu'}}</p>
+    <div class="vente-content">
+        <div class="product_list">
+            <div v-for="med in medecines" :key="med.id_medecine" class="product_card">
+                <div class="product_content">
+                    <h5>{{med.name_medecine}}</h5>
+                    <div class="sub_content">
+                        <div class="price">
+                            <p> <span>Prix:</span>{{money(med.price_medecine)+' Fbu'}}</p>
+                        </div>
+                        <div class="qty">
+                            <p>Quantite:  <span>{{med.qty_stock}}</span> </p>
+                        </div>
                     </div>
-                    <div class="qty">
-                        <p>Quantite:  <span>{{med.qty_stock}}</span> </p>
+                    <div class="cart_btn">
+                        <div class="cart_qty">
+                            <input type="number" name="" value="">
+                        </div>
+                        <div class="add_btn">
+                            <button type="">Ajouter</button>
+                        </div>
                     </div>
                 </div>
-                <div class="cart_btn">
-                    <div class="cart_qty">
-                        <input type="number" name="" value="">
+        </div>
+    </div>   
+        <div class="cart">
+            <h5>Panier(5)</h5>
+            <div class="items-list">
+                <div class="items">
+                    <div class="text">
+                        <p>Item 1 <br> Prix:3000Fbu</p>
                     </div>
-                    <div class="add_btn">
-                        <button type="">Ajouter</button>
+                    <div class="buttons">
+                        <div class="decrement">
+                            -
+                        </div>
+                        <div class="number">
+                            <p>3</p>
+                        </div>
+                        <div class="increment">
+                            +
+                        </div>
+                    </div>
+                </div>
+
+                <div class="items">
+                    <div class="text">
+                        <p>Item 2 <br> Prix:3000Fbu</p>
+                    </div>
+                    <div class="buttons">
+                        <div class="decrement">
+                            -
+                        </div>
+                        <div class="number">
+                            <p>3</p>
+                        </div>
+                        <div class="increment">
+                            +
+                        </div>
+                    </div>
+                </div>
+
+                <div class="items">
+                    <div class="text">
+                        <p>Item 3 <br> Prix:5000Fbu</p>
+                    </div>
+                    <div class="buttons">
+                        <div class="decrement">
+                            -
+                        </div>
+                        <div class="number">
+                            <p>3</p>
+                        </div>
+                        <div class="increment">
+                            +
+                        </div>
+                    </div>
+                </div>
+                <div class="total-cart">
+                    <div class="montant">
+                        <div class="text">
+                            <p>Montant: </p>
+                        </div>
+                        <div class="input">
+                            <input type="text">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-    </div>   
+    </div>
 </div>
 </template>
 <script>
