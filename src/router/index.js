@@ -8,6 +8,7 @@ import Categories from '../views/Categories.vue'
 import Medicaments from '../views/Medicaments.vue'
 import Stock from '../views/Stock.vue'
 import Requisition from '../views/Requisition.vue'
+import Test from '../components/LionnelTest.vue'
 
 const routes = [
   { path: '/', name: 'home', component: HomeView },
@@ -19,7 +20,8 @@ const routes = [
   {path:'/categories',name:'categories',component:Categories},
   {path:'/medicaments',name:'medicaments',component:Medicaments},
   {path:'/stock',name:'stock',component:Stock},
-  {path:'/requisition',name:'requisition',component:Requisition}
+  {path:'/requisition',name:'requisition',component:Requisition},
+  {path:'/test',name:'test',component:Test}
 
 ]
 
