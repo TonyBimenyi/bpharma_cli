@@ -26,12 +26,18 @@ import axios from 'axios';
                         </div>
                     </div>
                     <div class="cart_btn">
+                        <div class="increment">
+                            <button>-</button>
+                        </div>
                         <div class="cart_qty">
                             <input type="number" v-model="cartadd.qty" name="" >
                         </div>
-                        <div class="add_btn">
-                            <button @click="addCart(med)" type="">Ajouter</button>
+                        <div class="increment">
+                            <button @click="addCart(med)">+</button>
                         </div>
+                        <!-- <div class="add_btn">
+                            <button @click="addCart(med)" type="">Ajouter</button>
+                        </div> -->
                     </div>
                 </div>
              </div>

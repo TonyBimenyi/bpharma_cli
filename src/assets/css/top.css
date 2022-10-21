@@ -76,6 +76,7 @@
 }
 .cart .items .buttons .decrement,.number,.increment{
     padding: 0px 3px;
+    height: 27px;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -84,6 +85,8 @@
     color: white;
     font-weight: 600;
     font-size: 12px;
+    height: 27px;
+    width: 35px;
     margin:4px 0px 5px 0px;
     border: none;
     padding: 2px 7px;
@@ -201,8 +204,9 @@
 .cart_qty input{
     width: 50px;
     border: 1px solid var(--primary);
-    height: 27px;
-    border-radius: 3px 0px 0px 3px;
+    height: 24px;
+    margin-top: 4px;
+    border-radius: 3px 3px 3px 3px;
 }
 .add_btn button{
     background-color: var(--primary);
