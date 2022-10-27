@@ -6,7 +6,7 @@
                 <input type="text" name="" value="" placeholder="rechercher">
             </div>
             <div class="cart_icon">
-                <i class="fa-solid fa-cart-shopping"></i><span>2</span>
+                <i class="fa-solid fa-cart-shopping"></i><span>{{carts.length}}</span>
             </div>
         </div>
     </div>
@@ -41,7 +41,7 @@
              </div>
         </div>   
         <div class="cart">
-            <h5>Panier()</h5>
+            <h5>Panier({{carts.length}})</h5>
             <div class="items-list">
                 <div class="items" v-for="(cart, n) in carts" :key="cart.id">
                     <div class="text">
@@ -65,25 +65,29 @@
 
                 <div class="total-cart">
                     <div class="total">
-                          <p style="text-align:center"> TOTAL: </p>
+                          <p style="text-align:center"> TOTAL: {{money(totalPrice())}} Fbu</p>
                     </div>
                     <div class="montant">
                         <div class="text">
                             <p>Montant: </p>
                         </div>
                         <div class="input">
-                            <input type="text">
+                            <input type="text" v-model="somme_retourner">
                         </div>
                         
                     </div>
                     <div class="retourne">
-                            <p style="text-align:center"> Somme a lui retourner: 3000Fbu</p>
-                          
+                            <div  v-if="ayasubizwa()<0">
+                                 <p style="text-align:center"> Somme a lui retourner: 0 </p>
+                             </div>
+                             <div  v-else>
+                                 <p style="text-align:center"> Somme a lui retourner: {{money(ayasubizwa())}}</p>
+                             </div>
 
                     </div>
                     <div class="checkout_buttons">
                         <div class="reset">
-                            <button @click="resetCart()">Actualiser</button>
+                            <button @click="resetCart(cart)">Actualiser</button>
                         </div>
                         <div class="pay">
                             <button>Payer</button>
@@ -140,10 +144,14 @@ export default {
             elements:[
             ],
             badge:0,
+            total : 0,
+            somme_retourner : '',
         }
     },
+   
     mounted(){
         this.getMedecines();
+        
         for(var i=0; i< 20; i++){
             this.elements.push({
                 id : i,
@@ -153,6 +161,21 @@ export default {
         }
     },
     methods:{
+        ayasubizwa(){
+            let reste;
+            reste = this.somme_retourner-this.totalPrice();
+            return reste;
+        },
+        totalPrice(){
+        //    this.total = this.carts.reduce((t,i)=>{
+        //     return t + this.quantite * i.price_medecine
+        //    },0)
+        let total = 0;
+        for(let i in this.carts){
+            total = total + (this.carts[i].quantite * this.carts[i].price_medecine)
+        }
+        return total;
+        },
         getMedecines(){
              axios
             .get(this.$store.state.url+'getMedecine')
@@ -163,11 +186,16 @@ export default {
                 console.log(error)
             })
         },
+        resetCart(e){
+
+            this.carts.splice(e)
+        },
         removeItem(e){
           
                     this.carts.splice(e,1)
           
         },
+        
         decrement(e){
             const index =  this.getIndexOfElement(e);
         if(index === 1){
@@ -179,6 +207,8 @@ export default {
               
             }
             this.carts.push(e);
+            this.totalPrice();
+            this.ayasubizwa();
         }else{
             if(this.quantite[index] ){
                 this.carts[index].quantite -= this.quantite[index] * 1;
