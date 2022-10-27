@@ -1,7 +1,5 @@
-import axios from 'axios';
 <template>
 <div>
-
     <div class="vente_container">
         <div class="top_part">
             <div class="search_box">
@@ -14,12 +12,12 @@ import axios from 'axios';
     </div>
     <div class="vente-content">
         <div class="product_list">
-            <div v-for="med in medecines" :key="med.id_medecine" class="product_card">
+            <div v-for="(med, m) in medecines" :key="med.id_medecine" class="product_card">
                 <div class="product_content">
                     <h5>{{med.name_medecine}}</h5>
                     <div class="sub_content">
                         <div class="price">
-                            <p> <span>Prix:</span>{{money(med.price_medecine)+' Fbu'}}</p>
+                            <p> <span>Prix:</span> {{money(med.price_medecine)+' Fbu'}}</p>
                         </div>
                         <div class="qty">
                             <p>Quantite:  <span>{{med.qty_stock}}</span> </p>
@@ -27,13 +25,13 @@ import axios from 'axios';
                     </div>
                     <div class="cart_btn">
                         <div class="increment">
-                            <button>-</button>
+                            <button :disabled="med.quantite==0 || med.quantite == 'null'" @click="decrement(med)">-</button>
                         </div>
                         <div class="cart_qty">
-                            <input type="number" v-model="cartadd.qty" name="" >
+                            <input type="number"  name="" >
                         </div>
                         <div class="increment">
-                            <button @click="addCart(med)">+</button>
+                            <button @click="addToCart(med)">+</button>
                         </div>
                         <!-- <div class="add_btn">
                             <button @click="addCart(med)" type="">Ajouter</button>
@@ -41,33 +39,33 @@ import axios from 'axios';
                     </div>
                 </div>
              </div>
-    </div>   
+        </div>   
         <div class="cart">
-            <h5>Panier({{ badge }})</h5>
+            <h5>Panier()</h5>
             <div class="items-list">
                 <div class="items" v-for="(cart, n) in carts" :key="cart.id">
                     <div class="text">
-                        <p>{{ cart.name }} <br> Prix: {{ money(cart.price)+ ' Fbu' }} </p>
+                        <p> {{ cart.name_medecine }}<br> Prix: {{ money(cart.price_medecine)+ ' Fbu' }}</p>
                     </div>
                     <div class="buttons">
                         <div class="decrement">
-                            <button>-</button>
+                            <button :disabled="cart.quantite==0"  @click="decrement(cart)">-</button>
                         </div>
                         <div class="number">
-                            <p>3</p>
+                            <p>{{cart.quantite}}</p>
                         </div>
                         <div class="increment">
-                            <button>+</button>
+                            <button @click="addToCart(cart)">+</button>
                         </div>
                     </div>
                     <div class="deletecart">
-                        <button @click="removeCart(n)"><i class="fa-solid fa-trash"></i></button>
+                        <button @click="removeItem(n)" ><i class="fa-solid fa-trash"></i></button>
                     </div>
                 </div>
 
                 <div class="total-cart">
                     <div class="total">
-                          <p style="text-align:center"> TOTAL: {{money(totalprice)+' Fbu'}}</p>
+                          <p style="text-align:center"> TOTAL: </p>
                     </div>
                     <div class="montant">
                         <div class="text">
@@ -97,29 +95,64 @@ import axios from 'axios';
         </div>
     </div>
 </div>
+
+    <div>
+
+        {{ quantite }}
+
+        <div>
+            <div v-for="(element ,x ) in carts" :key="x" >
+                <p>{{element}}</p>
+            </div>
+
+         </div>
+
+         <button @click="sendData">SUBMIT DATA</button>
+
+        <div class="challenge">
+
+            <div  v-for="(med, m) in medecines" :key="med.id_medecine" >
+                <h6 class="title_el">
+                    <span>{{ med.name_medecine }}</span>
+                     <small> Qte : {{   med.quantite }}</small>
+                </h6>
+                <input v-model="quantite[m]" />
+                <div class="title_el">
+                    <button @click="addToCart(med)"> + </button>
+                    <button> - </button>
+                </div>
+            </div>
+        
+        </div>
+    </div>
 </template>
+
 <script>
 import axios from 'axios'
 export default {
-    data() {
-        return {
-            medecines:[],
-            requisitions:[],
+    
+    data(){
+        return{
+
             carts:[],
-            cartsElement : [],
-            cartadd:{
-                id:'',
-                name:'',
-                price:'',
-                amount:'',
-                qty:''
-            },
+            medecines:[],
+            quantite: [],
+            elements:[
+            ],
             badge:0,
-            quantity:1,
-            totalprice:0
         }
     },
-    methods: {
+    mounted(){
+        this.getMedecines();
+        for(var i=0; i< 20; i++){
+            this.elements.push({
+                id : i,
+                name : "element_" + i, 
+                quantite : Math.ceil(Math.random() * 20 ) 
+            })
+        }
+    },
+    methods:{
         getMedecines(){
              axios
             .get(this.$store.state.url+'getMedecine')
@@ -130,67 +163,78 @@ export default {
                 console.log(error)
             })
         },
-         getRequi(){
-            axios
-            .get(this.$store.state.url+'requisition')
-            .then((res)=>{
-                this.requisitions=res.data
-            })
-            .catch((error)=>{
-                console.log(error)
-            })
+        removeItem(e){
+          
+                    this.carts.splice(e,1)
+          
         },
-        viewCart(){
-            if(localStorage.getItem('carts')){
-                this.carts = JSON.parse(localStorage.getItem('carts')),
-                this.badge = this.carts.length;
-                this.totalprice = this.carts.reduce((total, item)=>{
-                    return total + this.quantity * item.price
-                },0)
+        decrement(e){
+            const index =  this.getIndexOfElement(e);
+        if(index === 1){
+
+            if(this.quantite[index] ){
+                 e.quantite = this.quantite[index];
+            }else{
+                e.quantite = 0
+              
             }
+            this.carts.push(e);
+        }else{
+            if(this.quantite[index] ){
+                this.carts[index].quantite -= this.quantite[index] * 1;
+            }else{
+                this.carts[index].quantite -= 1 * 1;
+            }
+             
+        }
         },
-        addCart(med){
-            this.cartadd.id = med.id_medecine;
-            this.cartadd.name = med.name_medecine;
-            this.cartadd.price = med.price_medecine;
-            this.carts.push(this.cartadd);
-            this.cartadd = {};
-            this.storeCart();
-        },
-        removeCart(med){
-            this.carts.splice(med,1)
-            this.storeCart()
-        },
-        resetCart(){
-           localStorage.removeItem('carts');
-           this.carts = JSON.parse(localStorage.getItem('carts'));
-           this.badge = 0;
-           this.totalprice=0;
-        },
-        storeCart(){
-            let parsed = JSON.stringify(this.carts);
-            localStorage.setItem('carts',parsed)
-            this.viewCart();
+        addToCart(e){
+        const index =  this.getIndexOfElement(e);
+        if(index === -1){
+
+            if(this.quantite[index] ){
+                 e.quantite = this.quantite[index];
+            }else{
+                e.quantite = 1
+            }
+            this.carts.push(e);
+        }else{
+            if(this.quantite[index] ){
+                this.carts[index].quantite += this.quantite[index] * 1;
+            }else{
+                this.carts[index].quantite += 1 * 1;
+            }
+             
         }
 
-    },
-     mounted(){
-        this.getMedecines();
-        this.getRequi(),
-        this.details = JSON.parse(localStorage.getItem("details"));
-    },
+        }
+         ,
+        getIndexOfElement(med){
+            
+            for(let i=0; i < this.carts.length ; i++){
+                if(this.carts[i].id_medecine === med.id_medecine){
+                    return i;
+                }
+            }
 
-    created(){
-        //   this.viewProduct(),
-          this.viewCart()
-        },
-    computed:{
-        count(){
-            return this.$store.state.cartItemCount;
+            return -1;
         }
     }
 }
 </script>
+
 <style src='../assets/css/top.css' lang="" scoped>
-    
+.challenge{
+
+        display: flex;
+        justify-content: space-around;
+       flex-wrap: wrap;
+      
+}
+
+.title_el{
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
 </style>
