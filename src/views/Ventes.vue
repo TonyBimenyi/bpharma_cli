@@ -143,15 +143,18 @@
 <script>
 import axios from 'axios'
 import checkoutModal from '../components/checkout.vue'
+
 export default {
     components:{
         checkoutModal,
+        
     },
     
     data(){
         return{
 
             dialog:false,
+            details:false,
             carts:[],
             medecines:[],
             quantite: [],
