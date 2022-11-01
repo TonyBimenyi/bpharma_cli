@@ -3,10 +3,15 @@
     <div class="vente_container">
         <div class="top_part">
             <div class="search_box">
-                <input type="text" name="" value="" placeholder="rechercher">
+                <input type="text" name="" v-model="search"  placeholder="rechercher">
             </div>
+            <router-link to="/histoventes"> 
+            <div class="hist">
+                 <span>HISTORIQUE DES VENTES</span> 
+            </div>
+              </router-link> 
             <div class="cart_icon">
-                <i class="fa-solid fa-cart-shopping"></i><span>{{carts.length}}</span>
+              <i class="fa-solid fa-cart-shopping"></i><span>{{carts.length}}</span>
             </div>
         </div>
     </div>
@@ -14,13 +19,16 @@
         <div class="product_list">
             <div v-for="(med, m) in medecines" :key="med.id_medecine" class="product_card">
                 <div class="product_content">
-                    <h5>{{med.name_medecine}}</h5>
+                    <h5>{{med.medecine[0]?.name_medecine}}</h5>
                     <div class="sub_content">
                         <div class="price">
-                            <p> <span>Prix:</span> {{money(med.price_medecine)+' Fbu'}}</p>
+                            <p> <span>Prix:</span> {{money(med.medecine[0]?.price_medecine)+' Fbu'}}</p>
+                        </div>
+                        <div class="price">
+                            <p><small>Lot N°{{med.id_requi}} </small> </p>
                         </div>
                         <div class="qty">
-                            <p>Quantite:  <span>{{med.qty_stock}}</span> </p>
+                            <p>Quantite:  <span>{{med.actual_qty_requi}}</span> </p>
                         </div>
                     </div>
                     <div class="cart_btn">
@@ -31,7 +39,7 @@
                             <input type="number"  name="" >
                         </div>
                         <div class="increment">
-                            <button @click="addToCart(med)">+</button>
+                            <button  @click="addToCart(med)">+</button> 
                         </div>
                         <!-- <div class="add_btn">
                             <button @click="addCart(med)" type="">Ajouter</button>
@@ -45,7 +53,7 @@
             <div class="items-list">
                 <div class="items" v-for="(cart, n) in carts" :key="cart.id">
                     <div class="text">
-                        <p> {{ cart.name_medecine }}<br> Prix: {{ money(cart.price_medecine)+ ' Fbu' }}</p>
+                        <p> {{ cart.name_medecine }}<br> Prix: {{ money(cart.price_medecine)+ ' Fbu' }} <small> <br> Lot N°{{cart.id_requi}} </small></p>
                     </div>
                     <div class="buttons">
                         <div class="decrement">
@@ -90,7 +98,7 @@
                             <button @click="resetCart(cart)">Actualiser</button>
                         </div>
                         <div class="pay">
-                            <button>Payer</button>
+                            <button @click="dialog=true;checkout()">Payer</button>
                         </div>
                     </div>
 
@@ -128,16 +136,22 @@
             </div>
         
         </div>
+        <checkout-modal  @close="close" v-if="dialog"></checkout-modal>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import checkoutModal from '../components/checkout.vue'
 export default {
+    components:{
+        checkoutModal,
+    },
     
     data(){
         return{
 
+            dialog:false,
             carts:[],
             medecines:[],
             quantite: [],
@@ -146,6 +160,14 @@ export default {
             badge:0,
             total : 0,
             somme_retourner : '',
+            search:'',
+        }
+    },
+    computed:{
+        filteredMedecines:function(){
+            return this.medecines.filter((med)=>{
+                return med.name_medecine.match(this.search);
+            })
         }
     },
    
@@ -161,6 +183,13 @@ export default {
         }
     },
     methods:{
+        checkout(){
+            this.$store.state.carts = this.carts; 
+            
+        },
+        close(){
+            this.dialog = false
+        },
         ayasubizwa(){
             let reste;
             reste = this.somme_retourner-this.totalPrice();
@@ -178,7 +207,7 @@ export default {
         },
         getMedecines(){
              axios
-            .get(this.$store.state.url+'getMedecine')
+            .get(this.$store.state.url+'requisition')
             .then((res)=>{
                 this.medecines = res.data
             })
@@ -242,7 +271,7 @@ export default {
         getIndexOfElement(med){
             
             for(let i=0; i < this.carts.length ; i++){
-                if(this.carts[i].id_medecine === med.id_medecine){
+                if(this.carts[i].id_requi === med.id_requi){
                     return i;
                 }
             }

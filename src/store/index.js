@@ -13,7 +13,8 @@ export default createStore({
       {id:3,name:'fruit',price:300,url:'fruit',desc:'Verry Tasty',rate:2.1},
     ],
     cartItemCount:0,
-    cartItems:[]
+    cartItems:[],
+    carts:[]
   },
   getters: {
    
