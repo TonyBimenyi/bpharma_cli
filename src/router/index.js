@@ -10,6 +10,7 @@ import Stock from '../views/Stock.vue'
 import Requisition from '../views/Requisition.vue'
 import Test from '../components/LionnelTest.vue'
 import HistoVentes from '../views/HistoVentes.vue'
+import Stats from '../views/Stats.vue'
 
 const routes = [
   { path: '/', name: 'home', component: HomeView },
@@ -23,7 +24,8 @@ const routes = [
   {path:'/stock',name:'stock',component:Stock},
   {path:'/requisition',name:'requisition',component:Requisition},
   {path:'/test',name:'test',component:Test},
-  {path:'/histoventes',name:'histoventes',component:HistoVentes}
+  {path:'/histoventes',name:'histoventes',component:HistoVentes},
+  {path:'/stats',name:'stats',component:Stats}
 
 ]
 

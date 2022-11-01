@@ -13,7 +13,7 @@
                    </div>
                </div>
                <div class="add_btn">
-                   <p >Stock Rompu</p>
+                   <p >Les plus vendus</p>
                <!-- <button @click="dialog=true;modifier=false" type=""><i class="fa-solid fa-plus add_new"></i> Ajouter un Medicament</button> -->
                </div>
 
@@ -23,28 +23,23 @@
                    <table>
                        <thead>
                            <tr cell>
-                                   <th>#ID</th>
-                                   <th>Client</th>
-                                   <th>Client</th>
-                                   <th>Montant_Total</th>
-                                   <th>Montant Paye</th>
-                                   <th>Reste</th>
-                                   <th>User</th>
-                                   <th>Date</th>
-                                  <th>Options</th>
+                                   <th>Medicament</th>
+                                   <th>Nombre des ventes</th>
+                                   <th>Quantites Total</th>
+                                   <th>Prix de Vente</th>
+                                   <th>Prix d'achat</th>
+                                   <th>Benefice</th>
+                                  
                            </tr>
                        </thead>
                        <tbody>
-                              <tr v-for="order in orders " :key="order.id_order">
-                                  <td>{{order.id_order}}</td>
-                                  <td>Commande du {{datetime(order.created_at)}}</td>
-                                  <td>{{order.nom_client}}</td>
-                                  <td>{{money(order.montant_total)}} Fbu</td>
-                                  <td>{{money(order.montant_paye)}} Fbu</td>
-                                  <td>{{money(order.montant_paye-order.montant_total)}} Fbu</td>
-                                  <td>{{order.user[0]?.name}}</td>
-                                  <td>{{datetime(order.created_at)}}</td>
-                                  <td ><button @click="details=true;getDetails()" ><p>Details</p></button></td>
+                              <tr v-for="sta in stats" :key="sta.id_medecine">
+                                 <td>{{sta.name_medecine}}</td>
+                                  <td>{{sta.nbre_des_fois}}</td>
+                                  <td>{{sta.qty}}</td>
+                                  <td>{{money(sta.prix_vente)}} Fbu</td>
+                                  <td>{{money(sta.prix_achat)}} Fbu</td>
+                                  <td>{{(sta.prix_vente-sta.prix_achat)}} Fbu</td>
                               </tr>
                        
                        
@@ -66,41 +61,33 @@
     </div>
 </template>
 <script>
-import venteDetails from '../components/venteDetails.vue'
+
 import axios from 'axios'
-import Swal from 'sweetalert2';
+
 export default {
     components:{
-        venteDetails,
+       
     },
    data() {
        return {
-           order_details:[],
-          details:false,
-          orders:[]
+        stats:[],
        }
    },
    methods: {
-      getOrders(){
+         getStats(){
         axios
-            .get(this.$store.state.url+'orders')
+            .get(this.$store.state.url+'stats')
             .then((res)=>{
-                this.orders = res.data
+                this.stats = res.data
             })
             .catch((error)=>{
                 console.log(error)
             })
-      },
-      getDetails(){
-          this.$store.state.orders = this.oders;
-      },
-      close(){
-            this.details = false
-        },
+      },    
    },
    mounted() {
-    this.getOrders();
-     
+   
+     this.getStats()
    },
 }
 </script>

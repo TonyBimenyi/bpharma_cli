@@ -76,16 +76,7 @@
         </ul>
       </li>
       </router-link>
-      <router-link to="/perte"><li>
-        <a href="#">
-         <i class="fa-solid fa-user"></i>
-          <span class="link_name">Utilisateurs</span>
-        </a>
-        <ul class="sub-menu blank">
-          <router-link to="/medicaments"><li><a class="link_name" href="#">Stock</a></li></router-link>
-        </ul>
-      </li>
-      </router-link>
+     
       <!-- <li>
         <div class="iocn-link">
           <a href="#">
@@ -116,6 +107,8 @@
           <li><a href="#">Box Icons</a></li>
         </ul>
       </li> -->
+      
+      
       <li>
         <a href="#">
           <i class='bx bx-compass' ></i>
@@ -125,6 +118,7 @@
           <li><a class="link_name" href="#">Explore</a></li>
         </ul>
       </li>
+      
       <li>
     <div class="profile-details">
       <div class="profile-content">
