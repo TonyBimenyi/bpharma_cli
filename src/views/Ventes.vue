@@ -39,7 +39,7 @@
                             <input type="number"  name="" >
                         </div>
                         <div class="increment">
-                            <button  @click="addToCart(med)">+</button> 
+                            <button :disabled="med.quantite>=med.actual_qty_requi" @click="addToCart(med)">+</button> 
                         </div>
                         <!-- <div class="add_btn">
                             <button @click="addCart(med)" type="">Ajouter</button>
@@ -63,7 +63,7 @@
                             <p>{{cart.quantite}}</p>
                         </div>
                         <div class="increment">
-                            <button @click="addToCart(cart)">+</button>
+                            <button :disabled="cart.quantite>=cart.actual_qty_requi" @click="addToCart(cart)">+</button>
                         </div>
                     </div>
                     <div class="deletecart">
@@ -75,7 +75,7 @@
                     <div class="total">
                           <p style="text-align:center"> TOTAL: {{money(totalPrice())}} Fbu</p>
                     </div>
-                    <div class="montant">
+                    <!-- <div class="montant">
                         <div class="text">
                             <p>Montant: </p>
                         </div>
@@ -83,8 +83,8 @@
                             <input type="text" v-model="somme_retourner">
                         </div>
                         
-                    </div>
-                    <div class="retourne">
+                    </div> -->
+                    <!-- <div class="retourne">
                             <div  v-if="ayasubizwa()<0">
                                  <p style="text-align:center"> Somme a lui retourner: 0 </p>
                              </div>
@@ -92,7 +92,7 @@
                                  <p style="text-align:center"> Somme a lui retourner: {{money(ayasubizwa())}}</p>
                              </div>
 
-                    </div>
+                    </div> -->
                     <div class="checkout_buttons">
                         <div class="reset">
                             <button @click="resetCart(cart)">Actualiser</button>
