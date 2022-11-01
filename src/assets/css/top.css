@@ -183,10 +183,11 @@
 
 .product_list{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start  ;
     flex-wrap: wrap;
-    background-color: white;
+    background-color: #ffffff;
     margin-left: 15px;
+    
     margin-top: 20px;
     margin-right: 15px;
     padding:10px 10px;
@@ -205,6 +206,8 @@
     border-radius: 10px;
     margin: 10px 10px;
     width: 18%;
+    height: 130px;
+    margin-left: 10px;
 }
 .product_card h3{
     font-size: 15px;
