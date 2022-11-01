@@ -17,9 +17,9 @@
     </div>
     <div class="vente-content">
         <div class="product_list">
-            <div v-for="(med, m) in medecines" :key="med.id_medecine" class="product_card">
+            <div v-for="(med, m) in filteredMedecines" :key="med.id_medecine" class="product_card">
                 <div class="product_content">
-                    <h5>{{med.medecine[0]?.name_medecine}}</h5>
+                    <h5>{{med.medecine[0]?.name_medecine }}</h5>
                     <div class="sub_content">
                         <div class="price">
                             <p> <span>Prix:</span> {{money(med.medecine[0]?.price_medecine)+' Fbu'}}</p>
@@ -39,7 +39,7 @@
                             <input type="number"  name="" >
                         </div>
                         <div class="increment">
-                            <button :disabled="med.quantite>=med.actual_qty_requi" @click="addToCart(med)">+</button> 
+                            <button :disabled="med.quantite>=med.actual_qty_requi"  @click="addToCart(med)">+</button> 
                         </div>
                         <!-- <div class="add_btn">
                             <button @click="addCart(med)" type="">Ajouter</button>
@@ -143,7 +143,7 @@
 <script>
 import axios from 'axios'
 import checkoutModal from '../components/checkout.vue'
-
+import Swal from 'sweetalert2'
 export default {
     components:{
         checkoutModal,
@@ -230,25 +230,31 @@ export default {
         
         decrement(e){
             const index =  this.getIndexOfElement(e);
-        if(index === 1){
+        if(index === 1 ){
 
-            if(this.quantite[index] ){
+            if(this.quantite[index]){
+                
                  e.quantite = this.quantite[index];
             }else{
                 e.quantite = 0
               
             }
-            this.carts.push(e);
+           
             this.totalPrice();
             this.ayasubizwa();
         }else{
             if(this.quantite[index] ){
                 this.carts[index].quantite -= this.quantite[index] * 1;
+                
             }else{
                 this.carts[index].quantite -= 1 * 1;
+               
             }
+            
              
         }
+           
+        
         },
         addToCart(e){
         const index =  this.getIndexOfElement(e);
@@ -259,22 +265,36 @@ export default {
             }else{
                 e.quantite = 1
             }
+            
             this.carts.push(e);
         }else{
-            if(this.quantite[index] ){
+            if(this.quantite[index]){
+              
                 this.carts[index].quantite += this.quantite[index] * 1;
+                  
             }else{
-                this.carts[index].quantite += 1 * 1;
+                this.carts[index].quantite += 1 * 1;         
             }
-             
-        }
-
+           
+                 if(this.carts[index].quantite==e.actual_qty_requi){
+                this.carts[index].quantite += 1 * 0;  
+                
+                 Swal.fire({
+                title: 'Attention',
+                text:   "On ne peut pas depasser la quantite disponible",
+                icon: 'warning',
+                 });
+                 }
+        
+            
+                                
+        }        
         }
          ,
         getIndexOfElement(med){
             
             for(let i=0; i < this.carts.length ; i++){
-                if(this.carts[i].id_requi === med.id_requi){
+                if(this.carts[i].id_requi == med.id_requi){
                     return i;
                 }
             }

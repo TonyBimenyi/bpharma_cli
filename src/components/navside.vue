@@ -108,7 +108,7 @@
         </ul>
       </li> -->
       
-      
+      <router-link to="/stats">
       <li>
         <a href="#">
           <i class='bx bx-compass' ></i>
@@ -118,7 +118,7 @@
           <li><a class="link_name" href="#">Explore</a></li>
         </ul>
       </li>
-      
+      </router-link>
       <li>
     <div class="profile-details">
       <div class="profile-content">
