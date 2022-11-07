@@ -24,17 +24,11 @@
                 </div>
 
                 <div class="input-box">
-                <h5>Montant Total du Commande: {{money(totalPrice())}} Fbu</h5>
+                <h5>Montant Total du Commande: Fbu</h5>
                 </div>
 
                 <div class="input-box">
-                    <div  v-if="ayasubizwa()<0">
-                        <h5>Reste: 0</h5>
-                    </div>
-                     <div  v-else>
-                        <h5>Reste: {{money(ayasubizwa())}} Fbu</h5>
-                     </div>
-               
+                   
                 </div>
 
                 
@@ -46,7 +40,7 @@
             </div>
             <div class="button">
         
-                <input @click="addOrder()" type="submit" value="Valider le paiement">
+                <input @click="" type="submit" value="Valider le paiement">
             </div>
             </div>
         </div>
@@ -147,8 +141,7 @@ export default {
         
     },
     mounted() {
-        this.totalPrice();
-        this.ayasubizwa();
+       
         this.getMedecines();
      
     },
