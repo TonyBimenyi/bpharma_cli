@@ -53,7 +53,7 @@
                                     <td v-else>{{requi.validate_by}}</td>
                                     <td ><button v-if="requi.validate_by==0" @click="addValidation(requi)
                                     "><i style="font-weight:700" class="fa-solid fa-check"></i></button></td>
-                                    <td ><button id="des" @click="dialogPerte=true"><i class="fa-solid fa-trash"></i></button></td>
+                                    <td ><button id="des" @click="dialogPerte=true;addPerte(requi)"><i class="fa-solid fa-trash"></i></button></td>
                                </tr>
                         
                         
@@ -71,7 +71,7 @@
                     </table>
                 </div> 
             </div>
-            <add-perte @close="close" v-if="dialogPerte"></add-perte>
+            <add-perte @close="close" :addPerte="modifier" v-if="dialogPerte"></add-perte>
      </div>
 </template>
 <script>
@@ -95,6 +95,9 @@ export default {
         }
     },
     methods: {
+        addPerte(requi){
+            this.$store.state.perte = requi;
+        },  
         close(){
             this.dialogPerte = false;
         },
