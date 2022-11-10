@@ -48,7 +48,8 @@ export default {
                 id_requi:this.$store.state.perte.id_requi,
                 id_stock:this.$store.state.perte.id_stock,
                 id_user:this.$store.state.user.data.user.id,
-                id_medecine:this.$store.state.perte.id_medecine
+                id_medecine:this.$store.state.perte.id_medecine,
+                name_medecine: this.$store.state.perte.name_medecine,
             },
             btn: 'Requisitionner'
         }
@@ -59,7 +60,7 @@ export default {
         },
         addPerte(){
             axios
-            .post(this.$store.state.url+'addPerte/'+this.$store.state.stock.id_requi,this.form)
+            .post(this.$store.state.url+'addPerte/'+this.$store.state.perte.id_requi,this.form)
             .then((res)=>{
                 this.$store.state.stock = res.data
                 console.log(res["data"]["status"]);
