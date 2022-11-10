@@ -49,9 +49,9 @@ export default {
                 id_stock:this.$store.state.perte.id_stock,
                 id_user:this.$store.state.user.data.user.id,
                 id_medecine:this.$store.state.perte.id_medecine,
-                name_medecine: this.$store.state.perte.name_medecine,
+
             },
-            btn: 'Requisitionner'
+            btn: 'Ajouter'
         }
     },
     methods:{

@@ -11,6 +11,7 @@ import Requisition from '../views/Requisition.vue'
 import Test from '../components/LionnelTest.vue'
 import HistoVentes from '../views/HistoVentes.vue'
 import Stats from '../views/Stats.vue'
+import Pertes from '../views/Pertes.vue'
 
 const routes = [
   { path: '/', name: 'home', component: HomeView },
@@ -25,7 +26,8 @@ const routes = [
   {path:'/requisition',name:'requisition',component:Requisition},
   {path:'/test',name:'test',component:Test},
   {path:'/histoventes',name:'histoventes',component:HistoVentes},
-  {path:'/stats',name:'stats',component:Stats}
+  {path:'/stats',name:'stats',component:Stats},
+  {path:'/perte',name:'pertes',component:Pertes},
 
 ]
 

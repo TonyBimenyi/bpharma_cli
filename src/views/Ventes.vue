@@ -211,7 +211,7 @@ export default {
         },
         getMedecines(){
              axios
-            .get(this.$store.state.url+'requisition')
+            .get(this.$store.state.url+'requisitionVentes')
             .then((res)=>{
                 this.medecines = res.data
             })

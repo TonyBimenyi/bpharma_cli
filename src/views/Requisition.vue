@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="add_btn">
-                    <p >Stock Rompu</p>
+                    <p >MEDICAMENTS EXPIRES</p>
                 <!-- <button @click="dialog=true;modifier=false" type=""><i class="fa-solid fa-plus add_new"></i> Ajouter un Medicament</button> -->
                 </div>
 
@@ -71,7 +71,7 @@
                     </table>
                 </div> 
             </div>
-            <add-perte @close="close" :addPerte="modifier" v-if="dialogPerte"></add-perte>
+            <add-perte @close="close"  v-if="dialogPerte"></add-perte>
      </div>
 </template>
 <script>
