@@ -11,6 +11,9 @@
                    <div class="search">
                         <input  type="text" name="" value="" placeholder="rechercher">
                    </div>
+                   <div class="search-btn">
+                        <button id="search" ><i class="fa-solid fa-search"></i></button>
+                    </div>
                </div>
                <div class="add_btn">
                    <p >Les plus vendus</p>

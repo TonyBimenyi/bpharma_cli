@@ -11,6 +11,9 @@
                     <div class="search">
                          <input  type="text" name="" value="" placeholder="rechercher">
                     </div>
+                    <div class="search-btn">
+                        <button id="search" ><i class="fa-solid fa-search"></i></button>
+                    </div>
                 </div>
                 <div class="add_btn">
                     <p >MEDICAMENTS EXPIRES</p>
@@ -53,7 +56,9 @@
                                     <td v-else>{{requi.validate_by}}</td>
                                     <td ><button v-if="requi.validate_by==0" @click="addValidation(requi)
                                     "><i style="font-weight:700" class="fa-solid fa-check"></i></button></td>
-                                    <td ><button id="des" @click="dialogPerte=true;addPerte(requi)"><i class="fa-solid fa-trash"></i></button></td>
+
+                                    <td v-if="requi.validate_by!=0"><button id="des" @click="dialogPerte=true;addPerte(requi)"><i class="fa-solid fa-trash"></i></button></td>
+                                    <td v-else><button id="des" @click="deleteRequi(requi)">Delete</button></td>
                                </tr>
                         
                         
@@ -91,10 +96,14 @@ export default {
             validate_qty:'',
             id_medecine:''
             },
+            delete:{
+            qty:'',
+            },
             dialogPerte:false,
         }
     },
     methods: {
+       
         addPerte(requi){
             this.$store.state.perte = requi;
         },  
@@ -125,6 +134,45 @@ export default {
                 console.log(error)
             })
         },
+        deleteRequi(requi){
+            this.form.qty = requi.actual_qty_requi
+            axios
+            .post(this.$store.state.url+'deleteRequi/'+requi.id_requi,this.form)
+            .then((res)=>{
+              
+              console.log(res["data"]["status"]);
+             if(res["data"]["status"] == "error")
+          {
+            Swal.fire({
+             title: 'OPPS',
+             text:   "error",
+             icon: 'warning',      
+         });
+          }
+           else
+          {
+            Swal.fire({
+             title: 'Succes',
+             text:   "Requisition est Supprime",
+             icon: 'success',
+           
+         });
+         this.getRequi();
+          }
+           
+       })
+        .catch((e)=>{
+           console.log(e);
+            Swal.fire({
+           title: 'Hurry',
+           text:   e,
+           icon: 'warning',
+           
+         });
+         })
+
+            }
+        },  
         addValidation(requi){
             this.form.validate_user=this.$store.state.user.data.user.name
             this.form.validate_qty=requi.actual_qty_requi
@@ -164,8 +212,7 @@ export default {
               
             });
             })
-        }
-    },
+        },
     mounted() {
         this.getRequi()
         // this.form.id_medecine='tony' 
