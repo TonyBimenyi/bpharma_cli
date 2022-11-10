@@ -53,7 +53,7 @@
                                     <td v-else>{{requi.validate_by}}</td>
                                     <td ><button v-if="requi.validate_by==0" @click="addValidation(requi)
                                     "><i style="font-weight:700" class="fa-solid fa-check"></i></button></td>
-                                    <td ><button id="des"><i class="fa-solid fa-trash"></i></button></td>
+                                    <td ><button id="des" @click="dialogPerte=true"><i class="fa-solid fa-trash"></i></button></td>
                                </tr>
                         
                         
@@ -71,12 +71,17 @@
                     </table>
                 </div> 
             </div>
+            <add-perte @close="close" v-if="dialogPerte"></add-perte>
      </div>
 </template>
 <script>
 import axios from 'axios'
 import Swal from 'sweetalert2';
+import addPerte from '../components/addPerte.vue'
 export default {
+    components:{
+        addPerte
+    },
     data() {
         return {
             requisitions:[],
