@@ -92,7 +92,7 @@ export default {
             })
       },
       getDetails(){
-          this.$store.state.orders = this.oders;
+          this.$store.state.orders = this.orders;
       },
       close(){
             this.details = false

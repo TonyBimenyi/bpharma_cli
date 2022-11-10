@@ -1,4 +1,14 @@
- 
+@media print{
+  .container{
+    display: none;
+    background: none;
+  }
+  .addMedecine{
+    display: none;
+   
+  }
+}
+
 .addMedecine{
     height: 100vh;
     display: flex;
@@ -174,5 +184,177 @@
     .container .content .category{
       flex-direction: column;
     }
+ 
   }
-  
+
+
+
+
+
+
+
+.logo{
+    font-size: 8px;
+    margin-top: 10px;
+}
+.divider{
+    height: 10px;
+    width: 100%;
+    background-color: black;
+    
+}
+.invoice_pres{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+.ese h2{
+    font-size: 15px;
+}
+.ese p{
+    font-size: 12px;
+}
+.invoce_details p{
+    font-size: 12px;
+}
+.montant p{
+    font-size: 12px;
+}
+.phone,.addresse,.email  p{
+    font-size: 9px;
+}
+.subtotal{
+    font-size: 12px;
+}
+.totalOG p{
+    font-size: 14px;
+}
+.total_part{
+    display: flex;
+    justify-content: space-between;
+}
+.totalOG{
+    background-color: black;
+    color: white;
+    padding: 1px 15px;
+}
+.divider2{
+    height: 5px;
+    width: 100%;
+    background-color: black;
+    
+}
+.contact{
+    display: flex;
+    justify-content: space-between;
+}
+.divider3{
+    height: 1px;
+    width: 80%;
+    display: flex;
+    margin: 0 auto;
+    background-color: black;
+    
+}
+.merci p{
+    text-align: center;
+    font-size: 8px;
+}
+
+
+table{
+    margin: 0 auto;
+    width: 100%;
+    max-height: 80%;
+    scrollbar-color: var(--primary);
+    border-collapse: collapse;
+    border-radius: 10px;
+}
+.table{
+    max-height: 455px;
+    border: 2px solid black;
+    border-radius: 10px;
+ 
+   
+}
+::-webkit-scrollbar-thumb{
+    background-color: var(--primary);
+}
+thead{
+    position: sticky;
+    top: 0;
+    border-radius: 10px;
+}
+thead tr{
+    border-radius: 10px;
+}
+tr th{
+    padding: 8px 05px;
+    background-color: black;
+    /* border-radius: 5px; */
+    color: white;
+    font-size: 12px;
+    font-weight: normal;
+    margin: 0px 5px;
+}
+
+tr td{
+    text-align: center;
+    font-size: 12px;
+    padding: 2px 0px;
+    font-size: 12px;
+}
+tr td button{
+    background-color: var(--primary);
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    font-weight: 500;
+    font-size: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+tr td button:hover{
+    background-color: var(--active);
+    transition: .3s;
+    border-radius: 0px;
+}
+tr td span{
+    color: green;
+    font-weight: 600;
+}
+tr td #ina{
+    color: rgb(249, 56, 56);;
+}
+tr td #des{
+    background-color: rgb(249, 56, 56);
+    padding: 05px 10px;
+    font-size: 11px;
+}
+tr td #act{
+    background-color: rgb(7, 111, 11);
+    padding: 1px 10px;
+    font-size: 12px;
+}
+tr #des_td{
+    color: var(--grey);
+}
+table tbody tr{
+    border-bottom: 1px solid var(--primary);
+}
+tr:nth-child(even){
+    background: rgb(241, 241, 241);
+
+}
+
+
+
+
+
+
+
+
+
+

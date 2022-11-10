@@ -85,10 +85,14 @@ export default {
             validate_user:'',
             validate_qty:'',
             id_medecine:''
-            }
+            },
+            dialogPerte:false,
         }
     },
     methods: {
+        close(){
+            this.dialogPerte = false;
+        },
         PATotal(){
             let total =0;
             for(let item in this.requisitions){

@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="v_container">
     <div class="vente_container">
         <div class="top_part">
             <div class="search_box">
@@ -108,7 +108,7 @@
     </div>
 </div>
 
-    <div>
+    <!-- <div>
 
         {{ quantite }}
 
@@ -136,8 +136,9 @@
             </div>
         
         </div>
-        <checkout-modal  @close="close" v-if="dialog"></checkout-modal>
-    </div>
+       
+    </div> -->
+    <checkout-modal  @close="close" v-if="dialog"></checkout-modal>
 </template>
 
 <script>

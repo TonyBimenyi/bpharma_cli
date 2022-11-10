@@ -1,16 +1,13 @@
 <template>
+     
     <div class="addMedecine">
-        <body>
-    <transition mode="out-in"
-    enter-active-class="animate__animated animate__fadeInRight"
-	leave-active-class="animate__animated animate__fadeOutLeft"
-     >
+       
         <div class="container">
-            <div class="top">
-        <div class="title">Valider le Paiement</div>
-        <div class="titl"><button @click="close" >X</button></div>
-        </div>
-        <div class="content">
+                <div class="top">
+            <div class="title">Valider le Paiement</div>
+            <div class="titl"><button @click="close" >X</button></div>
+            </div>
+            <div class="content">
             <div class="form">
         
             <div class="user-details">
@@ -62,13 +59,14 @@
             <div class="button">
         
                 <input @click="addOrder()" type="submit" value="Valider le paiement">
+                <button @click="printPage()">Print</button>
             </div>
             </div>
         </div>
         </div>
-    </transition>  
-  </body>
+
     </div>
+    
 </template>
 <script>
 import axios from 'axios'
@@ -93,7 +91,10 @@ export default {
         }
     },
     methods:{
-
+        printPage(){
+            
+            window.print();
+        },
         totalPrice(){
         //    this.total = this.carts.reduce((t,i)=>{
         //     return t + this.quantite * i.price_medecine

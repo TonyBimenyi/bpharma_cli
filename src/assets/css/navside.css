@@ -1,4 +1,16 @@
    /* Google Fonts Import Link */
+   @media print{
+    .sidebar{
+     display: none;
+     position: absolute;
+    }
+    .home-content{
+      background-color: white;
+    }
+    .facture_container{
+      visibility: visible;
+    }
+  }
    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
    *{
      margin: 0;
