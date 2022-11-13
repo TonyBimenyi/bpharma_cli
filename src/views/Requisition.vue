@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="add_btn">
-                    <p >MEDICAMENTS EXPIRES</p>
+                  <router-link to="/expired"><p >MEDICAMENTS EXPIRES(4)</p></router-link>  
                 <!-- <button @click="dialog=true;modifier=false" type=""><i class="fa-solid fa-plus add_new"></i> Ajouter un Medicament</button> -->
                 </div>
 
@@ -98,6 +98,7 @@ export default {
             },
             delete:{
             qty:'',
+            id_stock:'',
             },
             dialogPerte:false,
         }
@@ -135,9 +136,10 @@ export default {
             })
         },
         deleteRequi(requi){
-            this.form.qty = requi.actual_qty_requi
+            this.delete.qty = requi.actual_qty_requi
+            this.delete.id_stock = requi.stock[0]?.id_stock
             axios
-            .post(this.$store.state.url+'deleteRequi/'+requi.id_requi,this.form)
+            .put(this.$store.state.url+'deleteRequi/'+requi.id_requi,this.delete)
             .then((res)=>{
               
               console.log(res["data"]["status"]);

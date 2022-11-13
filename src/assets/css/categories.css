@@ -58,6 +58,9 @@
     background-color: var(--active);
     transition: .5s;
 }
+a{
+    text-decoration: none;
+}
 
 
 
