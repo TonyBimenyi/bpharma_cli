@@ -75,7 +75,6 @@ export default {
         return{
             dialog:false,
             dialogPurchase:false,
-            medecines:[],
             modifier:false,
             buy:false,
         }
@@ -89,7 +88,7 @@ export default {
             axios
             .get(this.$store.state.url+'getMedecine')
             .then((res)=>{
-                this.medecines = res.data
+                this.$store.state.medecines = res.data
             })
             .catch((error)=>{
                 console.log(error)
@@ -158,6 +157,11 @@ export default {
     },
     mounted(){
         this.getMedecines();
+    },
+    computed:{
+        medecines(){
+            return this.$store.state?.medecines
+        }
     }
 }
 </script>
