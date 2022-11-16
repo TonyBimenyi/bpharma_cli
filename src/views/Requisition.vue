@@ -3,17 +3,18 @@
         <div class="top_part">
                 <div class="search_box">
                     <div class="date_debut">
-                        <strong style="font-size:13px">Du: </strong><input type="date">
+                        <strong style="font-size:13px">Du: </strong><input type="date" v-model="start_date">
                     </div>
                     <div class="date_debut">
-                        <strong style="font-size:13px">Au: </strong><input type="date">
-                    </div>
-                    <div class="search">
-                         <input  type="text" name="" value="" placeholder="rechercher">
+                        <strong style="font-size:13px">Au: </strong><input type="date" v-model="end_date">
                     </div>
                     <div class="search-btn">
-                        <button id="search" ><i class="fa-solid fa-search"></i></button>
+                        <button id="search" @click="searchInDB" ><i class="fa-solid fa-search"></i></button>
                     </div>
+                    <div class="search">
+                         <input  type="text" name=""  v-model="inputSearch" @keydown="inputSearchMethods" placeholder="rechercher">
+                    </div>
+                   
                 </div>
                 <div class="add_btn">
                   <router-link to="/expired"><p >MEDICAMENTS EXPIRES(4)</p></router-link>  
@@ -89,6 +90,9 @@ export default {
     },
     data() {
         return {
+            start_date : '',
+            end_date : '',
+            inputSearch : '',
             requisitions:[],
 
             form:{
@@ -101,10 +105,30 @@ export default {
             id_stock:'',
             },
             dialogPerte:false,
+            allData : []
         }
     },
-    methods: {
+    watch:{
        
+    },
+    methods: {
+        searchInDB(){
+            axios
+            .get(this.$store.state.url+'requisition?start_date=' + this.start_date + '&end_date=' +this.end_date )
+            .then((res)=>{
+                this.$store.state.requisitions=res.data
+                this.allData = res.data
+                console.log('res data',  res.data)
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
+
+        },
+        inputSearchMethods(){
+            this.$store.state.requisitions = this.allData.filter(e => JSON.stringify(e).toLowerCase().includes(this.inputSearch.toLowerCase()))
+            
+        },
         addPerte(requi){
             this.$store.state.perte = requi;
         },  
@@ -113,15 +137,15 @@ export default {
         },
         PATotal(){
             let total =0;
-            for(let item in this.requisitions){
-                total = total +(this.requisitions[item].purchase_price)
+            for(let item in this.$store.state.requisitions){
+                total = total +(this.$store.state.requisitions[item].purchase_price)
             } 
             return total;
         },
         PVTotal(){
             let total =0;
-            for(let item in this.requisitions){
-                total = total +(this.requisitions[item].sale_price_requi * this.requisitions[item].actual_qty_requi)
+            for(let item in this.$store.state.requisitions){
+                total = total +(this.$store.state.requisitions[item].sale_price_requi * this.$store.state.requisitions[item].actual_qty_requi)
             } 
             return total;
         },
@@ -129,7 +153,9 @@ export default {
             axios
             .get(this.$store.state.url+'requisition')
             .then((res)=>{
-                this.requisitions=res.data
+                this.$store.state.requisitions=res.data
+                this.allData = res.data
+                console.log('res data',  res.data)
             })
             .catch((error)=>{
                 console.log(error)
@@ -219,6 +245,11 @@ export default {
         this.getRequi()
         // this.form.id_medecine='tony' 
     },
+    computed:{
+        requisitions(){
+            return this.$store.state?.requisitions
+        }
+    }
 }
 </script>
 <style src='../assets/css/categories.css' scoped>

@@ -8,12 +8,13 @@
                     <div class="date_debut">
                         <strong style="font-size:13px">Au: </strong><input type="date">
                     </div>
-                    <div class="search">
-                         <input  type="text" name="" value="" placeholder="rechercher">
-                    </div>
                     <div class="search-btn">
                         <button id="search" ><i class="fa-solid fa-search"></i></button>
                     </div>
+                    <div class="search">
+                         <input  type="text" name="" value="" placeholder="rechercher">
+                    </div>
+                   
                 </div>
                 <div class="add_btn">
                     <p >Stock Rompu</p>
@@ -95,15 +96,15 @@ export default {
     methods: {
         PATotal(){
             let total =0;
-            for(let item in this.stocks){
-                total = total +(this.stocks[item].total_price)
+            for(let item in this.$store.state.stocks){
+                total = total +(this.$store.state.stocks[item].total_price)
             } 
             return total;
         },
         PVTotal(){
             let total =0;
-            for(let item in this.stocks){
-                total = total +(this.stocks[item].medecine[0]?.price_medecine * this.stocks[item].actual_qty)
+            for(let item in this.$store.state.stocks){
+                total = total +(this.$store.state.stocks[item].medecine[0]?.price_medecine * this.$store.state.stocks[item].actual_qty)
             } 
             return total;
         },
@@ -117,7 +118,7 @@ export default {
             axios
             .get(this.$store.state.url+'stock')
             .then((res)=>{
-                this.stocks = res.data
+                this.$store.state.stocks = res.data
                 this.medecine = res.data
             })
             .catch((error)=>{
@@ -128,6 +129,11 @@ export default {
     mounted() {
         this.getStock()
     },
+    computed:{
+        stocks(){
+            return this.$store.state?.stocks
+        }
+    }
 }
 </script>
 <style src='../assets/css/categories.css' scoped>
