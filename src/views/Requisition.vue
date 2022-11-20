@@ -37,6 +37,7 @@
                                     <th>PV Total</th>
                                     <th>Cree par</th>                      
                                     <th>Valide Par</th>
+                                    <th>Date </th>
                                     <th colspan="2">Actions</th>
                             </tr>
                         </thead>
@@ -50,11 +51,13 @@
                                     <td>{{money(requi.purchase_price)+' Fbu'}}</td>
                                     <td>{{datetime(requi.stock[0]?.exp_date)}}</td>
                                     <td>{{money(requi.sale_price_requi)+' Fbu'}}</td>
+                                    
                                     <td>{{money(requi.sale_price_requi * 
                                         requi.actual_qty_requi)+' Fbu'}}</td>
                                     <td>{{requi.user[0]?.name}}</td>
                                     <td style="color:rgb(173, 173, 3);" v-if="requi.validate_by==0">En attente...</td>
                                     <td v-else>{{requi.validate_by}}</td>
+                                    <td>{{datetime(requi.created_at)}}</td>
                                     <td ><button v-if="requi.validate_by==0" @click="addValidation(requi)
                                     "><i style="font-weight:700" class="fa-solid fa-check"></i></button></td>
 

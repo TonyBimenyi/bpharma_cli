@@ -43,7 +43,7 @@ export default {
             form:{
 
                 initial_qty_requi:0,
-                purchase_price:this.$store.state.stock.total_price,
+                purchase_price:this.$store.state.stock.unit_price,
                 sale_price:this.$store.state.stock.medecine[0]?.price_medecine,
                 id_stock:this.$store.state.stock.id_stock,
                 id_user:this.$store.state.user.data.user.id,

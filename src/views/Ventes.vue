@@ -3,7 +3,7 @@
     <div class="vente_container">
         <div class="top_part">
             <div class="search_box">
-                <input type="text" name="" v-model="search"  placeholder="rechercher">
+                <input type="text" name="" v-model="search" @keydown="filteredMedecines()"  placeholder="rechercher">
             </div>
             <router-link to="/histoventes"> 
             <div class="hist">
@@ -17,7 +17,7 @@
     </div>
     <div class="vente-content">
         <div class="product_list">
-            <div v-for="(med, m) in filteredMedecines" :key="med.id_medecine" class="product_card">
+            <div v-for="(med, m) in medecines" :key="med.id_medecine" class="product_card">
                 <div class="product_content">
                     <h5>{{med.medecine[0]?.name_medecine }}</h5>
                     <div class="sub_content">
@@ -169,8 +169,8 @@ export default {
     },
     computed:{
         filteredMedecines:function(){
-            return this.medecines.filter((med)=>{
-                return med.name_medecine.match(this.search);
+            this.medecines.filter((med)=>{
+                 med.name_medecine.toLowerCase().match(this.search.toLowerCase());
             })
         }
     },
