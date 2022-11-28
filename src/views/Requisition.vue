@@ -58,8 +58,8 @@
                                     <td style="color:rgb(173, 173, 3);" v-if="requi.validate_by==0">En attente...</td>
                                     <td v-else>{{requi.validate_by}}</td>
                                     <td>{{datetime(requi.created_at)}}</td>
-                                    <td ><button v-if="requi.validate_by==0" @click="addValidation(requi)
-                                    "><i style="font-weight:700" class="fa-solid fa-check"></i></button></td>
+
+                                    <td ><button v-if="requi.validate_by==0" @click="addValidation(requi)" ><i style="font-weight:700" class="fa-solid fa-check"></i></button></td>
 
                                     <td v-if="requi.validate_by!=0"><button id="des" @click="dialogPerte=true;addPerte(requi)"><i class="fa-solid fa-trash"></i></button></td>
                                     <td v-else><button id="des" @click="deleteRequi(requi)">Delete</button></td>
@@ -127,6 +127,46 @@ export default {
                 console.log(error)
             })
 
+        },
+        addValidation(requi){
+            this.form.validate_user=this.$store.state.user.data.user.name
+            this.form.validate_qty=requi.actual_qty_requi
+            this.form.id_medecine=requi.medecine[0]?.id_medecine
+            this.$store.state.requisition= requi;
+            axios
+            .put(this.$store.state.url+'validateRequi/'+requi.id_requi,this.form)
+            .then((res)=>{
+              
+                 console.log(res["data"]["status"]);
+                if(res["data"]["status"] == "error")
+             {
+               Swal.fire({
+                title: 'OPPS',
+                text:   "error",
+                icon: 'warning',      
+            });
+             }
+              else
+             {
+               Swal.fire({
+                title: 'Succes',
+                text:   "Requisition est valide",
+                icon: 'success',
+              
+            });
+            this.getRequi();
+             }
+              
+          })
+           .catch((e)=>{
+              console.log(e);
+               Swal.fire({
+              title: 'Hurry',
+              text:   e,
+              icon: 'warning',
+              
+            });
+            })
         },
         inputSearchMethods(){
             this.$store.state.requisitions = this.allData.filter(e => JSON.stringify(e).toLowerCase().includes(this.inputSearch.toLowerCase()))
@@ -204,46 +244,7 @@ export default {
 
             }
         },  
-        addValidation(requi){
-            this.form.validate_user=this.$store.state.user.data.user.name
-            this.form.validate_qty=requi.actual_qty_requi
-            this.form.id_medecine=requi.medecine[0]?.id_medecine
-            this.$store.state.requisition= requi;
-            axios
-            .put(this.$store.state.url+'validateRequi/'+requi.id_requi,this.form)
-            .then((res)=>{
-              
-                 console.log(res["data"]["status"]);
-                if(res["data"]["status"] == "error")
-             {
-               Swal.fire({
-                title: 'OPPS',
-                text:   "error",
-                icon: 'warning',      
-            });
-             }
-              else
-             {
-               Swal.fire({
-                title: 'Succes',
-                text:   "Requisition est valide",
-                icon: 'success',
-              
-            });
-            this.getRequi();
-             }
-              
-          })
-           .catch((e)=>{
-              console.log(e);
-               Swal.fire({
-              title: 'Hurry',
-              text:   e,
-              icon: 'warning',
-              
-            });
-            })
-        },
+       
     mounted() {
         this.getRequi()
         // this.form.id_medecine='tony' 

@@ -66,6 +66,110 @@
         </div>
 
     </div>
+    <div class="facture">
+        <div class="facture">
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="facture_container">
+        <div class="logo_part">
+            <div class="logo">
+                <h1>LOGO HERE</h1>
+            </div>
+        </div>
+        <div class="divider">
+            <p></p>
+        </div>
+        <div class="invoice_pres">
+            <div class="ese">
+                <h2>    Bimbo Pharma</h2>
+                <p>NIF: 9384736</p>
+                <p>RC:423847234</p>
+            </div>
+            <div class="invoce_details">
+                <p><strong>#Facture: </strong>1239</p>
+                <p><strong>Date: </strong>{{new Date().toLocaleString()}}</p>
+            </div>
+        </div>
+        <div class="cat_list">
+            <div class="table">
+                <table>
+                    <thead>
+                        <tr >
+                               
+                                <th>Medicament</th>
+                                <th>Prix</th>
+                                <th>Qte</th>
+                                <th>Prix Total</th>
+                                
+                               
+                        </tr>
+                    </thead>
+                    <tbody>
+                           <tr v-for="cart in carts" :key="cart.id" >
+                              <td >{{ cart.name_medecine }}</td>
+                              <td>{{ money(cart.price_medecine)+ ' Fbu' }}</td>
+                              <td>{{cart.quantite}}</td>
+                              <td>{{ money(cart.price_medecine*cart.quantite)+ ' Fbu' }}</td>
+                           </tr>
+                          
+                    
+                            
+                    
+                    </tbody>
+                </table>
+            </div> 
+        </div>
+        <div class="total_part">
+            <div class="merci">
+                <!-- <div class="montant">
+                    <p><strong>Montant Paye: </strong>50.000Fbu</p>
+                    <p><strong>Reste: </strong>5.000Fbu</p>
+                </div> -->
+            </div>
+            <div class="total_facture">
+                <div class="subtotal">
+                    <p><strong>Sous Total: </strong>{{money(totalPrice())}} Fbu</p>
+                    <p><strong>TVA: </strong>0%</p>
+                </div>
+                <div class="totalOG">
+                    <p><strong>Total: </strong>{{money(totalPrice())}} Fbu</p>
+                </div>
+            </div>
+        </div>
+        <div class="divider2">
+            <p></p>
+        </div>
+        <div class="contact">
+            <div class="phone">
+                <p><strong>Phone: </strong>+2577985285</p>
+            </div>
+            <div class="addresse">
+                <p><strong>Addresse: </strong>Gihosha, Bujumbura-Burundi</p>
+            </div>
+            <div class="email">
+                <p><strong>Email: </strong>bimbo@gmail.com</p>
+            </div>
+        </div>
+        <div class="divider3">
+            <p></p>
+        </div>
+        <div class="merci">
+            <p>Merci,Murakoze,Thank You!</p>
+        </div>
+    </div>
+   
+</body>
+</html>
+</div>
+    </div>
     
 </template>
 <script>
@@ -76,7 +180,8 @@ export default {
 
     data() {
         return {
-           
+            nowDate:new Date().toLocaleString(),
+           carts:this.$store.state.carts,
             form:{
                 nom_client:'',               
                 nif_client:'',

@@ -44,7 +44,7 @@
                                   <td>{{money(order.montant_paye-order.montant_total)}} Fbu</td>
                                   <td>{{order.user[0]?.name}}</td>
                                   <td>{{datetime(order.created_at)}}</td>
-                                  <td ><button @click="details=true;getDetails()" ><p>Details</p></button></td>
+                                  <td ><button @click="details=true;getDetails(order)" ><p>Details</p></button></td>
                               </tr>
                        
                        
@@ -91,8 +91,8 @@ export default {
                 console.log(error)
             })
       },
-      getDetails(){
-          this.$store.state.orders = this.orders;
+      getDetails(med){
+          this.$store.state.orders = med;
       },
       close(){
             this.details = false

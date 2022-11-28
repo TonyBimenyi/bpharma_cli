@@ -1,15 +1,27 @@
    /* Google Fonts Import Link */
    @media print{
+    *{
+      margin: 0 auto;
+    }
     .sidebar{
      display: none;
-     position: absolute;
+
+    }
+    .addMedecine{
+      background-color: white !important;
     }
     .home-content{
-      background-color: white;
+      display: none !important;
     }
-    .facture_container{
-      visibility: visible;
+    .home-section{
+      left: 0 !important;
+      width: 100% !important;
+      background-color: transparent !important;
     }
+  
+  }
+  .addMedecine{
+    background-color: white;
   }
    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
    *{

@@ -4,8 +4,10 @@
     background: none;
   }
   .addMedecine{
-    display: none;
-   
+    background: transparent !important;
+  }
+  .facture{
+    display: block !important;
   }
 }
 
@@ -189,10 +191,12 @@
 
 
 
+/* -------FACTURE---------- */
 
 
-
-
+.facture{
+  display: none;
+}
 .logo{
     font-size: 8px;
     margin-top: 10px;

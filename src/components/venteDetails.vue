@@ -46,8 +46,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                           <tr >
-                              <td>{{name_medecine}}</td>
+                           <tr v-for="det in details" :key="det.id_item" >
+                              <td>{{det.name_medecine}}</td>
                               <td>1300 Fbu</td>
                               <td>5</td>
                               <td>6000 Fbu</td>
@@ -114,6 +114,8 @@ export default {
 
     data() {
         return {
+            details:[],
+            id_order:this.$store.state.orders.id_order,
               numero_commande : this.$store.state.orders.id_order, 
               nom_client : this.$store.state.orders.nom_client, 
               montant_total : this.$store.state.orders.montant_total, 
@@ -182,11 +184,11 @@ export default {
           })
           
         },
-         getMedecines(){
+         getDetails(){
             axios
-            .get(this.$store.state.url+'getMedecine')
+            .get(this.$store.state.url+'order_detail/'+this.id_order)
             .then((res)=>{
-                this.medecines = res.data
+                this.details = res.data
             })
             .catch((error)=>{
                 console.log(error)
@@ -199,7 +201,7 @@ export default {
     },
     mounted() {
        
-        this.getMedecines();
+        this. getDetails();
      
     },
 }

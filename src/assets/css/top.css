@@ -2,13 +2,7 @@
     .v_container{
         display: none;
       }
-      .vente-content{
-        display: none;
-      }
-      .items-list{
-        display: none;
-      }
-     
+  
   }
   
 .top_part{
@@ -264,6 +258,98 @@ h5{
     border-radius: 0px 3px 3px 0px;
     cursor: pointer;
 }
+
+
+
+table{
+    margin: 0 auto;
+    width: 100%;
+    max-height: 80%;
+    scrollbar-color: var(--primary);
+    border-collapse: collapse;
+    border-radius: 10px;
+}
+.table{
+    max-height: 455px;
+    border: 2px solid black;
+    border-radius: 10px;
+ 
+   
+}
+::-webkit-scrollbar-thumb{
+    background-color: var(--primary);
+}
+thead{
+    position: sticky;
+    top: 0;
+    border-radius: 10px;
+}
+thead tr{
+    border-radius: 10px;
+}
+tr th{
+    padding: 8px 05px;
+    background-color: black;
+    /* border-radius: 5px; */
+    color: white;
+    font-size: 12px;
+    font-weight: normal;
+    margin: 0px 5px;
+}
+
+tr td{
+    text-align: center;
+    font-size: 12px;
+    padding: 5px 0px;
+}
+tr td button{
+    background-color: var(--primary);
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    font-weight: 500;
+    font-size: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+tr td button:hover{
+    background-color: var(--active);
+    transition: .3s;
+    border-radius: 0px;
+}
+tr td span{
+    color: green;
+    font-weight: 600;
+}
+tr td #ina{
+    color: rgb(249, 56, 56);;
+}
+tr td #des{
+    background-color: rgb(249, 56, 56);
+    padding: 05px 10px;
+    font-size: 11px;
+}
+tr td #act{
+    background-color: rgb(7, 111, 11);
+    padding: 1px 10px;
+    font-size: 12px;
+}
+tr #des_td{
+    color: var(--grey);
+}
+table tbody tr{
+    border-bottom: 1px solid var(--primary);
+}
+tr:nth-child(even){
+    background: rgb(241, 241, 241);
+
+}
+
+
+
+
+
 
 
 
