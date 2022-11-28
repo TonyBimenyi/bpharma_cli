@@ -9,7 +9,7 @@
                        <strong style="font-size:13px">Au: </strong><input type="date">
                    </div>
                    <div class="search">
-                        <input  type="text" name="" value="" placeholder="rechercher">
+                        <input   type="text" name="" v-model="inputSearch" @keydown="inputSearchMethods" placeholder="rechercher">
                    </div>
                </div>
                <div class="add_btn">
@@ -77,17 +77,22 @@ export default {
        return {
            order_details:[],
           details:false,
-          orders:[]
+          orders:[],
+          inputSearch:'',
+          allData:[]
        }
    },
    methods: {
+    inputSearchMethods(){
+            this.$store.state.orders = this.allData.filter(e => JSON.stringify(e).toLowerCase().includes(this.inputSearch.toLowerCase()))          
+        },
     totalPrice(){
         //    this.total = this.carts.reduce((t,i)=>{
         //     return t + this.quantite * i.price_medecine
         //    },0)
         let total = 0;
-        for(let i in this.orders){
-            total = total + this.orders[i].montant_total
+        for(let i in this.$store.state.orders){
+            total = total + this.$store.state.orders[i].montant_total
         }
         return total;
         },
@@ -96,8 +101,8 @@ export default {
         //     return t + this.quantite * i.price_medecine
         //    },0)
         let total = 0;
-        for(let i in this.orders){
-            total = total + this.orders[i].montant_paye
+        for(let i in this.$store.state.orders){
+            total = total + this.$store.state.orders[i].montant_paye
         }
         return total;
         },
@@ -106,14 +111,15 @@ export default {
         axios
             .get(this.$store.state.url+'orders')
             .then((res)=>{
-                this.orders = res.data
+                this.$store.state.orders = res.data
+                this.allData = res.data
             })
             .catch((error)=>{
                 console.log(error)
             })
       },
       getDetails(med){
-          this.$store.state.orders = med;
+          this.$store.state.orders_d = med;
       },
       close(){
             this.details = false
@@ -123,6 +129,11 @@ export default {
     this.getOrders();
      
    },
+   computed:{
+        orders(){
+            return this.$store.state?.orders
+        }
+    }
 }
 </script>
 <style src='../assets/css/categories.css' scoped>

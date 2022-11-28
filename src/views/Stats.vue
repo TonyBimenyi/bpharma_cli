@@ -114,6 +114,7 @@ export default {
    
      this.getStats()
    },
+  
 }
 </script>
 <style src='../assets/css/categories.css' scoped>

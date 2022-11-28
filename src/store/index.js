@@ -16,7 +16,8 @@ export default createStore({
     cartItems:[],
     carts:[],
     orders:[],
-    perte:{}
+    perte:{},
+    orders_d:[]
   },
   getters: {
    

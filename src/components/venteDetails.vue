@@ -7,7 +7,7 @@
      >
         <div class="container">
             <div class="top">
-        <div class="title">Valider le Paiement</div>
+        <div class="title">Details</div>
         <div class="titl"><button @click="close" >X</button></div>
         </div>
         <div class="content">
@@ -25,6 +25,7 @@
                 <h2>    Bimbo Pharma</h2>
                 <p>NIF: 9384736</p>
                 <p>RC:423847234</p>
+                <p>Pharmacien: {{this.$store.state.orders_d.user[0]?.name}}</p>
             </div>
             <div class="invoce_details">
                 <p><strong>#Facture: </strong>{{$store.state.orders.id_order}}</p>
@@ -74,7 +75,7 @@
                     <p><strong>TVA: </strong>0%</p>
                 </div>
                 <div class="totalOG">
-                    <p><strong>Total: </strong>{{money(totalPrice())+' Fbu'}} Fbu</p>
+                    <p><strong>Total: </strong>{{money(totalPrice())+' Fbu'}}</p>
                 </div>
             </div>
         </div>
@@ -115,7 +116,7 @@ export default {
     data() {
         return {
             details:[],
-            id_order:this.$store.state.orders.id_order,
+            id_order:this.$store.state.orders_d.id_order,
               numero_commande : this.$store.state.orders.id_order, 
               nom_client : this.$store.state.orders.nom_client, 
               montant_total : this.$store.state.orders.montant_total, 
@@ -139,51 +140,6 @@ export default {
         return total;
         },
         
-        addOrder(){
-         
-            axios
-            .post(this.$store.state.url+'addOrder',this.form,this.headers)
-            .then((res)=>{
-          
-                console.log(res["data"]["status"]);
-                this.form.nom_client='',
-                this.form.nif_client='',
-                this.form.montant_total='',
-                this.form.montant_a_paye = '',       
-                this.form.carts = "",      
-                this.id_user=''
-                  if(res["data"]["status"] == "error")
-             {
-               Swal.fire({
-                title: 'OPPS',
-                text:   "error",
-                icon: 'warning',      
-            });
-             }
-              else
-             {
-               Swal.fire({
-                title: 'Succes',
-                text:   "Commande est ajoute avec succes",
-                icon: 'success',
-              
-            });
-            this.close()
-            this.getMedecines()
-             }
-              
-          })
-           .catch((e)=>{
-              console.log(e);
-               Swal.fire({
-              title: 'Hurry',
-              text:   e,
-              icon: 'warning',
-              
-            });
-          })
-          
-        },
          getDetails(){
             axios
             .get(this.$store.state.url+'order_detail/'+this.id_order)
