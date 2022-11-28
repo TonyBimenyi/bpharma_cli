@@ -94,7 +94,7 @@
                 <p>RC:423847234</p>
             </div>
             <div class="invoce_details">
-                <p><strong>#Facture: </strong>1239</p>
+                <p><strong>#Facture: </strong>{{getlastId[0]?.id_order+1}}</p>
                 <p><strong>Date: </strong>{{new Date().toLocaleString()}}</p>
             </div>
         </div>
@@ -180,8 +180,9 @@ export default {
 
     data() {
         return {
+            getlastId:{},
             nowDate:new Date().toLocaleString(),
-           carts:this.$store.state.carts,
+            carts:this.$store.state.carts,
             form:{
                 nom_client:'',               
                 nif_client:'',
@@ -270,6 +271,17 @@ export default {
                 console.log(error)
             })
         },
+        lastId(){
+            axios
+            .get(this.$store.state.url+'lastId')
+            .then((res)=>{
+                this.getlastId = res.data
+          
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
+        },
         close(){
             this.$emit('close')
         }
@@ -279,6 +291,7 @@ export default {
         this.totalPrice();
         this.ayasubizwa();
         this.getMedecines();
+        this.lastId();
      
     },
 }
