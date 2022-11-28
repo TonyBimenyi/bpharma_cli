@@ -48,9 +48,9 @@
                     <tbody>
                            <tr v-for="det in details" :key="det.id_item" >
                               <td>{{det.name_medecine}}</td>
-                              <td>1300 Fbu</td>
-                              <td>5</td>
-                              <td>6000 Fbu</td>
+                              <td>{{money(det.pv)+' Fbu'}}</td>
+                              <td>{{det.qty}}</td>
+                              <td>{{money(det.pv*det.qty)+ 'Fbu'}}</td>
                            </tr>
                          
                     
@@ -63,10 +63,10 @@
         </div>
         <div class="total_part">
             <div class="merci">
-                <div class="montant">
+                <!-- <div class="montant">
                     <p><strong>Montant Paye: </strong>50.000Fbu</p>
                     <p><strong>Reste: </strong>5.000Fbu</p>
-                </div>
+                </div> -->
             </div>
             <div class="total">
                 <div class="subtotal">
@@ -74,7 +74,7 @@
                     <p><strong>TVA: </strong>0%</p>
                 </div>
                 <div class="totalOG">
-                    <p><strong>Total: </strong>50.000 Fbu</p>
+                    <p><strong>Total: </strong>{{money(totalPrice())+' Fbu'}} Fbu</p>
                 </div>
             </div>
         </div>
@@ -133,8 +133,8 @@ export default {
         //     return t + this.quantite * i.price_medecine
         //    },0)
         let total = 0;
-        for(let i in this.$store.state.carts){
-            total = total + (this.$store.state.carts[i]?.quantite * this.$store.state.carts[i]?.price_medecine)
+        for(let i in this.details){
+            total = total + (this.details[i].qty * this.details[i].pv)
         }
         return total;
         },
