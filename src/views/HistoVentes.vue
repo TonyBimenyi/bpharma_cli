@@ -50,11 +50,11 @@
                        
                                <tr id="tot">
                                    <td>Total</td>
-                                   <td colspan="3"></td>
+                                   <td></td>
                                     <td></td>
-                                   <td></td>
-                                   <td></td>
-                                   <td></td>
+                                   <td>{{money(totalPrice())+' Fbu'}}</td>
+                                   <td>{{money(payetotalPrice())+' Fbu'}}</td>
+                                   <td>{{money(payetotalPrice()-totalPrice())+' Fbu'}}</td>
                                    <td colspan="8"></td>
                                </tr>
                        
@@ -81,6 +81,27 @@ export default {
        }
    },
    methods: {
+    totalPrice(){
+        //    this.total = this.carts.reduce((t,i)=>{
+        //     return t + this.quantite * i.price_medecine
+        //    },0)
+        let total = 0;
+        for(let i in this.orders){
+            total = total + this.orders[i].montant_total
+        }
+        return total;
+        },
+        payetotalPrice(){
+        //    this.total = this.carts.reduce((t,i)=>{
+        //     return t + this.quantite * i.price_medecine
+        //    },0)
+        let total = 0;
+        for(let i in this.orders){
+            total = total + this.orders[i].montant_paye
+        }
+        return total;
+        },
+        
       getOrders(){
         axios
             .get(this.$store.state.url+'orders')
