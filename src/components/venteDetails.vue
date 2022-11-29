@@ -28,8 +28,8 @@
                 <p>Pharmacien: {{this.$store.state.orders_d.user[0]?.name}}</p>
             </div>
             <div class="invoce_details">
-                <p><strong>#Facture: </strong>{{$store.state.orders.id_order}}</p>
-                <p><strong>Date: </strong>23/11/2022</p>
+                <p><strong>#Facture: </strong>{{$store.state.orders_d.id_order}}</p>
+                <p><strong>Date: </strong>{{datetime($store.state.orders_d.created_at)}}</p>
             </div>
         </div>
         <div class="cat_list">

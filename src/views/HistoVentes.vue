@@ -8,6 +8,9 @@
                    <div class="date_debut">
                        <strong style="font-size:13px">Au: </strong><input type="date">
                    </div>
+                   <div class="search-btn">
+                        <button id="search" @click="searchInDB" ><i class="fa-solid fa-search"></i></button>
+                    </div>
                    <div class="search">
                         <input   type="text" name="" v-model="inputSearch" @keydown="inputSearchMethods" placeholder="rechercher">
                    </div>
