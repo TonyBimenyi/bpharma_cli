@@ -3,10 +3,10 @@
        <div class="top_part">
                <div class="search_box">
                    <div class="date_debut">
-                       <strong style="font-size:13px">Du: </strong><input type="date">
+                       <strong style="font-size:13px">Du: </strong><input type="date" v-model="start_date">
                    </div>
                    <div class="date_debut">
-                       <strong style="font-size:13px">Au: </strong><input type="date">
+                       <strong style="font-size:13px">Au: </strong><input type="date" v-model="end_date">
                    </div>
                    <div class="search-btn">
                         <button id="search" @click="searchInDB" ><i class="fa-solid fa-search"></i></button>
@@ -78,6 +78,8 @@ export default {
     },
    data() {
        return {
+         start_date : '',
+            end_date : '',
            order_details:[],
           details:false,
           orders:[],
@@ -86,6 +88,19 @@ export default {
        }
    },
    methods: {
+    searchInDB(){
+            axios
+            .get(this.$store.state.url+'orders?start_date=' + this.start_date + '&end_date=' +this.end_date )
+            .then((res)=>{
+                this.$store.state.orders=res.data
+                this.allData = res.data
+                console.log('res data',  res.data)
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
+
+        },
     inputSearchMethods(){
             this.$store.state.orders = this.allData.filter(e => JSON.stringify(e).toLowerCase().includes(this.inputSearch.toLowerCase()))          
         },
