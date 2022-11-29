@@ -58,8 +58,8 @@
             </div>
             <div class="button">
         
-                <input @click="addOrder()" type="submit" value="Valider le paiement">
-                <button @click="printPage()">Print</button>
+                <input @click="addOrder();printPage()" type="submit" value="Valider le paiement">
+                <!-- <button @click="printPage()">Print</button> -->
             </div>
             </div>
         </div>

@@ -15,11 +15,14 @@
                     <tr cell>
                         <th>#ID</th>
                         <th>Nom Medicament</th>
-                        <th>Qte</th>
-                        <th>Prix de vente Unitaire</th>
-                        <th>PV Total</th>
-                        <th>Date de creation</th>
-                        <th>Cree par</th>
+                        <th>Qte_stock</th>
+                        <th>Qte_etagere</th>
+                        <th>PV Unitaire</th>
+                        <th>Valeur stock</th>
+                        <th>Valeur etagere</th>
+                        <th>Valeur Total</th>
+                        <!-- <th>Date de creation</th>
+                        <th>Cree par</th> -->
                         <th>Categorie</th>
                         <th>Etat</th>
                         <th colspan="2" >Actions</th>
@@ -30,10 +33,13 @@
                         <td>{{med.id_medecine}}</td>
                         <td>{{med.name_medecine}}</td>
                         <td>{{med.qty_stock}}</td>
+                        <td>{{med.qty_etagere}}</td>
                         <td>{{money(med.price_medecine)+' Fbu'}}</td>
                         <td>{{money(med.price_medecine*med.qty_stock)}} Fbu</td>
-                        <td>{{datetime(med.created_at)}}</td>
-                        <td>{{med.name}}</td>
+                        <td>{{money(med.price_medecine*med.qty_etagere)}} Fbu</td>
+                        <td>{{money((med.price_medecine*med.qty_etagere)+(med.price_medecine*med.qty_etagere))}} Fbu</td>
+                        <!-- <td>{{datetime(med.created_at)}}</td>
+                        <td>{{med.name}}</td> -->
                         <td v-if="med.cat_medecine!=NULL">{{med.cat_medecine}}</td>
                         <td v-else>Non Spesifie</td>
 

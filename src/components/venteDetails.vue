@@ -128,7 +128,7 @@ export default {
         }
     },
     methods:{
-
+       
         totalPrice(){
         //    this.total = this.carts.reduce((t,i)=>{
         //     return t + this.quantite * i.price_medecine
