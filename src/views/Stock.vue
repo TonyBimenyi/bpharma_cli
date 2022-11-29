@@ -57,8 +57,10 @@
                                     <td>{{sto.user[0]?.name}}</td>
                                     <td v-if="sto.unite!=NULL">{{sto.unite}}</td>
                                     <td v-else>------</td>
-                                     <td ><button @click="dialogRequisition=true;requisitionner(sto)">Sortir</button></td>
-                                      <td ><button id="des" style="font-size:13px" >Delete</button></td>
+                                    
+                                     <td ><button v-if="sto.actual_qty!=0" @click="dialogRequisition=true;requisitionner(sto)">Sortir</button></td>
+                                         <td ><button id="des" style="font-size:13px" >Delete</button></td>
+                                    
                                 </tr>
                         
                         

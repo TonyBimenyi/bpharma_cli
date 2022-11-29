@@ -34,10 +34,10 @@
                         <td>{{med.name_medecine}}</td>
                         <td>{{med.qty_stock}}</td>
                         <td>{{med.qty_etagere}}</td>
-                        <td>{{money(med.price_medecine)+' Fbu'}}</td>
+                        <td style="font-weight:800">{{money(med.price_medecine)+' Fbu'}}</td>
                         <td>{{money(med.price_medecine*med.qty_stock)}} Fbu</td>
                         <td>{{money(med.price_medecine*med.qty_etagere)}} Fbu</td>
-                        <td>{{money((med.price_medecine*med.qty_etagere)+(med.price_medecine*med.qty_etagere))}} Fbu</td>
+                        <td>{{money((med.price_medecine*med.qty_stock)+(med.price_medecine*med.qty_etagere))}} Fbu</td>
                         <!-- <td>{{datetime(med.created_at)}}</td>
                         <td>{{med.name}}</td> -->
                         <td v-if="med.cat_medecine!=NULL">{{med.cat_medecine}}</td>

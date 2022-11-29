@@ -22,7 +22,8 @@
                 <div class="input-box">
                 <span class="details">Prix d'achat Total</span>
                 <input v-model="form.total_price" type="number" placeholder="Entrer le Prix" required>
-                <small style="font-weight:bold">Prix d'achat Unitaire: {{money(form.total_price/form.qty_stock)+' Fbu'}}</small>
+                <small style="font-weight:bold">Prix d'achat Unitaire: {{money(form.total_price/form.qty_stock)+' Fbu'}}</small><br>
+                <small style="font-weight:bold;color:green">Prix de vente Unitaire: {{money(this.$store.state.medecine.price_medecine)+' Fbu'}}</small>
                 <input type="hidden" v-model="form.unit_price">
                 </div>
                 <div class="input-box">
@@ -97,6 +98,7 @@ export default {
               
             });
             this.close()
+            this.getMedecines()
              }
               
           })
