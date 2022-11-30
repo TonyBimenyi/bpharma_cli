@@ -41,8 +41,8 @@
                                  <td>{{sta.name_medecine}}</td>
                                   <td>{{sta.nbre_des_fois}}</td>                   
                                   <td>{{sta.qty}}</td>
-                                  <td>{{money(sta.prix_vente)}} Fbu</td>
-                                  <td>{{money(sta.prix_achat)}} Fbu</td>
+                                  <td>{{money(sta.prix_vente*sta.qty)}} Fbu</td>
+                                  <td>{{money(sta.prix_achat*sta.qty)}} Fbu</td>
                                   <td>{{(sta.prix_vente-sta.prix_achat)}} Fbu</td>
                               </tr>
                        
@@ -105,7 +105,7 @@ export default {
         //    },0)
         let total = 0;
         for(let i in this.$store.state.stats){
-            total = total + (this.$store.state.stats[i].prix_vente/1)
+            total = total + (this.$store.state.stats[i].prix_vente*this.$store.state.stats[i]?.qty)
         }
         return total;
         },
@@ -116,7 +116,7 @@ export default {
         //    },0)
         let total = 0;
         for(let i in this.$store.state.stats){
-            total = total + (this.$store.state.stats[i].prix_achat/1)
+            total = total + (this.$store.state.stats[i].prix_achat*this.$store.state.stats[i]?.qty*1)
         }
         return total;
         },

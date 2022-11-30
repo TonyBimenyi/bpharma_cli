@@ -3,16 +3,16 @@
         <div class="top_part">
                 <div class="search_box">
                     <div class="date_debut">
-                        <strong style="font-size:13px">Du: </strong><input type="date">
+                        <strong style="font-size:13px">Du: </strong><input v-model="start_date" type="date">
                     </div>
                     <div class="date_debut">
-                        <strong style="font-size:13px">Au: </strong><input type="date">
+                        <strong style="font-size:13px">Au: </strong><input v-model="end_date" type="date">
                     </div>
                     <div class="search-btn">
-                        <button id="search" ><i class="fa-solid fa-search"></i></button>
+                        <button id="search" @click="searchInDB" ><i class="fa-solid fa-search"></i></button>
                     </div>
                     <div class="search">
-                         <input  type="text" name="" value="" placeholder="rechercher">
+                         <input  type="text"  name="" v-model="inputSearch" @keydown="inputSearchMethods" placeholder="rechercher">
                     </div>
                    
                 </div>
@@ -90,12 +90,33 @@ export default {
     },
     data() {
         return {
+            inputSearch : '',
+            allData:'',
+            start_date : '',
+            end_date : '',
             stocks:[],
             medecine:[],
             dialogRequisition:false,
         }
     },
     methods: {
+        searchInDB(){
+            axios
+            .get(this.$store.state.url+'stock?start_date=' + this.start_date + '&end_date=' +this.end_date )
+            .then((res)=>{
+                this.$store.state.stocks=res.data
+                this.allData = res.data
+                console.log('res data',  res.data)
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
+
+        },
+        inputSearchMethods(){
+            this.$store.state.stocks = this.allData.filter(e => JSON.stringify(e).toLowerCase().includes(this.inputSearch.toLowerCase()))
+            
+        },
         PATotal(){
             let total =0;
             for(let item in this.$store.state.stocks){
@@ -122,6 +143,7 @@ export default {
             .then((res)=>{
                 this.$store.state.stocks = res.data
                 this.medecine = res.data
+                this.allData = res.data
             })
             .catch((error)=>{
                 console.log(error)
