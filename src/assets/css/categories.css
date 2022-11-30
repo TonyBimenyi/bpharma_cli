@@ -62,6 +62,22 @@
 a{
     text-decoration: none;
 }
+.qty-5{
+    background-color: rgb(228, 167, 0);
+    padding: 0px;
+    margin: 0px 25px;
+    border-radius: 5px;
+    color: white;
+    font-weight: 800;
+}
+.qty-0{
+    background-color:red;
+    padding: 0px;
+    margin: 0px 25px;
+    border-radius: 5px;
+    color: white;
+    font-weight: 800;
+}
 
 
 

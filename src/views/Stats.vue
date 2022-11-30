@@ -8,12 +8,13 @@
                    <div class="date_debut">
                        <strong style="font-size:13px">Au: </strong><input type="date">
                    </div>
-                   <div class="search">
-                        <input  type="text" name="" value="" placeholder="rechercher">
-                   </div>
                    <div class="search-btn">
                         <button id="search" ><i class="fa-solid fa-search"></i></button>
                     </div>
+                   <div class="search">
+                        <input  type="text" name="" v-model="inputSearch" @keydown="inputSearchMethods" placeholder="rechercher">
+                   </div>
+                   
                </div>
                <div class="add_btn">
                    <p >Les plus vendus</p>
@@ -38,7 +39,7 @@
                        <tbody>
                               <tr v-for="sta in stats" :key="sta.id_medecine">
                                  <td>{{sta.name_medecine}}</td>
-                                  <td>{{sta.nbre_des_fois}}</td>
+                                  <td>{{sta.nbre_des_fois}}</td>                   
                                   <td>{{sta.qty}}</td>
                                   <td>{{money(sta.prix_vente)}} Fbu</td>
                                   <td>{{money(sta.prix_achat)}} Fbu</td>
@@ -74,16 +75,22 @@ export default {
    data() {
        return {
         stats:[],
+        inputSearch : '',
+        allData:''
        }
    },
    methods: {
+         inputSearchMethods(){
+            this.$store.state.stats = this.allData.filter(e => JSON.stringify(e).toLowerCase().includes(this.inputSearch.toLowerCase()))
+            
+        },
         ventetotalPrice(){
         //    this.total = this.carts.reduce((t,i)=>{
         //     return t + this.quantite * i.price_medecine
         //    },0)
         let total = 0;
-        for(let i in this.stats){
-            total = total + (this.stats[i].prix_vente/1)
+        for(let i in this.$store.state.stats){
+            total = total + (this.$store.state.stats[i].prix_vente/1)
         }
         return total;
         },
@@ -93,8 +100,8 @@ export default {
         //     return t + this.quantite * i.price_medecine
         //    },0)
         let total = 0;
-        for(let i in this.stats){
-            total = total + (this.stats[i].prix_achat/1)
+        for(let i in this.$store.state.stats){
+            total = total + (this.$store.state.stats[i].prix_achat/1)
         }
         return total;
         },
@@ -103,7 +110,8 @@ export default {
         axios
             .get(this.$store.state.url+'stats')
             .then((res)=>{
-                this.stats = res.data
+                this.$store.state.stats = res.data
+                this.allData = res.data
             })
             .catch((error)=>{
                 console.log(error)
@@ -114,6 +122,11 @@ export default {
    
      this.getStats()
    },
+   computed:{
+        stats(){
+            return this.$store.state?.stats
+        }
+    }
   
 }
 </script>

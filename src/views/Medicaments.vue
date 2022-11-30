@@ -32,8 +32,30 @@
                     <tr v-for="med in medecines" :key="med.id_medecine" id="line">
                         <td>{{med.id_medecine}}</td>
                         <td>{{med.name_medecine}}</td>
-                        <td>{{med.qty_stock}}</td>
-                        <td>{{med.qty_etagere}}</td>
+                        <td><div class="qty-5" v-if="med.qty_stock<=10 && med.qty_stock>=1 ">
+                            {{med.qty_stock}}
+                        </div>
+                        <div class="qty-0"  v-else-if="med.qty_stock==0">
+                            {{med.qty_stock}}
+                        </div>
+                        <div class="qty-normal"  v-else>
+                            {{med.qty_stock}}
+                        </div>
+                        
+                        </td>
+                       
+                        
+                        <td style="margin:0px 20px">
+                            <div class="qty-5" v-if="med.qty_etagere<=10 && med.qty_etagere>=1 ">
+                            {{med.qty_etagere}}
+                        </div>
+                        <div class="qty-0"  v-else-if="med.qty_etagere==0">
+                            {{med.qty_etagere}}
+                        </div>
+                        <div class="qty-normal"  v-else>
+                            {{med.qty_etagere}}
+                        </div>
+                        </td>
                         <td style="font-weight:800">{{money(med.price_medecine)+' Fbu'}}</td>
                         <td>{{money(med.price_medecine*med.qty_stock)}} Fbu</td>
                         <td>{{money(med.price_medecine*med.qty_etagere)}} Fbu</td>

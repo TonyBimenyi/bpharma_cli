@@ -28,7 +28,7 @@
                             <p><small>Lot N°{{med.id_requi}} </small> </p>
                         </div>
                         <div class="qty">
-                            <p>Quantite:  <span>{{med.actual_qty_requi}}</span> </p>
+                            <p style="font-size:11px">Quantite:  <span>{{med.actual_qty_requi}}</span> {{med.stock[0]?.unite}} </p>
                         </div>
                     </div>
                     <div class="cart_btn">
