@@ -33,6 +33,7 @@
                                     <th>Qte Actuelle</th>
                                     <th>PA Total</th>
                                     <th>date d'expiration</th>
+                                    <th>Date Dif</th>
                                     <th>PV Unitaire</th>
                                     <th>PV Total</th>
                                     <th>Cree par</th>                      
@@ -50,6 +51,7 @@
                                     <td>{{requi.actual_qty_requi}}</td>
                                     <td>{{money(requi.purchase_price)+' Fbu'}}</td>
                                     <td>{{datetime(requi.stock[0]?.exp_date)}}</td>
+                                    <td>{{timeDif()}}</td>
                                     <td>{{money(requi.sale_price_requi)+' Fbu'}}</td>
                                     
                                     <td>{{money(requi.sale_price_requi * 
@@ -87,17 +89,19 @@
 import axios from 'axios'
 import Swal from 'sweetalert2';
 import addPerte from '../components/addPerte.vue'
+import moment from 'moment'
 export default {
     components:{
         addPerte
     },
     data() {
         return {
+            
             start_date : '',
             end_date : '',
             inputSearch : '',
             requisitions:[],
-
+            curentDate: Date().toLocaleString(),
             form:{
             validate_user:'',
             validate_qty:'',
@@ -115,6 +119,13 @@ export default {
        
     },
     methods: {
+        timeDif(){
+            var date1 = moment(this.curentDate).format("DD/MM/YYYY HH:mm:ss")
+            var date2 = moment('2022/12/07 10:00:00').format("DD/MM/YYYY HH:mm:ss")
+        //    const dateDifference =  moment(this.curentDate).format("dd-mm-yyyy")-moment(this.$store.state.stock[0]?.exp_date).format("dd-mm-yyyy")
+        var timeDiff = (moment(date2)-moment(date1)).format("DD/MM/YYYY")
+        return timeDiff
+        },
         searchInDB(){
             axios
             .get(this.$store.state.url+'requisition?start_date=' + this.start_date + '&end_date=' +this.end_date )
