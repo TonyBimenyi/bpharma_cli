@@ -36,7 +36,7 @@
                             <button :disabled="med.quantite==0 || med.quantite == 'null'" @click="decrement(med)">-</button>
                         </div>
                         <div class="cart_qty">
-                            <input type="number"  name="" >
+                            <input type="number" v-model="quantite[m]"  name="" >
                         </div>
                         <div class="increment">
                             <button :disabled="med.quantite>=med.actual_qty_requi"  @click="addToCart(med)">+</button> 
@@ -159,7 +159,7 @@ export default {
             details:false,
             carts:[],
             medecines:[],
-            quantite: [],
+            quantite: {},
             elements:[
             ],
             badge:0,
@@ -229,29 +229,39 @@ export default {
                     this.carts.splice(e,1)
           
         },
+        decrementRemove(n){
+            if(this.cart.quantite==0){
+                this.removeItem(n);
+            }
+        },
         
         decrement(e){
             const index =  this.getIndexOfElement(e);
-        if(index === 1 ){
+        if(index === -1 ){
 
             if(this.quantite[index]){
                 
                  e.quantite = this.quantite[index];
             }else{
-                e.quantite = 0
+                e.quantite = 1
               
             }
+           
            
             this.totalPrice();
             this.ayasubizwa();
         }else{
+            const index =  this.getIndexOfElement(e);
             if(this.quantite[index] ){
                 this.carts[index].quantite -= this.quantite[index] * 1;
                 
             }else{
                 this.carts[index].quantite -= 1 * 1;
-               
+                if(this.quantite[index]===0){
+                
             }
+            }
+            
             
              
         }
@@ -286,6 +296,9 @@ export default {
                 text:   "On ne peut pas depasser la quantite disponible",
                 icon: 'warning',
                  });
+                 }
+                 if(this.carts[index].quantite==0){
+                    this.removeItem(n);
                  }
         
             

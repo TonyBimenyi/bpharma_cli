@@ -13,6 +13,7 @@ import HistoVentes from '../views/HistoVentes.vue'
 import Stats from '../views/Stats.vue'
 import Pertes from '../views/Pertes.vue'
 import Expired from '../views/Expired.vue'
+import Users from '../views/Users.vue'
 
 const routes = [
   { path: '/', name: 'home', component: HomeView },
@@ -30,6 +31,7 @@ const routes = [
   {path:'/stats',name:'stats',component:Stats},
   {path:'/perte',name:'pertes',component:Pertes},
   {path:'/expired',name:'expired',component:Expired},
+  {path:'/users',name:'users',component:Users},
 
 ]
 

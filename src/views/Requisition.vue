@@ -33,7 +33,7 @@
                                     <th>Qte Actuelle</th>
                                     <th>PA Total</th>
                                     <th>date d'expiration</th>
-                                    <th>Date Dif</th>
+                                    <!-- <th>Date Dif</th> -->
                                     <th>PV Unitaire</th>
                                     <th>PV Total</th>
                                     <th>Cree par</th>                      
@@ -44,14 +44,24 @@
                         </thead>
                         <tbody>
                                <tr v-for="requi in requisitions" :key="requi.id_requi">
+                              
                                     <td>{{requi.id_requi}}</td>
-                                    <td>{{requi.medecine[0]?.name_medecine+' du '
-                                        +datetime(requi.stock[0]?.created_at)}}</td>
+                                    <td >
+                                    <div v-if="datetime(requi.stock[0]?.exp_date)>datetime(curentDate)" style="color:red">
+                                        {{requi.medecine[0]?.name_medecine+' du '
+                                        +datetime(requi.stock[0]?.created_at)}}
+                                    </div>   
+                                    <div v-else-if="datetime(requi.stock[0]?.exp_date)<edatetime(curentDate)">
+                                        {{requi.medecine[0]?.name_medecine+' du '
+                                        +datetime(requi.stock[0]?.created_at)}}
+                                    </div> 
+                                    </td>
+                      
                                     <td>{{requi.initial_qty_requi}}</td>
                                     <td>{{requi.actual_qty_requi}}</td>
                                     <td>{{money(requi.purchase_price)+' Fbu'}}</td>
                                     <td>{{datetime(requi.stock[0]?.exp_date)}}</td>
-                                    <td>{{timeDif()}}</td>
+                                    <!-- <td>{{timeDif()}}</td> -->
                                     <td>{{money(requi.sale_price_requi)+' Fbu'}}</td>
                                     
                                     <td>{{money(requi.sale_price_requi * 
@@ -116,15 +126,21 @@ export default {
         }
     },
     watch:{
-       
+
     },
+    mounted(){
+            this.getRequi();
+
+            
+        },
     methods: {
         timeDif(){
-            var date1 = moment(this.curentDate).format("DD/MM/YYYY HH:mm:ss")
-            var date2 = moment('2022/12/07 10:00:00').format("DD/MM/YYYY HH:mm:ss")
+            var date1 = moment(this.curentDate).format("HH:mm:ss")
+            var date2 = moment('2022/12/07 10:00:00').format("HH:mm:ss")
         //    const dateDifference =  moment(this.curentDate).format("dd-mm-yyyy")-moment(this.$store.state.stock[0]?.exp_date).format("dd-mm-yyyy")
-        var timeDiff = (moment(date2)-moment(date1)).format("DD/MM/YYYY")
-        return timeDiff
+        var timeDiff = date1-date2
+        // console.log(timeDiff.format("HH:mm:ss"))
+        // return diffInTime
         },
         searchInDB(){
             axios
@@ -256,10 +272,7 @@ export default {
             }
         },  
        
-    mounted() {
-        this.getRequi()
-        // this.form.id_medecine='tony' 
-    },
+   
     computed:{
         requisitions(){
             return this.$store.state?.requisitions

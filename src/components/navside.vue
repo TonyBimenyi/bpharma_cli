@@ -119,6 +119,17 @@
         </ul>
       </li>
       </router-link>
+      <router-link to="/users">
+      <li>
+        <a href="#">
+          <i style="background-color:transparent;padding:0px;margin:0px" class="fa-solid fa-user user"></i>  
+          <span class="link_name">Utilisateurs</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">Explore</a></li>
+        </ul>
+      </li>
+      </router-link>
       <li>
     <div class="profile-details">
       <div class="profile-content">
