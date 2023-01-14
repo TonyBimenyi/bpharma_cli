@@ -47,11 +47,11 @@
                               
                                     <td>{{requi.id_requi}}</td>
                                     <td >
-                                    <div v-if="datetime(requi.stock[0]?.exp_date)>datetime(curentDate)" style="color:red">
+                                    <div v-if="datetime(requi.stock[0]?.exp_date)<datetime(curentDate)" style="color:red">
                                         {{requi.medecine[0]?.name_medecine+' du '
                                         +datetime(requi.stock[0]?.created_at)}}
                                     </div>   
-                                    <div v-else-if="datetime(requi.stock[0]?.exp_date)<edatetime(curentDate)">
+                                    <div v-else-if="datetime(requi.stock[0]?.exp_date)>datetime(curentDate)">
                                         {{requi.medecine[0]?.name_medecine+' du '
                                         +datetime(requi.stock[0]?.created_at)}}
                                     </div> 

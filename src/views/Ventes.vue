@@ -17,7 +17,7 @@
     </div>
     <div class="vente-content">
         <div class="product_list">
-            <div v-for="(med, m) in medecines" :key="med.id_medecine" class="product_card">
+            <div v-for="(med, m) in filteredMedecines" :key="med.id_medecine" class="product_card">
                 <div class="product_content">
                     <h5>{{med.medecine[0]?.name_medecine }}</h5>
                     <div class="sub_content">
@@ -169,10 +169,13 @@ export default {
         }
     },
     computed:{
-        filteredMedecines:function(){
-            this.medecines.filter((med)=>{
-                 med.name_medecine.toLowerCase().match(this.search.toLowerCase());
-            })
+        // filteredMedecines:function(){
+        //     this.medecines.filter((med)=>{
+        //          med.name_medecine.toLowerCase().match(this.search.toLowerCase());
+        //     })
+        // }
+        filteredMedecines(){
+            return this.medecines.filter(med => med.name_medecine.toLowerCase().includes(this.search.toLowerCase()))
         }
     },
    

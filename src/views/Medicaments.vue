@@ -69,7 +69,11 @@
 
                         <td v-else><button @click="changeEtatOn(med)" id="act">Activer</button><br><small>Etat: <span id="ina">Inactif</span> </small> </td>
 
-                        <td><button @click="edit(med)">Modifier</button></td>
+                        <td>
+                            <div>    
+                                <button @click="edit(med)">Modifier</button>
+                            </div>
+                        </td>
 
                         <td ><button v-if="med.etat==1" @click="dialogPurchase=true;acheter(med)">Acheter</button></td>
                     </tr>
