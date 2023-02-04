@@ -66,13 +66,16 @@
                                     
                                     <td>{{money(requi.sale_price_requi * 
                                         requi.actual_qty_requi)+' Fbu'}}</td>
-                                    <td>{{requi.user[0]?.name}}</td>
+                                    <td>{{requi.user[0]?.email}}</td>
                                     <td style="color:rgb(173, 173, 3);" v-if="requi.validate_by==0">En attente...</td>
                                     <td v-else>{{requi.validate_by}}</td>
                                     <td>{{datetime(requi.created_at)}}</td>
-
-                                    <td ><button v-if="requi.validate_by==0" @click="addValidation(requi)" ><i style="font-weight:700" class="fa-solid fa-check"></i></button></td>
-
+                                    <div v-if="$store.state.user.data.user.id!=requi.id_user">
+                                        <td ><button v-if="requi.validate_by==0" @click="addValidation(requi)" ><i style="font-weight:700" class="fa-solid fa-check"></i></button></td>
+                                    </div>
+                                    <!-- <div v-else>
+                                        <td >jkk</td>
+                                    </div> -->
                                     <td v-if="requi.validate_by!=0"><button id="des" @click="dialogPerte=true;addPerte(requi)"><i class="fa-solid fa-trash"></i></button></td>
                                     <td v-else><button id="des" @click="deleteRequi(requi)">Delete</button></td>
                                </tr>
@@ -120,6 +123,7 @@ export default {
             delete:{
             qty:'',
             id_stock:'',
+            id_medecine:'',
             },
             dialogPerte:false,
             allData : []
@@ -156,7 +160,7 @@ export default {
 
         },
         addValidation(requi){
-            this.form.validate_user=this.$store.state.user.data.user.name
+            this.form.validate_user=this.$store.state.user.data.user.email
             this.form.validate_qty=requi.actual_qty_requi
             this.form.id_medecine=requi.medecine[0]?.id_medecine
             this.$store.state.requisition= requi;
@@ -234,6 +238,7 @@ export default {
         deleteRequi(requi){
             this.delete.qty = requi.actual_qty_requi
             this.delete.id_stock = requi.stock[0]?.id_stock
+            this.delete.id_medecine = requi.id_medecine
             axios
             .put(this.$store.state.url+'deleteRequi/'+requi.id_requi,this.delete)
             .then((res)=>{

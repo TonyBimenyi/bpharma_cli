@@ -108,10 +108,6 @@ export default {
                 this.$emit('update')
                 this.$store.state.medecine= res.data
                 console.log(res["data"]["status"]);
-                this.form.name_medecine='',
-                this.form.price_medecine='',
-                this.form.cat_medecine='',
-                this.form.type_medecine='',
                 this.id_user=''
                   if(res["data"]["status"] == "error")
              {
@@ -145,7 +141,7 @@ export default {
           })
           }
         },
-         getMedecines(){
+         getUsers(){
             this.$emit('getUsers')
          },
         close(){

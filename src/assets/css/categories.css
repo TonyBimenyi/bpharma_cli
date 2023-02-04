@@ -177,10 +177,11 @@ tr:nth-child(even){
     background: rgb(241, 241, 241);
 
 }
- tbody #tot{
+ tbody #tot {
     bottom: 0px;
     background-color: var(--primary) !important;
-    position: sticky;
+    position:sticky;
+    width: 100%;
    
 }
 tbody #tot td{

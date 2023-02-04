@@ -2,7 +2,7 @@
     <div class="cat-container">
         <div class="top_part">
             <div class="search_box">
-                <input type="text" name="" value="" placeholder="rechercher">
+                <input type="text" v-model="search" @keydown="filteredMedecines()"  placeholder="rechercher">
             </div>
                 <div class="add_btn">
                 <button @click="dialog=true;modifier=false" type=""><i class="fa-solid fa-plus add_new"></i> Ajouter un Medicament</button>
@@ -29,7 +29,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="med in medecines" :key="med.id_medecine" id="line">
+                    <tr v-for="med in filteredMedecines" :key="med.id_medecine" id="line">
                         <td>{{med.id_medecine}}</td>
                         <td>{{med.name_medecine}}</td>
                         <td><div class="qty-5" v-if="med.qty_stock<=10 && med.qty_stock>=1 ">
@@ -81,7 +81,10 @@
                         <tr id="tot">
                             <td>Total</td>
                             <td colspan="3"></td>
-                            <td>4.6000 Fbu</td>
+                            <td></td>
+                            <td>{{money(ValeurStock())}}Fbu</td>
+                            <td>{{money(ValeurEtagere())}}Fbu</td>
+                            <td>{{money(ValeurStock()+ValeurEtagere())}}Fbu</td>
                             <td colspan="8"></td>
                         </tr>
                    
@@ -90,7 +93,7 @@
         </div> 
     </div>
         <add-medecine :edit="modifier" @update="getMedecines" @close="close" v-if="dialog"></add-medecine>
-        <add-purchase @close="close" :acheter="modifier" @update="getMedecines"  v-if="dialogPurchase"></add-purchase>
+        <add-purchase @getMedecines="getMedecines" @close="close" :acheter="modifier" @update="getMedecines"  v-if="dialogPurchase"></add-purchase>
     </div>
 </template>
 <script>
@@ -109,6 +112,8 @@ export default {
             dialogPurchase:false,
             modifier:false,
             buy:false,
+            allData:[],
+            search:''
         }
     },
     methods: {
@@ -121,6 +126,7 @@ export default {
             .get(this.$store.state.url+'getMedecine')
             .then((res)=>{
                 this.$store.state.medecines = res.data
+                this.allData = res.data
             })
             .catch((error)=>{
                 console.log(error)
@@ -133,6 +139,20 @@ export default {
             this.dialog = true;
             this.modifier = true;
             this.$store.state.medecine = item;
+        },
+        ValeurStock(){
+            let total =0;
+            for(let item in this.$store.state.medecines){
+                total = total +(this.$store.state.medecines[item].price_medecine * this.$store.state.medecines[item].qty_stock)
+            } 
+            return total;
+        },
+        ValeurEtagere(){
+            let total =0;
+            for(let item in this.$store.state.medecines){
+                total = total +(this.$store.state.medecines[item].price_medecine * this.$store.state.medecines[item].qty_etagere)
+            } 
+            return total;
         },
         changeEtatOff(med){
             this.$emit('update')
@@ -191,8 +211,12 @@ export default {
         this.getMedecines();
     },
     computed:{
-        medecines(){
-            return this.$store.state?.medecines
+        // medecines(){
+        //     return this.$store.state?.medecines
+        // }
+        filteredMedecines(){
+            
+            return this.$store.state?.medecines.filter(med => med.name_medecine.toLowerCase().includes(this.search.toLowerCase()))
         }
     }
 }

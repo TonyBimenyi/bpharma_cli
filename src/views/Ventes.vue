@@ -33,7 +33,7 @@
                     </div>
                     <div class="cart_btn">
                         <div class="increment">
-                            <button :disabled="med.quantite==0 || med.quantite == 'null'" @click="decrement(med)">-</button>
+                            <button :disabled="med.quantite==0"  @click="decrement(med)">-</button>
                         </div>
                         <div class="cart_qty">
                             <input type="number" v-model="quantite[m]"  name="" >
@@ -57,7 +57,7 @@
                     </div>
                     <div class="buttons">
                         <div class="decrement">
-                            <button :disabled="cart.quantite==0"  @click="decrement(cart)">-</button>
+                            <button   @click="decrement(cart)">-</button>
                         </div>
                         <div class="number">
                             <p>{{cart.quantite}}</p>
@@ -139,7 +139,7 @@
         </div>
        
     </div> -->
-    <checkout-modal  @close="close" v-if="dialog"></checkout-modal>
+    <checkout-modal @getMedecines="getMedecines"  @close="close" v-if="dialog"></checkout-modal>
 </template>
 
 <script>
@@ -166,6 +166,7 @@ export default {
             total : 0,
             somme_retourner : '',
             search:'',
+            allData:[],
         }
     },
     computed:{
@@ -175,7 +176,7 @@ export default {
         //     })
         // }
         filteredMedecines(){
-            return this.medecines.filter(med => med.name_medecine.toLowerCase().includes(this.search.toLowerCase()))
+            return this.$store.state?.ventes.filter(med => med.name_medecine.toLowerCase().includes(this.search.toLowerCase()))
         }
     },
    
@@ -217,7 +218,8 @@ export default {
              axios
             .get(this.$store.state.url+'requisitionVentes')
             .then((res)=>{
-                this.medecines = res.data
+                this.$store.state.ventes = res.data
+                this.allData = res.data
             })
             .catch((error)=>{
                 console.log(error)
@@ -240,8 +242,13 @@ export default {
         
         decrement(e){
             const index =  this.getIndexOfElement(e);
+            // alert(e.quantite)
+            if(e.quantite == 1){
+            // remove 
+            this.removeItem(e)    
+            }
         if(index === -1 ){
-
+            
             if(this.quantite[index]){
                 
                  e.quantite = this.quantite[index];
@@ -249,7 +256,8 @@ export default {
                 e.quantite = 1
               
             }
-           
+            
+            
            
             this.totalPrice();
             this.ayasubizwa();

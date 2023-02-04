@@ -136,7 +136,7 @@
         <!--<img src="image/profile.jpg" alt="profileImg">-->
       </div>
       <div class="name-job">
-        <div class="profile_name">{{$store.state.user.data.user.name}}</div>
+        <div class="profile_name">{{$store.state.user.data.user.email}}</div>
         <div class="job">{{$store.state.user.data.user.registered_as}}</div>
       </div>
         <i  @click="logout()"  class='bx bx-log-out' ></i>

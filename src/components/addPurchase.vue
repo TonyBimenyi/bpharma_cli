@@ -100,6 +100,7 @@ export default {
             this.close()
             this.getMedecines()
              }
+            
               
           })
            .catch((e)=>{
@@ -112,15 +113,8 @@ export default {
             });
             })
         },
-         getMedecines(){
-            axios
-            .get(this.$store.state.url+'getMedecine')
-            .then((res)=>{
-                this.medecines = res.data
-            })
-            .catch((error)=>{
-                console.log(error)
-            })
+        getMedecines(){
+            this.$emit('getMedecines')
         },
         close(){
             this.$emit('close')

@@ -40,17 +40,20 @@
                        <tbody>
                               <tr v-for="order in orders " :key="order.id_order">
                                   <td>{{order.id_order}}</td>
-                                  <td>Commande du {{datetime(order.created_at)}}</td>
+                                  <div v-if="(order.montant_paye-order.montant_total)<0">
+                                         <td style="color:red">  Commande du {{datetime(order.created_at)}}</td>
+                                    </div>
+                                    <div v-else>
+                                        <td >  Commande du {{datetime(order.created_at)}}</td>
+                                   </div>
                                   <td>{{order.nom_client}}</td>
                                   <td>{{money(order.montant_total)}} Fbu</td>
                                   <td>{{money(order.montant_paye)}} Fbu</td>
                                   <td>{{money(order.montant_paye-order.montant_total)}} Fbu</td>
-                                  <td>{{order.user[0]?.name}}</td>
+                                  <td>{{order.user[0]?.email}}</td>
                                   <td>{{datetime(order.created_at)}}</td>
                                   <td ><button @click="details=true;getDetails(order)" ><p>Details</p></button></td>
                               </tr>
-                       
-                       
                                <tr id="tot">
                                    <td>Total</td>
                                    <td></td>

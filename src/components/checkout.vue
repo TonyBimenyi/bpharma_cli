@@ -197,6 +197,10 @@ export default {
         }
     },
     methods:{
+        resetCart(e){
+
+            this.carts.splice(e)
+        },
         printPage(){
             
             window.print();
@@ -247,6 +251,7 @@ export default {
             });
             this.close()
             this.getMedecines()
+            this.resetCart()
              }
               
           })
@@ -262,14 +267,7 @@ export default {
           
         },
          getMedecines(){
-            axios
-            .get(this.$store.state.url+'getMedecine')
-            .then((res)=>{
-                this.medecines = res.data
-            })
-            .catch((error)=>{
-                console.log(error)
-            })
+          this.$emit('getMedecines')
         },
         lastId(){
             axios

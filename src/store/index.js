@@ -3,7 +3,7 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     user:null,
-    url: "http://127.0.0.1:8000/api/",
+    url: "http://127.0.0.1/api/",
     medecine:{},
     stock:{},
     requisition:{},
@@ -17,7 +17,9 @@ export default createStore({
     carts:[],
     orders:[],
     perte:{},
-    orders_d:[]
+    orders_d:[],
+    medecines:[],
+    ventes:[],
   },
   getters: {
    

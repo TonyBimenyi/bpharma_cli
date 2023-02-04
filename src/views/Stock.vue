@@ -54,12 +54,17 @@
                                     <td>{{money(sto.medecine[0]?.price_medecine)}} Fbu</td>
                                     <td>{{money(sto.medecine[0]?.price_medecine*sto.actual_qty)}} Fbu</td>
                                     <td>{{datetime(sto.created_at)}}</td>
-                                    <td>{{sto.user[0]?.name}}</td>
+                                    <td>{{sto.user[0]?.email}}</td>
                                     <td v-if="sto.unite!=NULL">{{sto.unite}}</td>
                                     <td v-else>------</td>
                                     
                                      <td ><button v-if="sto.actual_qty!=0" @click="dialogRequisition=true;requisitionner(sto)">Sortir</button></td>
-                                         <td ><button id="des" style="font-size:13px" >Delete</button></td>
+                                    <td >
+                                        <div v-if="sto.actual_qty==sto.initial_qty">
+                                            <button id="des" style="font-size:13px" @click="deleteAchat(sto)">Delete</button>
+                                        </div>
+                                       
+                                    </td>
                                     
                                 </tr>
                         
@@ -83,6 +88,7 @@
 </template>
 <script>
 import axios from 'axios'
+import Swal from 'sweetalert2'
 import addRequisition from '../components/addRequisition.vue'
 export default {
     components:{
@@ -96,6 +102,11 @@ export default {
             end_date : '',
             stocks:[],
             medecine:[],
+            delete:{
+                qty:'',
+                id_stock:'',
+                id_medecine:'',
+            },
             dialogRequisition:false,
         }
     },
@@ -136,6 +147,44 @@ export default {
         },
         requisitionner(item){
             this.$store.state.stock = item;
+        },
+        deleteAchat(item){
+            this.delete.qty = item.actual_qty
+            this.delete.id_medecine = item.medecine[0]?.id_medecine
+            axios
+            .put(this.$store.state.url+'deleteStock/'+item.id_stock,this.delete)
+            .then((res)=>{
+              
+              console.log(res["data"]["status"]);
+             if(res["data"]["status"] == "error")
+          {
+            Swal.fire({
+             title: 'OPPS',
+             text:   "error",
+             icon: 'warning',      
+         });
+          }
+           else
+          {
+            Swal.fire({
+             title: 'Succes',
+             text:   "Requisition est Supprime",
+             icon: 'success',
+           
+         });
+         this.getStock();
+          }
+           
+       })
+        .catch((e)=>{
+           console.log(e);
+            Swal.fire({
+           title: 'Hurry',
+           text:   e,
+           icon: 'warning',
+           
+         });
+         })
         },
         getStock(){
             axios
