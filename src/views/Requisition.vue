@@ -76,8 +76,9 @@
                                     <!-- <div v-else>
                                         <td >jkk</td>
                                     </div> -->
+                                    <td v-if="$store.state.user.data.user.id==requi.id_user"><button id="des" @click="deleteRequi(requi)">Delete</button></td>
                                     <td v-if="requi.validate_by!=0"><button id="des" @click="dialogPerte=true;addPerte(requi)"><i class="fa-solid fa-trash"></i></button></td>
-                                    <td v-else><button id="des" @click="deleteRequi(requi)">Delete</button></td>
+                                    
                                </tr>
                         
                         

@@ -47,7 +47,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                           <tr v-for="det in details" :key="det.id_item" >
+                           <tr v-for="det in form.details" :key="det.id_item" >
                               <td>{{det.name_medecine}}</td>
                               <td>{{money(det.pv)+' Fbu'}}</td>
                               <td>{{det.qty}}</td>
@@ -100,6 +100,9 @@
             <p>Merci,Murakoze,Thank You!</p>
         </div>
     </div>
+    <div class="button">
+        <button id="delete_btn" @click="deleteVente()">Delete</button>
+    </div>
    
         </div>
         </div>
@@ -125,9 +128,54 @@ export default {
               name_medecine : this.$store.state.orders[0]?.name_medecine,
               qty : this.$store.state.orders[0]?.qty,
               pv : this.$store.state.orders[0]?.pv,
-        }
+
+            form:{
+                details:[],
+             }  
+            }     
     },
     methods:{
+        deleteVente(){
+            axios
+            .post(this.$store.state.url+'deleteOrder/'+this.$store.state.orders_d.id_order,this.form)
+            .then((res)=>{
+                //  this.$store.state.medecine= res.dat
+                console.log(res["data"]["status"]);
+                this.id_user='',
+                this.id_medecine='',
+                this.unite=''
+                  if(res["data"]["status"] == "error")
+             {
+               Swal.fire({
+                title: 'OPPS',
+                text:   "error",
+                icon: 'warning',      
+            });
+             }
+              else
+             {
+               Swal.fire({
+                title: 'Succes',
+                text:   "Commande est supprime avec succes",
+                icon: 'success',
+              
+            });
+            this.close()
+            // this.getMedecines()
+            this.getOrders()
+             }             
+          })
+        //    .catch((e)=>{
+        //       console.log(e);
+        //        Swal.fire({
+        //       title: 'Hurry',
+        //       text:   e,
+        //       icon: 'warning',
+              
+        //     });
+        //     })
+        },
+        
        
         totalPrice(){
         //    this.total = this.carts.reduce((t,i)=>{
@@ -144,7 +192,7 @@ export default {
             axios
             .get(this.$store.state.url+'order_detail/'+this.id_order)
             .then((res)=>{
-                this.details = res.data
+                this.form.details = res.data
             })
             .catch((error)=>{
                 console.log(error)
@@ -152,13 +200,16 @@ export default {
         },
         close(){
             this.$emit('close')
+        },
+        getOrders(){
+            this.$emit('getOrders')
         }
         
     },
     mounted() {
        
         this. getDetails();
-     
+        this.getOrders()
     },
 }
 </script>

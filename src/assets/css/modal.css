@@ -320,7 +320,27 @@ tr td button{
     border-radius: 5px;
     cursor: pointer;
 }
-
+#delete_btn{
+  background-color: var(--danger);
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  font-weight: 500;
+  font-size: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#delete_btn:hover{
+  background-color: var(--primary);
+  transition: all .3s;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  font-weight: 500;
+  font-size: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
 tr td button:hover{
     background-color: var(--active);
     transition: .3s;

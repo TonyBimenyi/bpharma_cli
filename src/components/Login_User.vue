@@ -35,15 +35,15 @@
             <div class="input-boxes">
               <div class="input-box">
                 <i class="fas fa-envelope"></i>
-                <input type="text" placeholder="Entrer votre email" v-model="form.email" required>
+                <input type="text" placeholder="Entrer votre nom d'utilisateur" v-model="form.email" required>
               </div>
               <div class="input-box">
                 <i class="fas fa-lock"></i>
                 <input type="password" placeholder="Entrer votre mot de passe" v-model="form.password" required>
               </div>
-              <div class="text"><a href="#">Mot de passe oublie?</a></div>
+              <!-- <div class="text"><a href="#">Mot de passe oublie?</a></div> -->
               <div class="button input-box">
-                <input type="submit" value="Se connecter">
+                <button>{{loading?"Chargement...":"Se connecter"}}</button>
               </div>
             </div>
         </form>
@@ -64,11 +64,13 @@ export default{
       form:{
         email:'',
         password:''
-      }
+      },
+      loading:false,
     }
   },
   methods:{
      login_user(){
+        this.loading = true;
           axios
           .post(this.$store.state.url+'login',this.form)
           .then((resp) =>{
@@ -89,17 +91,19 @@ export default{
              }
              else
              {
+              
                Swal.fire({
                 title: 'Hurry',
                 text:   "You have been logged-in successfully",
                 icon: 'success',
               
             });
-            this.$router.push('/sales')
+            this.$router.push('/ventes')
              }
               
           })
           .catch((e)=>{
+            this.loading = false;
               console.log(e);
                Swal.fire({
               title: 'Hurry',

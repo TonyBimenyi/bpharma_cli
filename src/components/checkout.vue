@@ -190,7 +190,7 @@ export default {
                 carts:this.$store.state.carts,
                 id_user:this.$store.state.user.data.user.id,
                 somme_retourner : this.totalPrice(),
-                
+                date_commande:new Date().toLocaleString()
 
             },
               

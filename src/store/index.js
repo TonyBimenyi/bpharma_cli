@@ -20,6 +20,7 @@ export default createStore({
     orders_d:[],
     medecines:[],
     ventes:[],
+    ente_details:[],
   },
   getters: {
    

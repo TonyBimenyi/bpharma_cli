@@ -18,10 +18,7 @@
     </div>
     <ul class="nav-links">
       <li>
-        <a href="#">
-          <i class='bx bx-grid-alt' ></i>
-          <span class="link_name">Dashboard</span>
-        </a>
+       
         <ul class="sub-menu blank">
           <li><a class="link_name" href="#">Dashboard</a></li>
         </ul>

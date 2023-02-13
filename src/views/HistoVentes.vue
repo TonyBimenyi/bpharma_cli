@@ -27,7 +27,7 @@
                        <thead>
                            <tr cell>
                                    <th>#ID</th>
-                                   <th>Client</th>
+                                   <th>Commande</th>
                                    <th>Client</th>
                                    <th>Montant_Total</th>
                                    <th>Montant Paye</th>
@@ -51,7 +51,7 @@
                                   <td>{{money(order.montant_paye)}} Fbu</td>
                                   <td>{{money(order.montant_paye-order.montant_total)}} Fbu</td>
                                   <td>{{order.user[0]?.email}}</td>
-                                  <td>{{datetime(order.created_at)}}</td>
+                                  <td>{{order.date_commande}}</td>
                                   <td ><button @click="details=true;getDetails(order)" ><p>Details</p></button></td>
                               </tr>
                                <tr id="tot">
@@ -68,7 +68,7 @@
                    </table>
                </div> 
            </div>
-           <vente-details @close="close" v-if="details"></vente-details>
+           <vente-details @getOrders="getOrders" @close="close" v-if="details"></vente-details>
     </div>
 </template>
 <script>
