@@ -11,7 +11,9 @@
             </div>
               </router-link> 
             <div class="cart_icon">
-              <i class="fa-solid fa-cart-shopping"></i><span>{{carts.length}}</span>
+              <i class="fa-solid fa-cart-shopping">
+                <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+              </i><span>{{carts.length}}</span>
             </div>
         </div>
     </div>

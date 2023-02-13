@@ -4,8 +4,8 @@
          <meta charset="UTF-8">
     <!--<title> Drop Down Sidebar Menu | CodingLab </title>-->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-      crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" -->
+      <!-- crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
     <!-- Boxiocns CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +25,10 @@
       </li>
        <router-link to="/ventes"><li>
         <a href="#">
-        <i class="fa-solid fa-money-bill-trend-up"></i>
+          
+        <i class="fa-solid fa-money-bill-trend-up">
+          <font-awesome-icon icon="fa-solid fa-money-bill-trend-up" />
+        </i>
           <span class="link_name">Ventes</span>
         </a>
         <ul class="sub-menu blank">
@@ -35,7 +38,9 @@
       </router-link>
        <router-link to="/medicaments"><li>
         <a href="#">
-         <i class="fa-solid fa-capsules"></i>
+         <i class="fa-solid fa-capsules">
+          <font-awesome-icon icon="fa-solid fa-capsules" />
+         </i>
           <span class="link_name">Medicaments</span>
         </a>
         <ul class="sub-menu blank">
@@ -45,7 +50,9 @@
       </router-link>
        <router-link to="/stock"><li>
         <a href="#">
-         <i class="fa-solid fa-box"></i>
+         <i class="fa-solid fa-box">
+          <font-awesome-icon icon="fa-solid fa-box" />
+         </i>
           <span class="link_name">Stock</span>
         </a>
         <ul class="sub-menu blank">
@@ -55,7 +62,9 @@
       </router-link>
        <router-link to="/requisition"><li>
         <a href="#">
-         <i class="fa-solid fa-border-all"></i>
+         <i class="fa-solid fa-border-all">
+          <font-awesome-icon icon="fa-solid fa-border-all" />
+         </i>
           <span class="link_name">Requisitions</span>
         </a>
         <ul class="sub-menu blank">
@@ -65,7 +74,9 @@
       </router-link>
        <router-link to="/perte"><li>
         <a href="#">
-         <i class="fa-solid fa-trash"></i>
+         <i class="fa-solid fa-trash">
+          <font-awesome-icon icon="fa-solid fa-trash" />
+         </i>
           <span class="link_name">Pertes</span>
         </a>
         <ul class="sub-menu blank">
@@ -108,7 +119,9 @@
       <router-link to="/stats">
       <li>
         <a href="#">
-          <i class='bx bx-compass' ></i>
+          <i  >
+            <font-awesome-icon icon="fa-solid fa-chart-simple" />
+          </i>
           <span class="link_name">Statistiques</span>
         </a>
         <ul class="sub-menu blank">
@@ -119,7 +132,9 @@
       <router-link to="/users">
       <li>
         <a href="#">
-          <i style="background-color:transparent;padding:0px;margin:0px" class="fa-solid fa-user user"></i>  
+          <i style="background-color:transparent;padding:0px;margin:0px" class="fa-solid fa-user user">
+            <font-awesome-icon icon="fa-solid fa-users" />
+          </i>  
           <span class="link_name">Utilisateurs</span>
         </a>
         <ul class="sub-menu blank">
@@ -136,7 +151,9 @@
         <div class="profile_name">{{$store.state.user.data.user.email}}</div>
         <div class="job">{{$store.state.user.data.user.registered_as}}</div>
       </div>
-        <i  @click="logout()"  class='bx bx-log-out' ></i>
+        <i  @click="logout()"  >
+          <font-awesome-icon icon="fa-solid fa-right-from-bracket" />
+        </i>
     </div>
   </li>
 </ul>
@@ -148,8 +165,12 @@
         </div>
                 
              <div class="menu">
-       <i class="fa-solid fa-bell bell"></i>   
-       <i class="fa-solid fa-user user"></i>   
+       <i class="fa-solid fa-bell bell">
+        <font-awesome-icon icon="fa-solid fa-bell" />
+       </i>   
+       <i class="fa-solid fa-user user">
+        <font-awesome-icon icon="fa-solid fa-user" />
+       </i>   
         </div>
     </div>
     <router-view></router-view>

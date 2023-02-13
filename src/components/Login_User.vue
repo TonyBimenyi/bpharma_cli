@@ -43,7 +43,7 @@
               </div>
               <!-- <div class="text"><a href="#">Mot de passe oublie?</a></div> -->
               <div class="button input-box">
-                <button>{{loading?"Chargement...":"Se connecter"}}</button>
+                <button v-bind:disabled="btnD">{{loading?"Chargement...":"Se connecter"}}</button>
               </div>
             </div>
         </form>
@@ -66,11 +66,13 @@ export default{
         password:''
       },
       loading:false,
+      btnD:false,
     }
   },
   methods:{
      login_user(){
         this.loading = true;
+        this.btnD = true;
           axios
           .post(this.$store.state.url+'login',this.form)
           .then((resp) =>{
@@ -104,6 +106,7 @@ export default{
           })
           .catch((e)=>{
             this.loading = false;
+            this.btnD = false;
               console.log(e);
                Swal.fire({
               title: 'Hurry',

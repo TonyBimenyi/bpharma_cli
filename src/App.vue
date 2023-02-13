@@ -43,3 +43,10 @@ watch: {
 	}
   }
 </script>
+<style>
+@font-face {
+      font-family: 'Poppins';
+      src: local('Poppins'), url('./assets/fonts/Poppins-Medium.ttf')  format('truetype'), 
+    }
+</style>
+

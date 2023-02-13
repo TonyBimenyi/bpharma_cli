@@ -9,7 +9,9 @@
                         <strong style="font-size:13px">Au: </strong><input v-model="end_date" type="date">
                     </div>
                     <div class="search-btn">
-                        <button id="search" @click="searchInDB" ><i class="fa-solid fa-search"></i></button>
+                        <button id="search" @click="searchInDB" ><i class="fa-solid fa-search">
+                            <font-awesome-icon icon="fa-solid fa-search" />
+                        </i></button>
                     </div>
                     <div class="search">
                          <input  type="text"  name="" v-model="inputSearch" @keydown="inputSearchMethods" placeholder="rechercher">
