@@ -1,20 +1,12 @@
 <template>
     <div class="cat-container">
         <div class="top_part">
-            <div class="text">
-                <h5 style="margin-top:7px">Liste des Medicaments sur Etagere</h5>
-            </div>
             <div class="search_box">
                 <input type="text" v-model="search" @keydown="filteredMedecines()"  placeholder="rechercher">
             </div>
                 <div class="add_btn">
                 <button @click="dialog=true;modifier=false" type=""><i class="fa-solid fa-plus add_new"></i> Ajouter un Medicament</button>
                 </div>
-                <div class="add_btn">
-                    <div v-if="$store.state.user.data.user.registered_as==`Admin`" class="">
-                    <button @click="printPage" type=""><i class="fa-solid fa-plus add_new"></i> Imprimer</button>
-                    </div>
-                    </div>
          </div>   
      <div class="cat_list">
         <div class="table">
@@ -23,14 +15,14 @@
                     <tr cell>
                         <th>#ID</th>
                         <th>Nom Medicament</th>
-                        <!-- <th>Qte_stock</th> -->
+                        <th>Qte_stock</th>
                         <th>Qte_etagere</th>
                         <th>PV Unitaire</th>
-                        <!-- <th>Valeur stock</th> -->
+                        <th>Valeur stock</th>
                         <th>Valeur etagere</th>
-                        <!-- <th>Valeur Total</th> -->
-                        <!-- <th>Cree au</th> -->
-                        <th>Cree par</th>
+                        <th>Valeur Total</th>
+                        <!-- <th>Date de creation</th>
+                        <th>Cree par</th> -->
                         <th>Categorie</th>
                         <th>Etat</th>
                         <th colspan="2" >Actions</th>
@@ -40,25 +32,36 @@
                     <tr v-for="med in filteredMedecines" :key="med.id_medecine" id="line">
                         <td>{{med.id_medecine}}</td>
                         <td>{{med.name_medecine}}</td>
-                      
-                        
-                        <td style="margin:0px 20px">
-                            <div class="qty-5" v-if="med.requi_sum<=10 && med.requi_sum>=1 ">
-                            {{med.requi_sum}}
+                        <td><div class="qty-5" v-if="med.qty_stock<=10 && med.qty_stock>=1 ">
+                            {{med.qty_stock}}
                         </div>
-                        <div class="qty-0"  v-else-if="med.requi_sum==0">
-                            {{med.requi_sum}}
+                        <div class="qty-0"  v-else-if="med.qty_stock==0">
+                            {{med.qty_stock}}
                         </div>
                         <div class="qty-normal"  v-else>
-                            {{med.requi_sum}}
+                            {{med.qty_stock}}
+                        </div>
+                        
+                        </td>
+                       
+                        
+                        <td style="margin:0px 20px">
+                            <div class="qty-5" v-if="med.qty_etagere<=10 && med.qty_etagere>=1 ">
+                            {{med.qty_etagere}}
+                        </div>
+                        <div class="qty-0"  v-else-if="med.qty_etagere==0">
+                            {{med.qty_etagere}}
+                        </div>
+                        <div class="qty-normal"  v-else>
+                            {{med.qty_etagere}}
                         </div>
                         </td>
                         <td style="font-weight:800">{{money(med.price_medecine)+' Fbu'}}</td>
-                        <!-- <td>{{money(med.price_medecine*med.stock_sum)}} Fbu</td> -->
-                        <td>{{money(med.price_medecine*med.requi_sum)}} Fbu</td>
-                        <!-- <td>{{money((med.price_medecine*med.stock_sum)+(med.price_medecine*med.requi_sum))}} Fbu</td> -->
-                         <!-- <td>{{datetime(med.created_at)}}</td> -->
-                        <td>{{med.email}}</td> 
+                        <td>{{money(med.price_medecine*med.qty_stock)}} Fbu</td>
+                        <td>{{money(med.price_medecine*med.qty_etagere)}} Fbu</td>
+                        <td>{{money((med.price_medecine*med.qty_stock)+(med.price_medecine*med.qty_etagere))}} Fbu</td>
+                        <!-- <td>{{datetime(med.created_at)}}</td>
+                        <td>{{med.name}}</td> -->
                         <td v-if="med.cat_medecine!=NULL">{{med.cat_medecine}}</td>
                         <td v-else>Non Spesifie</td>
 
@@ -78,11 +81,10 @@
                         <tr id="tot">
                             <td>Total</td>
                             <td colspan="3"></td>
-                            
-                            <!-- <td>{{money(ValeurStock())}}Fbu</td> -->
+                            <td></td>
+                            <td>{{money(ValeurStock())}}Fbu</td>
                             <td>{{money(ValeurEtagere())}}Fbu</td>
-                            <!-- <td>{{money(ValeurStock()+ValeurEtagere())}}Fbu</td> -->
-                
+                            <td>{{money(ValeurStock()+ValeurEtagere())}}Fbu</td>
                             <td colspan="8"></td>
                         </tr>
                    
@@ -92,56 +94,6 @@
     </div>
         <add-medecine :edit="modifier" @update="getMedecines" @close="close" v-if="dialog"></add-medecine>
         <add-purchase @getMedecines="getMedecines" @close="close" :acheter="modifier" @update="getMedecines"  v-if="dialogPurchase"></add-purchase>
-    </div>
-    <div class="print_code">
-        <div class="table_print">
-            <h3>LISTE DES MEDICAMENTS SUR ETAGERE</h3>
-            <table>
-                <thead>
-                    <tr cell>
-                        <th>#ID</th>
-                        <th>Nom Medicament</th>
-                        <!-- <th>Qte_stock</th> -->
-                        <th>Qte_etagere</th>
-                        <th>PV Unitaire</th>
-                        <!-- <th>Valeur stock</th> -->
-                        <th>Valeur etagere</th>
-                        <!-- <th>Valeur Total</th> -->
-                        <!-- <th>Cree au</th> -->
-                        <th>Commentaires ici</th>
-                       
-    
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="med in filteredMedecines" :key="med.id_medecine" id="line">
-                        <td>{{med.id_medecine}}</td>
-                        <td>{{med.name_medecine}}</td>
-                      
-                        
-                        <td style="margin:0px 20px">
-                            <div class="qty-5" v-if="med.requi_sum<=10 && med.requi_sum>=1 ">
-                            {{med.requi_sum}}
-                        </div>
-                        <div class="qty-0"  v-else-if="med.requi_sum==0">
-                            {{med.requi_sum}}
-                        </div>
-                        <div class="qty-normal"  v-else>
-                            {{med.requi_sum}}
-                        </div>
-                        </td>
-                        <td style="font-weight:800">{{money(med.price_medecine)+' Fbu'}}</td>
-                        <!-- <td>{{money(med.price_medecine*med.stock_sum)}} Fbu</td> -->
-                        <td>{{money(med.price_medecine*med.requi_sum)}} Fbu</td>
-                        <!-- <td>{{money((med.price_medecine*med.stock_sum)+(med.price_medecine*med.requi_sum))}} Fbu</td> -->
-                         <!-- <td>{{datetime(med.created_at)}}</td> -->
-                  
-
-                    </tr>
-                   
-                </tbody>
-            </table>
-        </div> 
     </div>
 </template>
 <script>
@@ -165,10 +117,6 @@ export default {
         }
     },
     methods: {
-        printPage(){
-            
-            window.print();
-        },
         close(){
             this.dialog = false
             this.dialogPurchase = false

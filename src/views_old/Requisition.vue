@@ -13,12 +13,6 @@
                             <font-awesome-icon icon="fa-solid fa-search" />
                         </i></button>
                     </div>
-                    <!-- <div class="search-btn">
-                        <button v-if="!isLoadingRequi"
-                        @click="showLessRequi = !showLessRequi"
-                    >{{showLessRequi===true? "Voir Tout":"Voir Moins (70)"}}</button>
-                    </div> -->
-                    
                     <div class="search">
                          <input  type="text" name=""  v-model="inputSearch" @keydown="inputSearchMethods" placeholder="rechercher">
                     </div>
@@ -47,12 +41,10 @@
                                     <th>Cree par</th>                      
                                     <th>Valide Par</th>
                                     <th>Date </th>
-                                    <th>Modify</th>
                                     <th colspan="2">Actions</th>
                             </tr>
                         </thead>
-                        <tbody >
-                    
+                        <tbody>
                                <tr v-for="requi in requisitions" :key="requi.id_requi">
                               
                                     <td>{{requi.id_requi}}</td>
@@ -79,31 +71,17 @@
                                     <td>{{requi.user[0]?.email}}</td>
                                     <td style="color:rgb(173, 173, 3);" v-if="requi.validate_by==0">En attente...</td>
                                     <td v-else>{{requi.validate_by}}</td>
-                                    
                                     <td>{{datetime(requi.created_at)}}</td>
-                                   
-                                    <td>
-                                        <button  v-if="$store.state.user.data.user.registered_as==`Admin`" id="mod" @click="dialogMod=true;addPerte(requi)"><i class="fa-solid fa-trash">
-                                            Mod
-                                        </i></button>
-                                    </td>
-                                   
                                     <div v-if="$store.state.user.data.user.id!=requi.id_user">
-                                        <td ><button  v-if="requi.validate_by==0" @click="addValidation(requi)" ><i style="font-weight:700" class="fa-solid fa-check"><font-awesome-icon icon="fa-solid fa-check"/></i></button></td>
+                                        <td ><button v-if="requi.validate_by==0" @click="addValidation(requi)" ><i style="font-weight:700" class="fa-solid fa-check"></i></button></td>
                                     </div>
                                     <!-- <div v-else>
                                         <td >jkk</td>
                                     </div> -->
-                                    <div v-if="requi.actual_qty_requi!=requi.initial_qty_requi">
-                                         <td v-if="$store.state.user.data.user.id==requi.id_user"></td>
-                                    </div>
-                                    <div v-else>
-                                        <td v-if="$store.state.user.data.user.id==requi.id_user"><button v-bind:disabled="isButtonDisabled" id="des" @click="deleteRequi(requi)">Delete</button></td>
-                                   </div>
-                                    <td v-if="requi.validate_by!=0"><button  id="des" @click="dialogPerte=true;addPerte(requi)"><i class="fa-solid fa-trash">
+                                    <td v-if="$store.state.user.data.user.id==requi.id_user"><button id="des" @click="deleteRequi(requi)">Delete</button></td>
+                                    <td v-if="requi.validate_by!=0"><button id="des" @click="dialogPerte=true;addPerte(requi)"><i class="fa-solid fa-trash">
                                         <font-awesome-icon icon="fa-solid fa-trash" />
                                     </i></button></td>
-                                    
                                     
                                </tr>
                         
@@ -119,55 +97,30 @@
                                 </tr>
                         
                         </tbody>
-                    
                     </table>
-                    
                 </div> 
             </div>
-            <add-perte @getRequi="getRequi" @close="close"  v-if="dialogPerte"></add-perte>
-            <mod-requi @getRequi="getRequi" @close="close"  v-if="dialogMod"></mod-requi>
+            <add-perte @close="close"  v-if="dialogPerte"></add-perte>
      </div>
-
-     <!-- <paginate
-     :data="requisitions"
-    :page-count="10"
-    :page-range="3"
-    :margin-pages="2"
-    :click-handler="clickCallback"
-    :prev-text="'Precedent'"
-    :next-text="'Suivant'"
-    :container-class="'pagination'"
-    :page-class="'page-item'"
-  >
-  </paginate> -->
 </template>
 <script>
 import axios from 'axios'
 import Swal from 'sweetalert2';
 import addPerte from '../components/addPerte.vue'
-import ModRequi from '../components/modiy_requi.vue'
 import moment from 'moment'
-// import Paginate from "vuejs-paginate-next";
 export default {
     components:{
-        addPerte,
-        ModRequi,
-
-        // paginate: Paginate,
+        addPerte
     },
     data() {
         return {
             
-            isLoadingRequi:false,
-            showLessRequi:true,
-            loading:false,
             start_date : '',
             end_date : '',
             inputSearch : '',
             requisitions:[],
             curentDate: Date().toLocaleString(),
             form:{
-            modify_qty:'',
             validate_user:'',
             validate_qty:'',
             id_medecine:''
@@ -178,9 +131,7 @@ export default {
             id_medecine:'',
             },
             dialogPerte:false,
-            dialogMod:false,
-            allData : [],
-            isButtonDisabled : false
+            allData : []
         }
     },
     watch:{
@@ -192,9 +143,6 @@ export default {
             
         },
     methods: {
-        // clickCallback (pageNum){
-        //     console.log (pageNum)
-        // },
         timeDif(){
             var date1 = moment(this.curentDate).format("HH:mm:ss")
             var date2 = moment('2022/12/07 10:00:00').format("HH:mm:ss")
@@ -204,8 +152,6 @@ export default {
         // return diffInTime
         },
         searchInDB(){
-            app.isLoadingRequi=true
-            app.$htpp
             axios
             .get(this.$store.state.url+'requisition?start_date=' + this.start_date + '&end_date=' +this.end_date )
             .then((res)=>{
@@ -213,16 +159,12 @@ export default {
                 this.allData = res.data
                 console.log('res data',  res.data)
             })
-            .then(()=>{
-               app.isLoadingRequi = false
-            })
             .catch((error)=>{
                 console.log(error)
             })
 
         },
         addValidation(requi){
-            this.isButtonDisabled = true
             this.form.validate_user=this.$store.state.user.data.user.email
             this.form.validate_qty=requi.actual_qty_requi
             this.form.id_medecine=requi.medecine[0]?.id_medecine
@@ -248,7 +190,6 @@ export default {
                 icon: 'success',
               
             });
-            this.isButtonDisabled = false
             this.getRequi();
              }
               
@@ -270,12 +211,8 @@ export default {
         addPerte(requi){
             this.$store.state.perte = requi;
         },  
-        modRequi(requi){
-            this.$store.state.requi = requi
-        },
         close(){
             this.dialogPerte = false;
-            this.dialogMod = false;
         },
         PATotal(){
             let total =0;
@@ -295,10 +232,8 @@ export default {
             axios
             .get(this.$store.state.url+'requisition')
             .then((res)=>{
-                this.loading = true
                 this.$store.state.requisitions=res.data
                 this.allData = res.data
-                this.loading = false
                 console.log('res data',  res.data)
             })
             .catch((error)=>{
@@ -306,7 +241,6 @@ export default {
             })
         },
         deleteRequi(requi){
-            
             this.delete.qty = requi.actual_qty_requi
             this.delete.id_stock = requi.stock[0]?.id_stock
             this.delete.id_medecine = requi.id_medecine
@@ -331,7 +265,6 @@ export default {
              icon: 'success',
            
          });
-     
          this.getRequi();
           }
            
@@ -352,16 +285,11 @@ export default {
    
     computed:{
         requisitions(){
-            if(this.showLessRequi){
-                return this.$store.state?.requisitions
-            }
-            else{
-                return this.$store.state?.requisitions
-            }
+            return this.$store.state?.requisitions
         }
     }
 }
 </script>
 <style src='../assets/css/categories.css' scoped>
-  
+
 </style>

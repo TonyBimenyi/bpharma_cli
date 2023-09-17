@@ -17,12 +17,6 @@
       <span class="logo_name">BIMBO Pharma</span>
     </div>
     <ul class="nav-links">
-      <li>
-       
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Dashboard</a></li>
-        </ul>
-      </li>
        <router-link to="/ventes"><li>
         <a href="#">
           
@@ -36,18 +30,27 @@
         </ul>
       </li>
       </router-link>
-       <router-link to="/medicaments"><li>
-        <a href="#">
-         <i class="fa-solid fa-capsules">
-          <font-awesome-icon icon="fa-solid fa-capsules" />
-         </i>
-          <span class="link_name">Medicaments</span>
-        </a>
-        <ul class="sub-menu blank">
-          <router-link to="/medicaments"><li><a class="link_name" href="#">Medecaments</a></li></router-link>
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class="fa-solid fa-capsules">
+              <font-awesome-icon icon="fa-solid fa-capsules" />
+             </i>
+            <span class="link_name">Produits</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Medicaments</a></li>
+          <router-link to="/medicaments"><li>
+            <a href="#">Etagere</a>
+          </li></router-link>
+          <router-link to="/med_stock"><li>
+            <a href="#">Stock</a>
+          </li></router-link>
         </ul>
-      </li>
-      </router-link>
+      </li> 
+      
        <router-link to="/stock"><li>
         <a href="#">
          <i class="fa-solid fa-box">
@@ -99,22 +102,8 @@
           <li><a href="#">Login Form</a></li>
           <li><a href="#">Card Design</a></li>
         </ul>
-      </li>
-      <li>
-        <div class="iocn-link">
-          <a href="#">
-            <i class='bx bx-plug' ></i>
-            <span class="link_name">Plugins</span>
-          </a>
-          <i class='bx bxs-chevron-down arrow' ></i>
-        </div>
-        <ul class="sub-menu">
-          <li><a class="link_name" href="#">Plugins</a></li>
-          <li><a href="#">UI Face</a></li>
-          <li><a href="#">Pigments</a></li>
-          <li><a href="#">Box Icons</a></li>
-        </ul>
-      </li> -->
+      </li>-->
+      
       
       <router-link to="/stats">
       <li>

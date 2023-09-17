@@ -2,7 +2,7 @@
     <div class="cat-container">
         <div class="top_part">
             <div class="text">
-                <h5 style="margin-top:7px">Liste des Medicaments sur Etagere</h5>
+                <h5 style="margin-top:7px">Liste des Medicaments en Stock</h5>
             </div>
             <div class="search_box">
                 <input type="text" v-model="search" @keydown="filteredMedecines()"  placeholder="rechercher">
@@ -24,10 +24,10 @@
                         <th>#ID</th>
                         <th>Nom Medicament</th>
                         <!-- <th>Qte_stock</th> -->
-                        <th>Qte_etagere</th>
+                        <th>Qte_Stock</th>
                         <th>PV Unitaire</th>
                         <!-- <th>Valeur stock</th> -->
-                        <th>Valeur etagere</th>
+                        <th>Valeur Stock</th>
                         <!-- <th>Valeur Total</th> -->
                         <!-- <th>Cree au</th> -->
                         <th>Cree par</th>
@@ -43,19 +43,19 @@
                       
                         
                         <td style="margin:0px 20px">
-                            <div class="qty-5" v-if="med.requi_sum<=10 && med.requi_sum>=1 ">
-                            {{med.requi_sum}}
+                            <div class="qty-5" v-if="med.stock_sum<=10 && med.stock_sum>=1 ">
+                            {{med.stock_sum}}
                         </div>
-                        <div class="qty-0"  v-else-if="med.requi_sum==0">
-                            {{med.requi_sum}}
+                        <div class="qty-0"  v-else-if="med.stock_sum==0">
+                            {{med.stock_sum}}
                         </div>
                         <div class="qty-normal"  v-else>
-                            {{med.requi_sum}}
+                            {{med.stock_sum}}
                         </div>
                         </td>
                         <td style="font-weight:800">{{money(med.price_medecine)+' Fbu'}}</td>
-                        <!-- <td>{{money(med.price_medecine*med.stock_sum)}} Fbu</td> -->
-                        <td>{{money(med.price_medecine*med.requi_sum)}} Fbu</td>
+                        <td>{{money(med.price_medecine*med.stock_sum)}} Fbu</td>
+                        <!-- <td>{{money(med.price_medecine*med.requi_sum)}} Fbu</td> -->
                         <!-- <td>{{money((med.price_medecine*med.stock_sum)+(med.price_medecine*med.requi_sum))}} Fbu</td> -->
                          <!-- <td>{{datetime(med.created_at)}}</td> -->
                         <td>{{med.email}}</td> 
@@ -77,10 +77,10 @@
                    
                         <tr id="tot">
                             <td>Total</td>
-                            <td colspan="3"></td>
+                            <td colspan="2"></td>
                             
-                            <!-- <td>{{money(ValeurStock())}}Fbu</td> -->
-                            <td>{{money(ValeurEtagere())}}Fbu</td>
+                            <td>{{money(ValeurStock())}}Fbu</td>
+                            <!-- <td>{{money(ValeurEtagere())}}Fbu</td> -->
                             <!-- <td>{{money(ValeurStock()+ValeurEtagere())}}Fbu</td> -->
                 
                             <td colspan="8"></td>
@@ -95,22 +95,20 @@
     </div>
     <div class="print_code">
         <div class="table_print">
-            <h3>LISTE DES MEDICAMENTS SUR ETAGERE</h3>
+            <h3>LISTE DES MEDICAMENTS EN STOCK</h3>
             <table>
                 <thead>
                     <tr cell>
                         <th>#ID</th>
                         <th>Nom Medicament</th>
                         <!-- <th>Qte_stock</th> -->
-                        <th>Qte_etagere</th>
+                        <th>Qte_Stock</th>
                         <th>PV Unitaire</th>
                         <!-- <th>Valeur stock</th> -->
-                        <th>Valeur etagere</th>
+                        <th>Valeur Stock</th>
                         <!-- <th>Valeur Total</th> -->
                         <!-- <th>Cree au</th> -->
                         <th>Commentaires ici</th>
-                       
-    
                     </tr>
                 </thead>
                 <tbody>
@@ -120,28 +118,37 @@
                       
                         
                         <td style="margin:0px 20px">
-                            <div class="qty-5" v-if="med.requi_sum<=10 && med.requi_sum>=1 ">
-                            {{med.requi_sum}}
+                            <div class="qty-5" v-if="med.stock_sum<=10 && med.stock_sum>=1 ">
+                            {{med.stock_sum}}
                         </div>
-                        <div class="qty-0"  v-else-if="med.requi_sum==0">
-                            {{med.requi_sum}}
+                        <div class="qty-0"  v-else-if="med.stock_sum==0">
+                            {{med.stock_sum}}
                         </div>
                         <div class="qty-normal"  v-else>
-                            {{med.requi_sum}}
+                            {{med.stock_sum}}
                         </div>
                         </td>
                         <td style="font-weight:800">{{money(med.price_medecine)+' Fbu'}}</td>
-                        <!-- <td>{{money(med.price_medecine*med.stock_sum)}} Fbu</td> -->
-                        <td>{{money(med.price_medecine*med.requi_sum)}} Fbu</td>
+                        <td>{{money(med.price_medecine*med.stock_sum)}} Fbu</td>
+                        <!-- <td>{{money(med.price_medecine*med.requi_sum)}} Fbu</td> -->
                         <!-- <td>{{money((med.price_medecine*med.stock_sum)+(med.price_medecine*med.requi_sum))}} Fbu</td> -->
                          <!-- <td>{{datetime(med.created_at)}}</td> -->
-                  
-
-                    </tr>
+                        </tr>
+                   
+                        <tr id="tot">
+                            <td>Total</td>
+                            <td colspan="3"></td>
+                            
+                            <td>{{money(ValeurStock())}}Fbu</td>
+                            <!-- <td>{{money(ValeurEtagere())}}Fbu</td> -->
+                            <!-- <td>{{money(ValeurStock()+ValeurEtagere())}}Fbu</td> -->
+                
+                            <td colspan="8"></td>
+                        </tr>
                    
                 </tbody>
             </table>
-        </div> 
+        </div>
     </div>
 </template>
 <script>
@@ -175,9 +182,9 @@ export default {
         },
         getMedecines(){
             axios
-            .get(this.$store.state.url+'getMedecine')
+            .get(this.$store.state.url+'getMedStock')
             .then((res)=>{
-                this.$store.state.medecines = res.data
+                this.$store.state.med_stock = res.data
                 this.allData = res.data
             })
             .catch((error)=>{
@@ -194,15 +201,15 @@ export default {
         },
         ValeurStock(){
             let total =0;
-            for(let item in this.$store.state.medecines){
-                total = total +(this.$store.state.medecines[item].price_medecine * this.$store.state.medecines[item].qty_stock)
+            for(let item in this.$store.state.med_stock){
+                total = total +(this.$store.state.med_stock[item].price_medecine * this.$store.state.med_stock[item].qty_stock)
             } 
             return total;
         },
         ValeurEtagere(){
             let total =0;
             for(let item in this.$store.state.medecines){
-                total = total +(this.$store.state.medecines[item].price_medecine * this.$store.state.medecines[item].qty_etagere)
+                total = total +(this.$store.state.med_stock[item].price_medecine * this.$store.state.med_stock[item].qty_etagere)
             } 
             return total;
         },
@@ -268,7 +275,7 @@ export default {
         // }
         filteredMedecines(){
             
-            return this.$store.state?.medecines.filter(med => med.name_medecine.toLowerCase().includes(this.search.toLowerCase()))
+            return this.$store.state?.med_stock.filter(med => med.name_medecine.toLowerCase().includes(this.search.toLowerCase()))
         }
     }
 }

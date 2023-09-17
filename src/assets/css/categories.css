@@ -154,6 +154,9 @@ tr td span{
     color: green;
     font-weight: 600;
 }
+tr td input{
+    width: 25px;
+}
 tr td #ina{
     color: rgb(249, 56, 56);;
 }
@@ -189,4 +192,46 @@ tbody #tot td{
     color: white;
     font-weight: 500;
     font-size: 13px;
+}
+
+.print_code{
+    display: none;
+}
+@media print{
+
+    .print_code{
+        display: flex !important; 
+    }
+    .cat_list{
+        display: none !important;
+    }
+    table{
+        margin: 0 auto !important;
+        width: 100% !important;
+    }
+    .table_print table tbody tr td{
+        border: 2px solid black !important;
+    }
+    .table_print table thead tr th{
+        background-color: grey !important;
+        border: 2px solid black !important;
+    }
+    .top_part{
+        display: none;
+    }
+    /* .navbar{
+        display: none;
+    }
+    .top_part{
+        margin-top: -100px !important;
+        display: none !important;
+    }
+    .table_content {
+        display: none !important;
+    }
+    .paper .header .title h2{
+        text-align: center  !important;
+        margin-top: 30px !important;
+    } */
+   
 }

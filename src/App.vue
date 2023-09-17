@@ -2,7 +2,7 @@
   <v-app>
       <div v-if="$store.state.user">
             <app-navside></app-navside>
-         
+          
       </div>
       
       <div v-else>

@@ -71,7 +71,7 @@
             </div>
             <div class="total">
                 <div class="subtotal">
-                    <p><strong>Sous Total: </strong>50.000Fbu</p>
+                    <p><strong>Sous Total: </strong>{{money(totalPrice())+' Fbu'}}</p>
                     <p><strong>TVA: </strong>0%</p>
                 </div>
                 <div class="totalOG">
@@ -101,7 +101,7 @@
         </div>
     </div>
     <div class="button">
-        <button id="delete_btn" @click="deleteVente()">Delete</button>
+        <button v-if="$store.state.user.data.user.id==$store.state.orders_d.id_user" id="delete_btn" @click="deleteVente()">Delete</button>
     </div>
    
         </div>
@@ -182,8 +182,8 @@ export default {
         //     return t + this.quantite * i.price_medecine
         //    },0)
         let total = 0;
-        for(let i in this.details){
-            total = total + (this.details[i].qty * this.details[i].pv)
+        for(let item in this.form.details){
+            total = total + (this.form.details[item].pv*this.form.details[item].qty)
         }
         return total;
         },

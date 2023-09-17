@@ -7,7 +7,7 @@
      >
         <div class="container">
             <div class="top">
-        <div class="title">Nouveau Medicament</div>
+        <div class="title">Medicament</div>
         <div class="titl"><button @click="close" >X</button></div>
         </div>
         <div class="content">
@@ -20,8 +20,10 @@
                 </div>
     
                 <div class="input-box">
+                    <div v-if=" ! edit || $store.state.user.data.user.registered_as==`Admin`">
                 <span class="details">Prix de Vente Unitaire</span>
                 <input v-model="form.price_medecine" type="number" placeholder="Entrer le Prix" required>
+                    </div>
                 </div>
                 <div class="input-box">
                 <span class="details">Categorie</span>
@@ -39,7 +41,7 @@
             <div class="gender-details">
             </div>
             <div class="button">
-                <input @click="addMedecine()" type="submit" :value="btn">
+                <input v-bind:disabled="isButtonDisabled" @click="addMedecine()" type="submit" :value="btn">
             </div>
             </div>
         </div>
@@ -64,11 +66,13 @@ export default {
                 indication_medecine:'',
                 id_user:this.$store.state.user.data.user.id
             },
-                btn: 'Ajouter'
+                btn: 'Ajouter',
+                isButtonDisabled : false
         }
     },
     methods:{
         addMedecine(){
+            this.isButtonDisabled = true
             if(this.edit){
 
                 axios.put(this.$store.state.url+'updateMedecine/'+this.$store.state.medecine.id_medecine,this.form)

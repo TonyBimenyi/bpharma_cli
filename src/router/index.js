@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import Sales from '../views/Sales.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Register from '../views/Register.vue'
@@ -8,15 +7,17 @@ import Categories from '../views/Categories.vue'
 import Medicaments from '../views/Medicaments.vue'
 import Stock from '../views/Stock.vue'
 import Requisition from '../views/Requisition.vue'
+import Homeview from '../views/HomeView.vue'
 import Test from '../components/LionnelTest.vue'
 import HistoVentes from '../views/HistoVentes.vue'
 import Stats from '../views/Stats.vue'
 import Pertes from '../views/Pertes.vue'
 import Expired from '../views/Expired.vue'
 import Users from '../views/Users.vue'
+import MedStock from '../views/MedStock.vue'
 
 const routes = [
-  { path: '/', name: 'home', component: HomeView },
+  { path: '/', name: 'Homeview', component: Homeview },
   {path:'/sales',name:'sales',component:Sales},
   // {path:'/login',name:'login',component:Login},
   {path:'/register',name:'register',component:Register},
@@ -24,6 +25,7 @@ const routes = [
   {path:'/ventes',name:'ventes',component:Ventes},
   {path:'/categories',name:'categories',component:Categories},
   {path:'/medicaments',name:'medicaments',component:Medicaments},
+  {path:'/med_stock',name:'medstock',component:MedStock},
   {path:'/stock',name:'stock',component:Stock},
   {path:'/requisition',name:'requisition',component:Requisition},
   {path:'/test',name:'test',component:Test},

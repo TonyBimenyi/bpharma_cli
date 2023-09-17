@@ -7,7 +7,7 @@
      >
         <div class="container">
             <div class="top">
-        <div class="title">Sortir {{this.$store.state.stock.medecine[0].name_medecine}}</div>
+        <div class="title">Modifier {{this.$store.state.stock.medecine[0].name_medecine}}</div>
         <div class="titl"><button @click="close" >X</button></div>
         </div>
         <div class="content">
@@ -16,14 +16,17 @@
             <div class="user-details">
                 <div class="input-box">
                 <span class="details">Quantite</span>
-                <input v-model="form.initial_qty_requi" type="number" min="0"  placeholder="Entrer la quantite achete"  required>
+                <input v-model="form.initial_qty_requi" type="number" min="0"  placeholder="Entrer la quantite"  required>
                 </div>
     
             </div>
             <div class="gender-details">
             </div>
             <div class="button">
-                <input v-bind:disabled="isButtonDisabled" @click="addRequisition()" type="submit" :value="btn">
+                <input v-bind:disabled="isButtonDisabled" @click="addStock()" type="submit" :value="btn">
+            </div>
+            <div class="button">
+                <input v-bind:disabled="isButtonDisabled" @click="reduceStock()" type="submit" :value="btn_">
             </div>
             </div>
         </div>
@@ -42,14 +45,15 @@ export default {
         return {
             form:{
 
-                initial_qty_requi:this.$store.state.stock.actual_qty,
+                initial_qty_requi:'',
                 purchase_price:this.$store.state.stock.unit_price,
                 sale_price:this.$store.state.stock.medecine[0]?.price_medecine,
                 id_stock:this.$store.state.stock.id_stock,
                 id_user:this.$store.state.user.data.user.id,
                 id_medecine:this.$store.state.stock.medecine[0]?.id_medecine,
             },
-                btn: 'Requisitionner',
+                btn: 'Ajouter',
+                btn_:'Enlever',
                 isButtonDisabled : false
         }
     },
@@ -67,8 +71,8 @@ export default {
         close(){
             this.$emit('close')
         },
-        addRequisition(){
-            this.isButtonDisabled = true
+        addStock(){
+            
             if(this.$store.state.stock.actual_qty > this.initial_qty_requi){
                 Swal.fire({
                 title: 'Succes',
@@ -78,7 +82,7 @@ export default {
             });
             }else{
             axios
-            .post(this.$store.state.url+'addRequisition/'+this.$store.state.stock.id_stock,this.form)
+            .post(this.$store.state.url+'addStock/'+this.$store.state.stock.id_stock,this.form)
             .then((res)=>{
                 this.$emit('update')
                 this.$store.state.stock= res.data
@@ -99,7 +103,61 @@ export default {
             this.isButtonDisabled = false
              }
               else
-              this.isButtonDisabled = true
+             {
+               Swal.fire({
+                title: 'Succes',
+                text:   "Stock est Modifie",
+                icon: 'success',
+              
+            });
+            this.close()
+            this.getMedecines()
+            this.isButtonDisabled = true
+             }
+              
+          })
+           .catch((e)=>{
+              console.log(e);
+               Swal.fire({
+              title: 'Hurry',
+              text:   e,
+              icon: 'warning',
+              
+            });
+            })
+        }
+        },
+        reduceStock(){
+            this.isButtonDisabled = true
+            if(this.$store.state.stock.actual_qty > this.initial_qty_requi){
+                Swal.fire({
+                title: 'Succes',
+                text:   "Non Applicaple",
+                icon: 'success',
+              
+            });
+            }else{
+            axios
+            .post(this.$store.state.url+'reduceStock/'+this.$store.state.stock.id_stock,this.form)
+            .then((res)=>{
+                this.$emit('update')
+                this.$store.state.stock= res.data
+                console.log(res["data"]["status"]);
+                this.form.initial_qty_requi='',
+                this.form.purchase_price='',
+                this.form.sale_price='',
+                this.form.id_stock='',
+                this.form.id_user=''
+                this.form.id_medecine=''
+                  if(res["data"]["status"] == "error")
+             {
+               Swal.fire({
+                title: 'OPPS',
+                text:   "error",
+                icon: 'warning',      
+            });
+             }
+              else
              {
                Swal.fire({
                 title: 'Succes',
@@ -108,8 +166,7 @@ export default {
               
             });
             this.close()
-            this.getMedecines();
-            
+            this.getMedecines()
              }
               
           })

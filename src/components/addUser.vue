@@ -7,7 +7,7 @@
      >
         <div class="container">
             <div class="top">
-        <div class="title">Nouveau Medicament</div>
+        <div class="title">Utilisateur</div>
         <div class="titl"><button @click="close" >X</button></div>
         </div>
         <div class="content">
@@ -21,10 +21,10 @@
     
                 <div class="input-box">
                 <span class="details">Username</span>
-                <input v-model="form.email" type="text" placeholder="Entrer le Prix" required>
+                <input v-model="form.email" type="text" placeholder="Entrer le Nom D'utilisateur" required>
                 </div>
                 <div class="input-box">
-                <span class="details">Categorie</span>
+                <span class="details">Role</span>
                     <select name="" v-model="form.registered_as" id="">
                         <option selected value="----">-----</option>
                         <option value="Admin">Admin</option>
@@ -33,11 +33,11 @@
                 </div>
                 <div class="input-box">
                 <span class="details">Mot de passe</span>
-                <input type="password" v-model="form.password" placeholder="Comprime,Sirop,..." required>
+                <input type="password" v-model="form.password" placeholder="**************" required>
                 </div>
                 <div class="input-box">
                 <span class="details">Confimation mot de passe</span>
-                <input type="password" v-model="form.password_confirmation" placeholder="Indication de medicament" required>
+                <input type="password" v-model="form.password_confirmation" placeholder="*******" required>
                 </div>
             </div>
             <div class="gender-details">
@@ -73,7 +73,7 @@ export default {
         saveUser(){
             if(this.edit){
 
-                axios.put(this.$store.state.url+'updateMedecine/'+this.$store.state.medecine.id_medecine,this.form)
+                axios.put(this.$store.state.url+'updateUser/'+this.$store.state.uti.id,this.form)
                 .then((response) =>  {
                     this.$emit('update')
                     this.$store.state.medecine = response.data
@@ -152,10 +152,10 @@ export default {
     mounted() {
         this.getUsers()
         if(this.edit){
-            this.form.name_medecine=this.$store.state.medecine.name_medecine;
-            this.form.price_medecine=this.$store.state.medecine.price_medecine;
-            this.form.cat_medecine=this.$store.state.medecine.cat_medecine;
-            this.form.type_medecine=this.$store.state.medecine.type_medecine;
+            this.form.name=this.$store.state.uti.name;
+            this.form.email=this.$store.state.uti.email;
+            this.form.password=this.$store.state.medecine.cat_medecine;
+            this.form.password_confirmation=this.$store.state.medecine.type_medecine;
             this.btn = 'Modifier'
         }
     },

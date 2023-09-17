@@ -18,7 +18,7 @@
                    </div>
                </div>
                <div class="add_btn">
-                
+                   <p >Stock Rompu</p>
                <!-- <button @click="dialog=true;modifier=false" type=""><i class="fa-solid fa-plus add_new"></i> Ajouter un Medicament</button> -->
                </div>
 

@@ -19,7 +19,7 @@
     </div>
     <div class="vente-content">
         <div class="product_list">
-            <div v-for="(med, m) in medecines" :key="med.id_medecine" class="product_card">
+            <div v-for="(med, m) in filteredMedecines" :key="med.id_medecine" class="product_card">
                 <div class="product_content">
                     <h5>{{med.medecine[0]?.name_medecine }}</h5>
                     <div class="sub_content">
@@ -28,9 +28,6 @@
                         </div>
                         <div class="price">
                             <p><small>Lot N°{{med.id_requi}} </small> </p>
-                        </div>
-                        <div class="price">
-                            <p><small>{{datetime(med.stock[0]?.exp_date)}}</small> </p>
                         </div>
                         <div class="qty">
                             <p style="font-size:11px">Quantite:  <span>{{med.actual_qty_requi}}</span> {{med.stock[0]?.unite}} </p>
@@ -72,9 +69,7 @@
                         </div>
                     </div>
                     <div class="deletecart">
-                        <button @click="removeItem(n)" ><i class="fa-solid fa-trash">
-                            <font-awesome-icon icon="fa-solid fa-trash" />
-                        </i></button>
+                        <button @click="removeItem(n)" ><i class="fa-solid fa-trash"></i></button>
                     </div>
                 </div>
 
@@ -182,10 +177,9 @@ export default {
         //          med.name_medecine.toLowerCase().match(this.search.toLowerCase());
         //     })
         // }
-        //filteredMedecines(){
-         //   return this.$store.state?.ventes_requi.filter(med => //med.name_medecine.toLowerCase().includes(this.search.toLowerCase()))
-        //}
-      
+        filteredMedecines(){
+            return this.$store.state?.ventes.filter(med => med.name_medecine.toLowerCase().includes(this.search.toLowerCase()))
+        }
     },
    
     mounted(){
@@ -200,9 +194,6 @@ export default {
         }
     },
     methods:{
-     filteredMedecines(){
-         this.medecines= this.allData.filter(e => JSON.stringify(e).toLowerCase().includes(this.search.toLowerCase()))
-        },
         checkout(){
             this.$store.state.carts = this.carts; 
             
@@ -229,7 +220,7 @@ export default {
              axios
             .get(this.$store.state.url+'requisitionVentes')
             .then((res)=>{
-                this.medecines = res.data
+                this.$store.state.ventes = res.data
                 this.allData = res.data
             })
             .catch((error)=>{

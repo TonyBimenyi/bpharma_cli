@@ -58,7 +58,7 @@
             </div>
             <div class="button">
         
-                <input @click="addOrder();printPage()" type="submit" value="Valider le paiement">
+                <input v-bind:disabled="isButtonDisabled" @click="addOrder();printPage()" type="submit" value="Valider le paiement">
                 <!-- <button @click="printPage()">Print</button> -->
             </div>
             </div>
@@ -193,6 +193,8 @@ export default {
                 date_commande:new Date().toLocaleString()
 
             },
+            loading:false,
+            isButtonDisabled:false,
               
         }
     },
@@ -221,7 +223,7 @@ export default {
             return reste;
         },
         addOrder(){
-         
+         this.isButtonDisabled = true
             axios
             .post(this.$store.state.url+'addOrder',this.form,this.headers)
             .then((res)=>{
@@ -249,6 +251,7 @@ export default {
                 icon: 'success',
               
             });
+            this.loading=false
             this.close()
             this.getMedecines()
             this.resetCart()

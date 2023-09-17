@@ -8,11 +8,9 @@
                    </div>
                    
                </div>
-
                <div class="add_btn">
-                    <div v-if="$store.state.user.data.user.registered_as==`Admin`" class="">
+
                <button @click="dialog=true;modifier=false" type=""><i class="fa-solid fa-plus add_new"></i> Ajouter un Utilisateur</button>
-                        </div>
                </div>
 
            </div>   
@@ -35,9 +33,8 @@
                                   <td>{{user.name}}</td>                   
                                   <td>{{user.email}}</td>
                                   <td>{{user.registered_as}}</td>
-                                     <td><button v-if="$store.state.user.data.user.registered_as==`Admin` || $store.state.user.data.user.id==user.id" @click="edit(user)">Modifier</button>
-                                </td>
-                                  <!-- <td  id="sup"><button>Desactiver</button></td> -->
+                                  <td><button >Modifier</button></td>
+                                  <td  id="sup"><button>Desactiver</button></td>
                                 
                               </tr>
                        
@@ -66,7 +63,6 @@ export default {
         start_date : '',
         end_date : '',
         dialog:false,
-        modifier:false,
        }
    },
    methods: {
@@ -84,12 +80,6 @@ export default {
       },    
       close(){
         this.dialog=false
-        this.modifier = false
-      },
-      edit(item){
-        this.dialog = true
-        this.modifier = true
-        this.$store.state.uti = item 
       }
    },
    mounted() {

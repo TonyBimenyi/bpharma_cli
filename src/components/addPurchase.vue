@@ -39,7 +39,7 @@
             <div class="gender-details">
             </div>
             <div class="button">
-                <input @click="addStock()" type="submit" :value="btn">
+                <input  @click="addStock()" type="submit" :value="btn">
             </div>
             </div>
         </div>
@@ -65,13 +65,15 @@ export default {
                 id_user:this.$store.state.user.data.user.id,
                 id_medecine:this.$store.state.medecine.id_medecine,
             },
-                btn: 'Acheter'
+                btn: 'Acheter',
+                isButtonDisabled : false
         }
     },
     methods:{
         addStock(){
+           
             axios
-            .post(this.$store.state.url+'addStock/'+this.$store.state.medecine.id_medecine,this.form)
+            .post(this.$store.state.url+'addStock2/'+this.$store.state.medecine.id_medecine,this.form)
             .then((res)=>{
                  this.$store.state.medecine= res.data
                 console.log(res["data"]["status"]);

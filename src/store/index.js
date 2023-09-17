@@ -5,6 +5,8 @@ export default createStore({
     user:null,
     url: "http://127.0.0.1/api/",
     medecine:{},
+    requi:{},
+    med_stock:[],
     stock:{},
     requisition:{},
     topRated:[

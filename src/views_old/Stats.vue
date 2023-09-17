@@ -19,7 +19,7 @@
                    
                </div>
                <div class="add_btn">
-                   <!-- <p >Les plus vendus</p> -->
+                   <p >Les plus vendus</p>
                <!-- <button @click="dialog=true;modifier=false" type=""><i class="fa-solid fa-plus add_new"></i> Ajouter un Medicament</button> -->
                </div>
 
@@ -32,7 +32,6 @@
                                    <th>Medicament</th>
                                    <th>Nombre des ventes</th>
                                    <th>Quantites Total</th>
-                                   <th>P.V Unitaire</th>
                                    <th>Prix de Vente</th>
                                    <th>Prix d'achat</th>
                                    <th>Benefice</th>
@@ -44,9 +43,8 @@
                                  <td>{{sta.name_medecine}}</td>
                                   <td>{{sta.nbre_des_fois}}</td>                   
                                   <td>{{sta.qty}}</td>
-                                  <td>{{money(sta.pv)}} Fbu</td>
-                                 <td><strong>{{money(sta.pv*sta.qty)}} Fbu </strong> </td>
-                                  <td>{{money(sta.pa*sta.qty)}} Fbu</td>
+                                  <td>{{money(sta.prix_vente*sta.qty)}} Fbu</td>
+                                  <td>{{money(sta.prix_achat*sta.qty)}} Fbu</td>
                                   <td>{{(sta.prix_vente-sta.prix_achat)}} Fbu</td>
                               </tr>
                        
@@ -55,8 +53,7 @@
                                    <td>Total</td>
                                    <td></td>
                                     <td></td>
-                                    <td></td>
-                                   <td> <strong>{{money(ventetotalPrice())+' Fbu'}}</strong></td>
+                                   <td>{{money(ventetotalPrice())+' Fbu'}}</td>
                                    <td>{{money(achattotalPrice())+' Fbu'}}</td>
                                    <td>{{money(ventetotalPrice()-achattotalPrice())+' Fbu'}}</td>
                                    <td colspan="8"></td>
@@ -110,7 +107,7 @@ export default {
         //    },0)
         let total = 0;
         for(let i in this.$store.state.stats){
-            total = total + (this.$store.state.stats[i].pv*this.$store.state.stats[i]?.qty)
+            total = total + (this.$store.state.stats[i].prix_vente*this.$store.state.stats[i]?.qty)
         }
         return total;
         },
@@ -121,7 +118,7 @@ export default {
         //    },0)
         let total = 0;
         for(let i in this.$store.state.stats){
-            total = total + (this.$store.state.stats[i].pa*this.$store.state.stats[i]?.qty*1)
+            total = total + (this.$store.state.stats[i].prix_achat*this.$store.state.stats[i]?.qty*1)
         }
         return total;
         },
